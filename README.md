@@ -17,4 +17,4 @@ A smartcontract Dapp with a web based UI that keeps track of contract data by ad
 coming soon
 
 ### Credits:
-This smart contract was adapted from a tutorial by Jordan Leigh.
+This smart contract was adapted from a tutorial by [Jordan Leigh](https://www.youtube.com/watch?v=3-XPBtAfcqo&list=PLV1JDFUtrXpGvu8QHL9b78WYNSJsYNZsb&index=2).
