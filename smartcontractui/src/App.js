@@ -7,7 +7,7 @@ import _ from 'lodash';
 var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 var smartContractABI = [{"constant":false,"inputs":[{"name":"_contractType","type":"bytes32"},{"name":"_owner","type":"bytes32"},{"name":"_supplier","type":"bytes32"},{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractType","type":"bytes32"},{"name":"owner","type":"bytes32"},{"name":"supplier","type":"bytes32"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"}]
-var smartContractAddress = '0x2511d66920fd2c2d97f87eea15631774b787426a'
+var smartContractAddress = '0xf6cd71fa2faa6392229091d3c625dd0bf3c6361c'
 var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
 
 class App extends Component {
