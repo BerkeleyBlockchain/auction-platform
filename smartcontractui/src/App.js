@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from './favicon.png';
-import './App.css';
+import logo from './assets/img/favicon.png';
+import './assets/css/App.css';
 import Web3 from 'web3';
 import _ from 'lodash';
+import './assets/css/telegrafico.ttf';
 
 var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
@@ -51,8 +52,9 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Active Smart Contracts</h2>
+          <h2>ACTIVE SMART CONTRACTS</h2>
         </div>
+        <div className="leftNavbar"></div>
         <style>{"table{border:1px solid black;}"}</style>
         <div className="Aligner">
           <table>

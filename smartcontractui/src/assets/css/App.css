@@ -2,16 +2,30 @@
   text-align: center;
 }
 
+@font-face {
+    font-family: 'customfont';
+    src: url('/Users/gillianchu/Desktop/BlockchainExplore/ethereum/smartcontractui/src/assets/css/customfont.ttf') format('truetype');
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
 }
 
+.leftNavbar {
+  width: 100%;
+  height: 100%;
+  color: black;
+  vertical-align: left;
+}
+
 .App-header {
-  background-color: #222;
+  background-color: #7a9aca;
+  opacity: 0.7;
   height: 150px;
   padding: 20px;
-  color: white;
+  color: #0B0B85;
+  font-family: 'customfont';
 }
 
 .App-content {
@@ -27,6 +41,7 @@
 
 .Aligner {
   display: flex;
+
   align-items: center;
   justify-content: center;
 }
@@ -46,4 +61,8 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+h2 {
+  font-family: 'customfont', serif;
 }
