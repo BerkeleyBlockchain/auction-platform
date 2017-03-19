@@ -57,7 +57,7 @@ class FormContainer extends Component {
 		var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 		var smartContractABI = [{"constant":false,"inputs":[{"name":"contractId","type":"uint256"}],"name":"getBids","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"address[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"},{"name":"_targetPrice","type":"uint256"},{"name":"_targetTime","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractId","type":"uint256"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"},{"name":"targetPrice","type":"uint256"},{"name":"targetTime","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"uint256[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"cid","type":"uint256"},{"name":"_supplier","type":"bytes32"},{"name":"_price","type":"uint256"},{"name":"_bidTime","type":"uint256"}],"name":"bid","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
-		var smartContractAddress = '0x041ffc4f75c359a804c9e38416bd4f546ecf663b'
+		var smartContractAddress = '0xd178648ba2b0a5f19b2829569311e201d6b6ef90'
 		var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
 
 		const formPayload = {
@@ -74,8 +74,10 @@ class FormContainer extends Component {
 	render() {
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5>Contract Creation Form</h5>
+				<h5>CONTRACT CREATION FORM</h5>
+				<p>
 				<SingleInput
+					className="inputField"
 					inputType={'text'}
 					title={'Asset'}
 					name={'name'}
@@ -83,6 +85,7 @@ class FormContainer extends Component {
 					content={this.state.thing1}
 					placeholder={'Asset'} />
 				<SingleInput
+					className="inputfield"
 					inputType={'number'}
 					title={'Quantity'}
 					name={'name'}
@@ -90,6 +93,7 @@ class FormContainer extends Component {
 					content={this.state.thing2}
 					placeholder={'Quantity'} />
 				<SingleInput
+					className="inputfield"
 					inputType={'number'}
 					title={'Target Price'}
 					name={'name'}
@@ -97,15 +101,17 @@ class FormContainer extends Component {
 					content={this.state.thing3}
 					placeholder={'Target Price'} />
 				<SingleInput
+					className="inputfield"
 					inputType={'number'}
 					title={'Target Time'}
 					name={'name'}
 					controlFunc={this.handleThing4}
 					content={this.state.thing4}
 					placeholder={'Target Time'} />
+				</p>
 				<input
 					type="submit"
-					className="btn btn-primary float-right"
+					className="submitButton"
 					value="Submit"/>
 				<button
 					className="btn btn-link float-left"
