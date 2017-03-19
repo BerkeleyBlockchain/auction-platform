@@ -2,17 +2,17 @@
   text-align: left;
 }
 
-/*@font-face {
-    font-family: 'customfont';
-    src: url('/Users/gillianchu/Desktop/BlockchainExplore/ethereum/smartcontractui/src/assets/css/customfont.ttf') format('truetype');
-}*/
+@font-face {
+    font-family: 'Montserrat', sans-serif;
+}
 
 .App-logo {
 /*  animation: App-logo-spin infinite 20s linear;
-*/  
+*/
   height: 30px;
   margin-top: 15px;
   margin-left: 10px;
+
 }
 
 .App-header {
@@ -21,7 +21,7 @@
   height: 60px;
   padding: 5px;
   color: #0B0B85;
-  font-family: 'arial';
+  font-family: 'Montserrat', sans-serif;
 }
 
 td {
@@ -33,14 +33,17 @@ td {
   height: 150px;
   padding: 20px;
   color: white;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .App-intro {
   font-size: large;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .Aligner {
   display: flex;
+  font-family: 'Montserrat', sans-serif;
   justify-content: center;
   flex-direction: row
 }
@@ -97,12 +100,16 @@ td {
 
 body {
   background-color: #7a9aca;
+  padding-bottom: 80px;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 form {
     border: 3px solid #ccc;
     padding: 0 20px 25px 20px;
     border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 input[type=checkbox],
