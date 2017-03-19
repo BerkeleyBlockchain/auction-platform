@@ -144,12 +144,11 @@ input[type=submit],
 }
 
 .container:hover {
-  background-color: #296DB1;
+  background-color: #6789BB;
 }
 
-.inputField1 {
-  background-color: blue;
-/*  margin-top: 20px;*/
+.inputField {
+  margin-top: 5px;
 }
 
 .submitButton {
@@ -157,13 +156,13 @@ input[type=submit],
   height: 30px;
   background: #fff;
   padding: 5px 20px;
-  border: 2px solid #296DB1;
+  border: 2px solid #6789BB;
   border-radius: 15px;
   cursor: pointer;
   outline: none;
   transition: all 250ms;
 
-  color: #296DB1;
+  color: #6789BB;
   letter-spacing: 1px;
   font-size: 17px;
   font-weight: bold;
@@ -173,7 +172,7 @@ input[type=submit],
 }
 
 .submitButton:hover {
-  background: #296DB1;
+  background: #6789BB;
   color: #fff;
   font-size: 18px;
 }
@@ -183,13 +182,13 @@ input[type=submit],
   height: 30px;
   background: #fff;
   padding: 5px 20px;
-  border: 2px solid #296DB1;
+  border: 2px solid #6789BB;
   border-radius: 15px;
   cursor: pointer;
   outline: none;
   transition: all 250ms;
 
-  color: #296DB1;
+  color: #6789BB;
   letter-spacing: 1px;
   font-size: 17px;
   font-weight: bold;
@@ -199,7 +198,7 @@ input[type=submit],
 }
 
 .clear:hover {
-  background: #296DB1;
+  background: #6789BB;
   color: #fff;
   font-size: 18px;
 }
@@ -211,6 +210,7 @@ h5 {
 
 p {
   color: white;
+  margin-top: 5px;
 }
 
 .table {
