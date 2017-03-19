@@ -12,6 +12,10 @@
   height: 80px;
 }
 
+td {
+  padding-right:10px;
+}
+
 .leftNavbar {
   width: 100%;
   height: 100%;
@@ -42,16 +46,22 @@
 .Aligner {
   display: flex;
 
-  align-items: center;
   justify-content: center;
+  flex-direction: row
 }
 
-.Aligner-item {
-  max-width: 50%;
+.Aligner-left {
+  display: flex;
+
+  align-items: left;
+  justify-content: left;
 }
 
-.Aligner-item--top {
-  align-self: flex-start;
+.Aligner-right {
+  display: flex;
+
+  align-items: right;
+  justify-content: center;
 }
 
 .Aligner-item--bottom {
