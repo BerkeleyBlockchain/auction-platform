@@ -77,33 +77,33 @@ class FormContainer extends Component {
 				<h5>CONTRACT CREATION FORM</h5>
 				<p>
 				<SingleInput
-					className="inputField"
+					className="inputField1"
 					inputType={'text'}
-					title={'Asset'}
+					title={'Asset   '}
 					name={'name'}
 					controlFunc={this.handleThing1}
 					content={this.state.thing1}
 					placeholder={'Asset'} />
 				<SingleInput
-					className="inputfield"
+					className="inputfield2"
 					inputType={'number'}
-					title={'Quantity'}
+					title={'Quantity   '}
 					name={'name'}
 					controlFunc={this.handleThing2}
 					content={this.state.thing2}
 					placeholder={'Quantity'} />
 				<SingleInput
-					className="inputfield"
+					className="inputfield3"
 					inputType={'number'}
-					title={'Target Price'}
+					title={'Target Price   '}
 					name={'name'}
 					controlFunc={this.handleThing3}
 					content={this.state.thing3}
 					placeholder={'Target Price'} />
 				<SingleInput
-					className="inputfield"
+					className="inputfield4"
 					inputType={'number'}
-					title={'Target Time'}
+					title={'Target Time   '}
 					name={'name'}
 					controlFunc={this.handleThing4}
 					content={this.state.thing4}

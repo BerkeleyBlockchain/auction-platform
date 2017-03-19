@@ -68,6 +68,7 @@ class App extends Component {
         <div className="right">
           <div className="formRight">
             <style>{"table{border: 3px solid #ccc; padding: 0 20px 25px 20px; border-radius: 10px;}"}</style>
+              <div className="table">
               <table cellSpacing="10" cellPadding="10">
                 <thead>
                   <tr>
@@ -78,10 +79,12 @@ class App extends Component {
                     <th>Target Time</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {TableRows}
                 </tbody>
               </table>
+             </div>
             </div>
           </div>
 
