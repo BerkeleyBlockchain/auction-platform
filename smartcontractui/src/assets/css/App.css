@@ -151,10 +151,9 @@ input[type=submit],
   background-color: #7a9aca;
 }
 
-.inputField {
+.inputField1 {
   background-color: blue;
-  font-family: Garamond;
-  font-size: 36px;
+/*  margin-top: 20px;*/
 }
 
 .submitButton {
@@ -163,9 +162,13 @@ input[type=submit],
 
 h5 {
   color: white;
-  font-size: 25px;
+  font-size: 30px;
 }
 
 p {
+  color: white;
+}
+
+.table {
   color: white;
 }
