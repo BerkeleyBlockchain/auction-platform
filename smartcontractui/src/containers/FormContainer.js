@@ -114,8 +114,8 @@ class FormContainer extends Component {
 					className="submitButton"
 					value="Submit"/>
 				<button
-					className="btn btn-link float-left"
-					onClick={this.handleClearForm}>Clear form</button>
+					className="clear"
+					onClick={this.handleClearForm}>Clear</button>
 			</form>
 		);
 	}
