@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
+import Web3 from 'web3';
+
 
 
 class FormContainer extends Component {
@@ -52,12 +54,19 @@ class FormContainer extends Component {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
 		//Get this shit done before sunday
+		var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+
+		var smartContractABI = [{"constant":false,"inputs":[{"name":"contractId","type":"uint256"}],"name":"getBids","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"address[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"},{"name":"_targetPrice","type":"uint256"},{"name":"_targetTime","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractId","type":"uint256"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"},{"name":"targetPrice","type":"uint256"},{"name":"targetTime","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"uint256[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"cid","type":"uint256"},{"name":"_supplier","type":"bytes32"},{"name":"_price","type":"uint256"},{"name":"_bidTime","type":"uint256"}],"name":"bid","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
+		var smartContractAddress = '0x041ffc4f75c359a804c9e38416bd4f546ecf663b'
+		var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
+
 		const formPayload = {
 			thing1: this.state.thing1,
 			thing2: this.state.thing2,
 			thing3: this.state.thing3,
 			thing4: this.state.thing4
 		};
+		smartContract.addContract.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
@@ -68,32 +77,32 @@ class FormContainer extends Component {
 				<h5>Contract Creation Form</h5>
 				<SingleInput
 					inputType={'text'}
-					title={'Thing 1'}
+					title={'Asset'}
 					name={'name'}
 					controlFunc={this.handleThing1}
 					content={this.state.thing1}
-					placeholder={'Thing 1'} />
+					placeholder={'Asset'} />
 				<SingleInput
-					inputType={'text'}
-					title={'Thing 2'}
+					inputType={'number'}
+					title={'Quantity'}
 					name={'name'}
 					controlFunc={this.handleThing2}
 					content={this.state.thing2}
-					placeholder={'Thing 2'} />
+					placeholder={'Quantity'} />
 				<SingleInput
-					inputType={'text'}
-					title={'Thing 3'}
+					inputType={'number'}
+					title={'Target Price'}
 					name={'name'}
 					controlFunc={this.handleThing3}
 					content={this.state.thing3}
-					placeholder={'Thing 3'} />
+					placeholder={'Target Price'} />
 				<SingleInput
-					inputType={'text'}
-					title={'Thing 4'}
+					inputType={'number'}
+					title={'Target Time'}
 					name={'name'}
 					controlFunc={this.handleThing4}
 					content={this.state.thing4}
-					placeholder={'Thing 4'} />
+					placeholder={'Target Time'} />
 				<input
 					type="submit"
 					className="btn btn-primary float-right"

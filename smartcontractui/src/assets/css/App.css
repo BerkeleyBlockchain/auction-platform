@@ -1,35 +1,29 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
-@font-face {
+/*@font-face {
     font-family: 'customfont';
     src: url('/Users/gillianchu/Desktop/BlockchainExplore/ethereum/smartcontractui/src/assets/css/customfont.ttf') format('truetype');
-}
+}*/
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-td {
-  padding-right:10px;
-}
-
-.leftNavbar {
-  width: 100%;
-  height: 100%;
-  color: black;
-  vertical-align: left;
+/*  animation: App-logo-spin infinite 20s linear;
+*/  
+height: 30px;
 }
 
 .App-header {
   background-color: #7a9aca;
   opacity: 0.7;
-  height: 150px;
-  padding: 20px;
+  height: 40px;
+  padding: 5px;
   color: #0B0B85;
-  font-family: 'customfont';
+  font-family: 'arial';
+}
+
+td {
+  padding-right:10px;
 }
 
 .App-content {
@@ -67,12 +61,38 @@ td {
 .Aligner-item--bottom {
   align-self: flex-end;
 }
-
-@keyframes App-logo-spin {
+body {
+    padding-bottom: 80px;
+}
+form {
+    border: 3px solid #ccc;
+    padding: 0 20px 25px 20px;
+    border-radius: 10px;
+}
+input[type=checkbox],
+input[type=radio] {
+    margin-right: 8px;
+}
+.form-label.capitalize {
+    text-transform: capitalize;
+}
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.checkbox-group .form-label {
+    width: 50%;
+}
+input[type=submit],
+.btn-link {
+    margin-top: 20px;
+}
+/*@keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+}*/
 
-h2 {
+/*h2 {
   font-family: 'customfont', serif;
-}
+}*/

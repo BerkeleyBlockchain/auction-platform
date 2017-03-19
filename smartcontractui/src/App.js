@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import logo from './assets/img/favicon.png';
+import logo from './assets/img/Airbus-PNG-Picture.png';
 import './assets/css/App.css';
 import Web3 from 'web3';
 import _ from 'lodash';
-import './assets/css/telegrafico.ttf';
+import './assets/css/aispec.ttf';
 import FormContainer from './containers/FormContainer';
 
 
 var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
-var smartContractABI = [{"constant":false,"inputs":[{"name":"_contractType","type":"bytes32"},{"name":"_owner","type":"bytes32"},{"name":"_supplier","type":"bytes32"},{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractType","type":"bytes32"},{"name":"owner","type":"bytes32"},{"name":"supplier","type":"bytes32"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"}]
-var smartContractAddress = '0x9f37e3b975ba0c349b9dec9963c43291f5c8522c'
+var smartContractABI = [{"constant":false,"inputs":[{"name":"contractId","type":"uint256"}],"name":"getBids","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"address[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"},{"name":"_targetPrice","type":"uint256"},{"name":"_targetTime","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractId","type":"uint256"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"},{"name":"targetPrice","type":"uint256"},{"name":"targetTime","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"uint256[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"cid","type":"uint256"},{"name":"_supplier","type":"bytes32"},{"name":"_price","type":"uint256"},{"name":"_bidTime","type":"uint256"}],"name":"bid","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
+var smartContractAddress = '0x041ffc4f75c359a804c9e38416bd4f546ecf663b'
 var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
 
 class App extends Component {
@@ -56,16 +56,13 @@ class App extends Component {
 
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>ACTIVE SMART CONTRACTS</h2>
         </div>
         
-        <div className="leftNavbar"></div>
-
         <div className="Aligner">
-            <FormContainer />
+            <FormContainer  />
 
         <style>{"table{border:1px solid black;}"}</style>
-          <table border="1" cellspacing="10" cellpadding="10">
+          <table cellSpacing="10" cellPadding="10">
             <thead>
               <tr>
                 <th>Contract Id</th>
@@ -81,9 +78,6 @@ class App extends Component {
           </table>
         </div>
         </div>
-
-
-      
     );
   }
 }
