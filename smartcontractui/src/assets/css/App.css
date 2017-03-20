@@ -17,8 +17,7 @@
 }
 
 .App-header {
-  background-color: gray;
-  opacity: 0.7;
+  background-color: #647EA5;
   height: 60px;
   padding: 5px;
   color: #0B0B85;
@@ -157,7 +156,10 @@ input[type=submit],
 }
 
 .inputField {
-  margin-top: 5px;
+  padding: 10px;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
 }
 
 .submitButton {
@@ -203,7 +205,6 @@ input[type=submit],
   font-weight: bold;
   font-family: 'Noto Sans', sans-serif;
   transition: all 250ms;
-
 }
 
 .clear:hover {
@@ -224,4 +225,8 @@ p {
 
 .table {
   color: white;
+}
+
+.table:hover {
+  background-color: #6789BB;
 }
