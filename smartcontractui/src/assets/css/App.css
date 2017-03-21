@@ -8,8 +8,6 @@
 }
 
 .App-logo {
-/*  animation: App-logo-spin infinite 20s linear;
-*/
   height: 30px;
   margin-top: 15px;
   margin-left: 10px;
@@ -92,24 +90,6 @@ td {
   top: 40%;
   transform: translateY(-50%);
 }
-
-/*.Aligner-left {
-  display: flex;
-
-  align-items: left;
-  justify-content: left;
-}
-
-.Aligner-right {
-  display: flex;
-
-  align-items: right;
-  justify-content: center;
-}*/
-
-/*.Aligner-item--bottom {
-  align-self: flex-end;
-}*/
 
 body {
   background-color: #7a9aca;
