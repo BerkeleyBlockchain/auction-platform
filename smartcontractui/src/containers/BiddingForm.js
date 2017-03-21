@@ -3,7 +3,7 @@ import SingleInput from '../components/SingleInput';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 // import BidTable from './BidTable';
 
-
+var contractBids = [];
 
 class BiddingForm extends Component {
 	constructor(props) {
@@ -62,9 +62,11 @@ class BiddingForm extends Component {
 			thing3: this.state.thing3,
 			thing4: this.state.thing4
 		};
+
+		contractBids.push(formPayload.thing1);
 		// uint cid, bytes32 _supplier, uint _price, uint _bidTime
 		smartContract.bid.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4, {from: ETHEREUM_CLIENT.eth.accounts[1], gas: 200000});
-		
+
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
 		window.location.reload();
@@ -124,5 +126,5 @@ class BiddingForm extends Component {
 		);
 	}
 }
-
+export var contractBids;
 export default BiddingForm;
