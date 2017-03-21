@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
-import Web3 from 'web3';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 // import BidTable from './BidTable';
 
