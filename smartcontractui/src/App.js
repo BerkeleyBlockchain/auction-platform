@@ -5,12 +5,13 @@ import Web3 from 'web3';
 import _ from 'lodash';
 import './assets/css/aispec.ttf';
 import FormContainer from './containers/FormContainer';
+import BiddingForm from './containers/BiddingForm';
 
 
 var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 var smartContractABI = [{"constant":false,"inputs":[{"name":"contractId","type":"uint256"}],"name":"getBids","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"address[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"},{"name":"_targetPrice","type":"uint256"},{"name":"_targetTime","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractId","type":"uint256"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"},{"name":"targetPrice","type":"uint256"},{"name":"targetTime","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"uint256[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"cid","type":"uint256"},{"name":"_supplier","type":"bytes32"},{"name":"_price","type":"uint256"},{"name":"_bidTime","type":"uint256"}],"name":"bid","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
-var smartContractAddress = '0xd178648ba2b0a5f19b2829569311e201d6b6ef90'
+var smartContractAddress = '0x43beffabeb58836043adb93ac05ea3b3257b1f3a'
 var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
 
 class App extends Component {
@@ -59,12 +60,16 @@ class App extends Component {
         </div>
       
         <div className="Aligner">
-          <div className="left">
+          <div className="left-top">
             <div className="formLeft">
               <FormContainer  />
             </div>
           </div>
-
+          <div className="left-bottom">
+            <div className="formLeft">
+              <BiddingForm  />
+            </div>
+          </div>
         <div className="right">
           <div className="formRight">
             <style>{"table{border: 3px solid #ccc; padding: 0 20px 25px 20px; border-radius: 10px;}"}</style>

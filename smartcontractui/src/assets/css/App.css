@@ -48,11 +48,24 @@ td {
   flex-direction: row
 }
 
-.left {
+.left-top {
   width: 50%;
   height: 50%%;
   text-align: center;
   margin-left: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.left-bottom {
+  width: 50%;
+  height: 50%%;
+  text-align: center;
+  margin-left: auto;
+  position: relative;
+  bottom: 0;
+  left: 0;
 }
 
 .formLeft {

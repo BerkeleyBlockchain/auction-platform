@@ -57,7 +57,7 @@ class BiddingForm extends Component {
 		var ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
 
 		var smartContractABI = [{"constant":false,"inputs":[{"name":"contractId","type":"uint256"}],"name":"getBids","outputs":[{"name":"","type":"bytes32[]"},{"name":"","type":"address[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_asset","type":"bytes32"},{"name":"_quantity","type":"uint256"},{"name":"_targetPrice","type":"uint256"},{"name":"_targetTime","type":"uint256"}],"name":"addContract","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"contracts","outputs":[{"name":"contractId","type":"uint256"},{"name":"asset","type":"bytes32"},{"name":"quantity","type":"uint256"},{"name":"targetPrice","type":"uint256"},{"name":"targetTime","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getContracts","outputs":[{"name":"","type":"uint256[]"},{"name":"","type":"bytes32[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"},{"name":"","type":"uint256[]"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"cid","type":"uint256"},{"name":"_supplier","type":"bytes32"},{"name":"_price","type":"uint256"},{"name":"_bidTime","type":"uint256"}],"name":"bid","outputs":[{"name":"success","type":"bool"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"}]
-		var smartContractAddress = '0xd178648ba2b0a5f19b2829569311e201d6b6ef90'
+		var smartContractAddress = '0x43beffabeb58836043adb93ac05ea3b3257b1f3a'
 		var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress)
 
 		const formPayload = {
@@ -66,8 +66,9 @@ class BiddingForm extends Component {
 			thing3: this.state.thing3,
 			thing4: this.state.thing4
 		};
-		smartContract.addContract.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-
+		// uint cid, bytes32 _supplier, uint _price, uint _bidTime
+		smartContract.bid.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4);
+		
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
 		window.location.reload();
@@ -75,12 +76,12 @@ class BiddingForm extends Component {
 	render() {
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5>CONTRACT CREATION FORM</h5>
+				<h5>FORM TO CREATE BIDS</h5>
 				<p>
 				<SingleInput
 					className="inputField"
-					inputType={'text'}
-					title={'Asset   '}
+					inputType={'number'}
+					title={'Contract ID   '}
 					name={'name'}
 					controlFunc={this.handleThing1}
 					content={this.state.thing1}
@@ -90,7 +91,7 @@ class BiddingForm extends Component {
 				<SingleInput
 					className="inputfield"
 					inputType={'number'}
-					title={'Quantity   '}
+					title={'Supplier   '}
 					name={'name'}
 					controlFunc={this.handleThing2}
 					content={this.state.thing2}
@@ -100,7 +101,7 @@ class BiddingForm extends Component {
 				<SingleInput
 					className="inputfield"
 					inputType={'number'}
-					title={'Target Price   '}
+					title={'Price  '}
 					name={'name'}
 					controlFunc={this.handleThing3}
 					content={this.state.thing3}
@@ -110,7 +111,7 @@ class BiddingForm extends Component {
 				<SingleInput
 					className="inputfield"
 					inputType={'number'}
-					title={'Target Time   '}
+					title={'Bid Time   '}
 					name={'name'}
 					controlFunc={this.handleThing4}
 					content={this.state.thing4}
@@ -128,4 +129,4 @@ class BiddingForm extends Component {
 	}
 }
 
-export default FormContainer;
+export default BiddingForm;
