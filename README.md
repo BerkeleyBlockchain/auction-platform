@@ -9,7 +9,7 @@ A smartcontract Dapp with a web based UI that keeps track of contract data by ad
 1. In a new terminal window `$ testrpc`
 2. In a new terminal window `$ cd smartcontract`
 3. `$ truffle compile` And `$ truffle migrate`
-4. Once the contract is mined, copy and paste the contract address into `var smartContractAddress = '___'` in App.js and FormContainer.js
+4. Once the contract is mined, copy and paste the contract address into `var smartContractAddress = '___'` in Components/EthereumSetup.js
 5. In a new terminal window `$ cd smartcontractui`
 6. `$ npm start`
 7. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
