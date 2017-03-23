@@ -1,0 +1,7 @@
+personal.listAccounts
+miner.start()
+miner.stop()
+personal.listAccounts
+miner.start
+miner.start()
+miner.stop()

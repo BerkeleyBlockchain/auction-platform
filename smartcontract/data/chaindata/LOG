@@ -1,0 +1,42 @@
+=============== Mar 22, 2017 (PDT) ===============
+12:39:15.473067 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:39:15.473505 db@open opening
+12:39:15.475465 version@stat F·[] S·0B[] Sc·[]
+12:39:15.475760 db@janitor F·2 G·0
+12:39:15.475794 db@open done T·2.266857ms
+12:39:15.476262 db@close closing
+12:39:15.476346 db@close done T·63.369µs
+=============== Mar 22, 2017 (PDT) ===============
+12:39:15.477304 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:39:15.477469 version@stat F·[] S·0B[] Sc·[]
+12:39:15.477479 db@open opening
+12:39:15.477518 journal@recovery F·1
+12:39:15.478513 journal@recovery recovering @1
+12:39:15.498294 version@stat F·[] S·0B[] Sc·[]
+12:39:15.500206 db@janitor F·2 G·0
+12:39:15.500236 db@open done T·22.750895ms
+12:42:38.180609 db@close closing
+12:42:38.181576 db@close done T·955.816µs
+=============== Mar 22, 2017 (PDT) ===============
+12:52:53.452712 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:52:53.454601 version@stat F·[] S·0B[] Sc·[]
+12:52:53.454647 db@open opening
+12:52:53.454769 journal@recovery F·1
+12:52:53.457511 journal@recovery recovering @2
+12:52:53.462748 memdb@flush created L0@4 N·831 S·43KiB "\x03\vV..\xac\xe2\xbf,v38":"\xfd\xf9e..\xcf\"\xc2,v154"
+12:52:53.464084 version@stat F·[1] S·43KiB[43KiB] Sc·[0.25]
+12:52:53.465479 db@janitor F·3 G·0
+12:52:53.465503 db@open done T·10.84188ms
+12:52:53.465766 db@close closing
+12:52:53.465834 db@close done T·66.497µs
+=============== Mar 22, 2017 (PDT) ===============
+12:52:53.466826 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:52:53.466957 version@stat F·[1] S·43KiB[43KiB] Sc·[0.25]
+12:52:53.466967 db@open opening
+12:52:53.467010 journal@recovery F·1
+12:52:53.484618 journal@recovery recovering @5
+12:52:53.538234 version@stat F·[1] S·43KiB[43KiB] Sc·[0.25]
+12:52:53.540021 db@janitor F·3 G·0
+12:52:53.540054 db@open done T·73.080573ms
+12:54:09.963812 db@close closing
+12:54:09.964623 db@close done T·804.337µs
