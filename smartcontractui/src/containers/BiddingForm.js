@@ -3,7 +3,7 @@ import SingleInput from '../components/SingleInput';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 // import BidTable from './BidTable';
 
-var contractBids = [];
+// var contractBids = [];
 
 class BiddingForm extends Component {
 	constructor(props) {
