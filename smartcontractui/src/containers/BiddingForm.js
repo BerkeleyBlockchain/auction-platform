@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 
+var getContractID; 
+
 class BiddingForm extends Component {
 	constructor(props) {
-		var getContractID = 0; 
 		super(props);
 		this.state = {
 			thing1 : '',
@@ -61,7 +62,7 @@ class BiddingForm extends Component {
 			thing4: this.state.thing4
 		};
 
-		getContractID: formPayload.thing1;
+		getContractID = formPayload.thing1;
 		// uint cid, bytes32 _supplier, uint _price, uint _bidTime
 		smartContract.bid.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4, {from: ETHEREUM_CLIENT.eth.accounts[1], gas: 200000});
 

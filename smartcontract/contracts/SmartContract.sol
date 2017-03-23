@@ -75,20 +75,22 @@ contract SmartContract {
 		return (contractId, asset, qty, targetPrice, targetTime);
 	}
 
-	function getBids(uint contractId) constant returns (uint, bytes32[], uint[], uint[]){
+	function getBids(uint contractId) constant returns (uint[], bytes32[], uint[], uint[]){
 		uint length = bidMap[contractId].length;
 		Bid[] bids = bidMap[contractId];
+		uint[] memory contractIds = new uint[](length);
 		bytes32[] memory suppliers = new bytes32[](length);
 		uint[] memory prices = new uint[](length);
 		uint[] memory timesToComplete = new uint[](length);
 
 		for (uint i = 0; i < length; i++) {
+			contractIds[i] = bids[i].contractId;
 			suppliers[i] = bids[i].supplier;
 			prices[i] = bids[i].price;
 			timesToComplete[i] = bids[i].bidTime;
 		}
 
-		return (contractId, suppliers, prices, timesToComplete);
+		return (contractIds, suppliers, prices, timesToComplete);
 
 	}
 
