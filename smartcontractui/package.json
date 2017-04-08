@@ -8,7 +8,8 @@
     "react-bootstrap-table": "^3.1.7",
     "react-dom": "^15.4.2",
     "react-select": "^1.0.0-rc.3",
-    "web3": "^0.18.2"
+    "web3": "^0.18.2",
+    "react-table": "^5.5.0"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
