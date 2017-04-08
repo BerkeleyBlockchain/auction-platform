@@ -39,7 +39,7 @@ class ContractTable extends Component {
           <td>{this.state.tTime[index]}</td>
         </tr>
         )
-    })
+    });
       return (
           <table cellSpacing="10" cellPadding="10">
             <thead>

@@ -1,6 +1,7 @@
 .App {
   text-align: left;
   font-family: 'Montserrat', sans-serif;
+  background-color: #A4C4E5;
 }
 
 @font-face {
@@ -27,7 +28,7 @@ td {
 }
 
 .App-content {
-  background-color: #222;
+  background-color: #A4C4E5;
   height: 150px;
   padding: 20px;
   color: white;
