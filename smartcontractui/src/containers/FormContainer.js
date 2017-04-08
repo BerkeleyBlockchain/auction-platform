@@ -3,6 +3,9 @@ import SingleInput from '../components/SingleInput';
 import '../assets/css/App.css';
 // import ContractTable from './ContractTable';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+import Select from 'react-select';
+// Be sure to include styles at some point, probably during your bootstrapping
+import 'react-select/dist/react-select.css';
 
 
 class FormContainer extends Component {
@@ -12,7 +15,15 @@ class FormContainer extends Component {
 			thing1 : '',
 			thing2 : '',
 			thing3 : '',
-			thing4 : ''
+			thing4 : '',
+			thing5 : '',
+			thing6 : '',
+			selection1 : 'asset',
+			selection2 : 'supplier',
+			selection3 : 'time',
+			selection4 : 'price',
+			selection5 : 'date',
+			selection6 : 'quantity'
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
@@ -20,10 +31,38 @@ class FormContainer extends Component {
 		this.handleThing2 = this.handleThing2.bind(this);
 		this.handleThing3 = this.handleThing3.bind(this);
 		this.handleThing4 = this.handleThing4.bind(this);
+		this.handleThing5 = this.handleThing5.bind(this);
+		this.handleThing6 = this.handleThing6.bind(this);
+		this.handleSelection1 = this.handleSelection1.bind(this);
+		this.handleSelection2 = this.handleSelection2.bind(this);
+		this.handleSelection3 = this.handleSelection3.bind(this);
+		this.handleSelection4 = this.handleSelection4.bind(this);
+		this.handleSelection5 = this.handleSelection5.bind(this);
+		this.handleSelection6 = this.handleSelection6.bind(this);
 	}
 
-	componentDidMount() {
+	handleSelection1(val) {
+		this.setState({ selection1: val }, () => console.log('name:', this.state.selection1));
+	}
 
+	handleSelection2(val) {
+		this.setState({ selection2: val }, () => console.log('name:', this.state.selection2));
+	}
+
+	handleSelection3(val) {
+		this.setState({ selection3: val }, () => console.log('name:', this.state.selection3));
+	}
+
+	handleSelection4(val) {
+		this.setState({ selection4: val }, () => console.log('name:', this.state.selection4));
+	}
+
+	handleSelection5(val) {
+		this.setState({ selection5: val }, () => console.log('name:', this.state.selection5));
+	}
+
+	handleSelection6(val) {
+		this.setState({ selection6: val }, () => console.log('name:', this.state.selection6));
 	}
 
 	handleThing1(e) {
@@ -42,13 +81,30 @@ class FormContainer extends Component {
 		this.setState({ thing4: e.target.value }, () => console.log('name:', this.state.thing4));
 	}
 
+	handleThing5(e) {
+		this.setState({ thing5: e.target.value }, () => console.log('name:', this.state.thing5));
+	}
+
+	handleThing6(e) {
+		this.setState({ thing6: e.target.value }, () => console.log('name:', this.state.thing5));
+	}
+
+
 	handleClearForm(e) {
 		e.preventDefault();
 		this.setState({
 			thing1: '',
 			thing2: '',
 			thing3: '',
-			thing4: ''
+			thing4: '',
+			thing5: '',
+			thing6: '',
+			selection1 : '',
+			selection2 : '',
+			selection3 : '',
+			selection4 : '',
+			selection5 : '',
+			selection6 : ''
 		});
 	}
 	handleFormSubmit(e) {
@@ -58,7 +114,9 @@ class FormContainer extends Component {
 			thing1: this.state.thing1,
 			thing2: this.state.thing2,
 			thing3: this.state.thing3,
-			thing4: this.state.thing4
+			thing4: this.state.thing4,
+			thing5: this.state.thing4,
+			thing6: this.state.thing4
 		};
 		smartContract.addContract.sendTransaction(formPayload.thing1, formPayload.thing2, formPayload.thing3, formPayload.thing4, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 
@@ -66,69 +124,157 @@ class FormContainer extends Component {
 		this.handleClearForm(e);
 		window.location.reload();
 	}
+
 	render() {
+		var options = [
+		  { value: 'asset', label: 'Asset' },
+		  { value: 'supplier', label: 'Supplier' },
+			{ value: 'time', label: 'Time to Complete' },
+			{ value: 'price', label: 'Price' },
+			{ value: 'date', label: 'Date' },
+			{ value: 'quantity', label: 'Quantity' }
+		];
+
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
 				<h5>CONTRACT CREATION FORM</h5>
-				<table cellSpacing="10" cellPadding="10">
+				<table cellSpacing="20" cellPadding="20">
 					<tbody>
-					<tr>
+						<tr>
 
-						<td><label className="form-label">Asset</label></td>
+						  <td style={{margin : 10, width: 250}}><Select
+										autofocus
+										clearable={false}
+						        name="form-field-name"
+						        value={this.state.selection1}
+						        options={options}
+						        onChange={this.handleSelection1}
+										autosize={true}
+						                /></td>
 
-						<td><SingleInput
-						className="inputField"
-						inputType={'text'}
-						name={'name'}
-						controlFunc={this.handleThing1}
-						content={this.state.thing1}
-						placeholder={'Asset'} />
-						</td>
-					</tr>
+						  <td><SingleInput
+						  className="inputField"
+						  inputType={'text'}
+						  name={'name'}
+						  controlFunc={this.handleThing1}
+						  content={this.state.thing1}
+						  placeholder={''} />
+						  </td>
+						</tr>
 
-					<tr>
+						<tr>
 
-						<td><label className="form-label">Quantity</label></td>
+							<td style={{margin : 10, width: 250}}><Select
+ 									 autofocus
+ 									 clearable={false}
+ 									 name="form-field-name"
+ 									 value={this.state.selection2}
+ 									 options={options}
+ 									 onChange={this.handleSelection2}
+ 									 autosize={true}
+ 													 /></td>
 
-						<td><SingleInput
-							className="inputfield"
-							inputType={'number'}
-							title={'Quantity   '}
-							name={'name'}
-							controlFunc={this.handleThing2}
-							content={this.state.thing2}
-							placeholder={'Quantity'} />
-						</td>
-					</tr>
-					<tr>
+						  <td><SingleInput
+						    className="inputfield"
+						    inputType={'number'}
+						    title={'Quantity   '}
+						    name={'name'}
+						    controlFunc={this.handleThing2}
+						    content={this.state.thing2}
+						    placeholder={''} />
+						  </td>
+						</tr>
 
-						<td><label className="form-label">Target Price</label></td>
+						<tr>
 
-						<td><SingleInput
-							className="inputfield"
-							inputType={'number'}
-							title={'Target Price   '}
-							name={'name'}
-							controlFunc={this.handleThing3}
-							content={this.state.thing3}
-							placeholder={'Target Price'} />
-						</td>
-					</tr>
-					<tr>
+							<td style={{margin : 10, width: 250}}><Select
+ 									autofocus
+ 									clearable={false}
+ 									name="form-field-name"
+ 									value={this.state.selection3}
+ 									options={options}
+ 									onChange={this.handleSelection3}
+ 									autosize={true}
+ 													/></td>
 
-						<td><label className="form-label">Target Time</label></td>
+						  <td><SingleInput
+						    className="inputfield"
+						    inputType={'number'}
+						    title={'Target Price   '}
+						    name={'name'}
+						    controlFunc={this.handleThing3}
+						    content={this.state.thing3}
+						    placeholder={''} />
+						  </td>
+						</tr>
 
-						<td><SingleInput
-							className="inputfield"
-							inputType={'number'}
-							title={'Target Time   '}
-							name={'name'}
-							controlFunc={this.handleThing4}
-							content={this.state.thing4}
-							placeholder={'Target Time'} />
-						</td>
-					</tr>
+						<tr>
 
+							<td style={{margin : 10, width: 250}}><Select
+ 									 autofocus
+ 									 clearable={false}
+ 									 name="form-field-name"
+ 									 value={this.state.selection4}
+ 									 options={options}
+ 									 onChange={this.handleSelection4}
+ 									 autosize={true}
+ 													 /></td>
+
+
+						  <td><SingleInput
+						    className="inputfield"
+						    inputType={'number'}
+						    title={'Target Time   '}
+						    name={'name'}
+						    controlFunc={this.handleThing4}
+						    content={this.state.thin4}
+						    placeholder={''} />
+						  </td>
+						</tr>
+
+						<tr>
+
+							<td style={{margin : 10, width: 250}}><Select
+ 									 autofocus
+ 									 clearable={false}
+ 									 name="form-field-name"
+ 									 value={this.state.selection5}
+ 									 options={options}
+ 									 onChange={this.handleSelection5}
+ 									 autosize={true}
+ 													 /></td>
+
+						  <td><SingleInput
+						    className="inputfield"
+						    inputType={'number'}
+						    name={'name'}
+						    controlFunc={this.handleThing5}
+						    content={this.state.thing5}
+						    placeholder={''} />
+						  </td>
+						</tr>
+
+						<tr>
+
+							<td style={{margin : 10, width: 250}}><Select
+ 									 autofocus
+ 									 clearable={false}
+ 									 name="form-field-name"
+ 									 value={this.state.selection6}
+ 									 options={options}
+ 									 onChange={this.handleSelection6}
+ 									 autosize={true}
+ 													 /></td>
+
+						  <td><SingleInput
+						    className="inputfield"
+						    inputType={'number'}
+						    name={'name'}
+						    controlFunc={this.handleThing6}
+						    content={this.state.thing6}
+						    placeholder={''} />
+						  </td>
+						</tr>
 					</tbody>
 				</table>
 				<input

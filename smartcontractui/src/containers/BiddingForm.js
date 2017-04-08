@@ -50,7 +50,7 @@ class BiddingForm extends Component {
 			thing4: ''
 		});
 	}
-	
+
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
