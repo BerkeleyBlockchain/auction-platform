@@ -70,46 +70,67 @@ class FormContainer extends Component {
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
 				<h5>CONTRACT CREATION FORM</h5>
-				<p>
-				<SingleInput
-					className="inputField"
-					inputType={'text'}
-					title={'Asset   '}
-					name={'name'}
-					controlFunc={this.handleThing1}
-					content={this.state.thing1}
-					placeholder={'Asset'} />
-				</p>
-				<p>
-				<SingleInput
-					className="inputfield"
-					inputType={'number'}
-					title={'Quantity   '}
-					name={'name'}
-					controlFunc={this.handleThing2}
-					content={this.state.thing2}
-					placeholder={'Quantity'} />
-				</p>
-				<p>
-				<SingleInput
-					className="inputfield"
-					inputType={'number'}
-					title={'Target Price   '}
-					name={'name'}
-					controlFunc={this.handleThing3}
-					content={this.state.thing3}
-					placeholder={'Target Price'} />
-				</p>
-				<p>
-				<SingleInput
-					className="inputfield"
-					inputType={'number'}
-					title={'Target Time   '}
-					name={'name'}
-					controlFunc={this.handleThing4}
-					content={this.state.thing4}
-					placeholder={'Target Time'} />
-				</p>
+				<table cellSpacing="10" cellPadding="10">
+					<tbody>
+					<tr>
+
+						<td><label className="form-label">Asset</label></td>
+
+						<td><SingleInput
+						className="inputField"
+						inputType={'text'}
+						name={'name'}
+						controlFunc={this.handleThing1}
+						content={this.state.thing1}
+						placeholder={'Asset'} />
+						</td>
+					</tr>
+
+					<tr>
+
+						<td><label className="form-label">Quantity</label></td>
+
+						<td><SingleInput
+							className="inputfield"
+							inputType={'number'}
+							title={'Quantity   '}
+							name={'name'}
+							controlFunc={this.handleThing2}
+							content={this.state.thing2}
+							placeholder={'Quantity'} />
+						</td>
+					</tr>
+					<tr>
+
+						<td><label className="form-label">Target Price</label></td>
+
+						<td><SingleInput
+							className="inputfield"
+							inputType={'number'}
+							title={'Target Price   '}
+							name={'name'}
+							controlFunc={this.handleThing3}
+							content={this.state.thing3}
+							placeholder={'Target Price'} />
+						</td>
+					</tr>
+					<tr>
+
+						<td><label className="form-label">Target Time</label></td>
+
+						<td><SingleInput
+							className="inputfield"
+							inputType={'number'}
+							title={'Target Time   '}
+							name={'name'}
+							controlFunc={this.handleThing4}
+							content={this.state.thing4}
+							placeholder={'Target Time'} />
+						</td>
+					</tr>
+
+					</tbody>
+				</table>
 				<input
 					type="submit"
 					className="submitButton"
