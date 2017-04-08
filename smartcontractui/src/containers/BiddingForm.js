@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 
-var getContractID; 
+var getContractID;
 
 class BiddingForm extends Component {
 	constructor(props) {
@@ -54,7 +54,7 @@ class BiddingForm extends Component {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
 		//Get this shit done before sunday
-	
+
 		const formPayload = {
 			thing1: this.state.thing1,
 			thing2: this.state.thing2,
@@ -74,47 +74,68 @@ class BiddingForm extends Component {
 	render() {
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5>FORM TO CREATE BIDS</h5>
-				<p>
-				<SingleInput
-					className="inputField"
-					inputType={'number'}
-					title={'Contract ID   '}
-					name={'name'}
-					controlFunc={this.handleThing1}
-					content={this.state.thing1}
-					placeholder={'Asset'} />
-				</p>
-				<p>
-				<SingleInput
-					className="inputfield"
-					inputType={'text'}
-					title={'Supplier   '}
-					name={'name'}
-					controlFunc={this.handleThing2}
-					content={this.state.thing2}
-					placeholder={'Supplier'} />
-				</p>
-				<p>
-				<SingleInput
-					className="inputfield"
-					inputType={'number'}
-					title={'Price  '}
-					name={'name'}
-					controlFunc={this.handleThing3}
-					content={this.state.thing3}
-					placeholder={'Target Price'} />
-				</p>
-				<p>
-				<SingleInput
-					className="inputfield"
-					inputType={'number'}
-					title={'Bid Time   '}
-					name={'name'}
-					controlFunc={this.handleThing4}
-					content={this.state.thing4}
-					placeholder={'Target Time'} />
-				</p>
+				<h5>BID FORM</h5>
+				<table cellSpacing="10" cellPadding="10">
+					<tbody>
+					<tr>
+
+						<td><label className="form-label">Asset</label></td>
+
+						<td><SingleInput
+						className="inputField"
+						inputType={'text'}
+						name={'name'}
+						controlFunc={this.handleThing1}
+						content={this.state.thing1}
+						placeholder={'Asset'} />
+						</td>
+					</tr>
+
+					<tr>
+
+						<td><label className="form-label">Supplier</label></td>
+
+						<td><SingleInput
+							className="inputfield"
+							inputType={'number'}
+							title={'Supplier   '}
+							name={'name'}
+							controlFunc={this.handleThing2}
+							content={this.state.thing2}
+							placeholder={'Supplier'} />
+						</td>
+					</tr>
+					<tr>
+
+						<td><label className="form-label">Target Price</label></td>
+
+						<td><SingleInput
+							className="inputfield"
+							inputType={'number'}
+							title={'Target Price   '}
+							name={'name'}
+							controlFunc={this.handleThing3}
+							content={this.state.thing3}
+							placeholder={'Target Price'} />
+						</td>
+					</tr>
+					<tr>
+
+						<td><label className="form-label">Target Time</label></td>
+
+						<td><SingleInput
+							className="inputfield"
+							inputType={'number'}
+							title={'Target Time   '}
+							name={'name'}
+							controlFunc={this.handleThing4}
+							content={this.state.thing4}
+							placeholder={'Target Time'} />
+						</td>
+					</tr>
+
+					</tbody>
+				</table>
 				<input
 					type="submit"
 					className="submitButton"
