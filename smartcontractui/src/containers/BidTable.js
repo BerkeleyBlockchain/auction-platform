@@ -13,6 +13,7 @@ class BidTable extends Component {
         suppliers: "",
         prices: "",
         timesToComplete: "",
+				interval: 0
     }
   }
   componentWillMount() {
@@ -24,6 +25,20 @@ class BidTable extends Component {
       timesToComplete: String(data[3]).split(',')
 
     })
+  }
+
+	componentDidMount(){
+    setInterval(function() {
+        var data = smartContract.getBids()
+        this.setState({
+          contractId: String(data[0]).split(','),
+          suppliers: String(data[1]).split(','),
+          prices: String(data[2]).split(','),
+          timesToComplete: String(data[3]).split(','),
+          interval: this.state.interval + 1
+        })
+        this.render()
+    }.bind(this), 5000);
   }
 
 	render() {
