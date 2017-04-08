@@ -7,7 +7,7 @@ class BidRow extends React.Component {
   }
 
   render () {
-    return ( <tr>
+    return ( <tr key={this.props.contractId}>
       <td>{this.props.contractId}</td>
       <td>{this.props.suppliers}</td>
       <td>{this.props.prices}</td>

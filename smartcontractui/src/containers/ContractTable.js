@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 class ContractTable extends Component {
   constructor(props) {
@@ -30,31 +33,35 @@ class ContractTable extends Component {
     var TableRows = []
 
     _.each(this.state.contractId, (value, index) => {
-      TableRows.push(
-        <tr>
-          <td>{ETHEREUM_CLIENT.toDecimal(this.state.contractId[index])}</td>
-          <td>{ETHEREUM_CLIENT.toAscii(this.state.asset[index])}</td>
-          <td>{ETHEREUM_CLIENT.toDecimal(this.state.qty[index])}</td>
-          <td>{ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index])}</td>
-          <td>{this.state.tTime[index]}</td>
-        </tr>
-        )
+      TableRows.push( {
+          cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
+          asset: ETHEREUM_CLIENT.toAscii(this.state.asset[index]),
+          qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
+          price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
+          time : this.state.tTime[index]
+      }
+        );
     });
+
+    const columns = [{
+    header: 'Contract Id',
+    accessor: 'cId' // String-based value accessors!
+    },{
+    header: 'Asset',
+    accessor: 'asset' // String-based value accessors!
+    },{
+    header: 'Quantity',
+    accessor: 'qty' // String-based value accessors!
+    },{
+    header: 'Time to Complete',
+    accessor: 'time' // String-based value accessors!
+  }];
       return (
-          <table cellSpacing="10" cellPadding="10">
-            <thead>
-              <tr>
-                <th>Contract Id</th>
-                <th>Asset</th>
-                <th>Quantity</th>
-                <th>Target Price</th>
-                <th>Target Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {TableRows}
-            </tbody>
-          </table>
+          <ReactTable
+            data={TableRows}
+            columns={columns}
+            defaultPageSize={5}
+              />
       );
   }
 }

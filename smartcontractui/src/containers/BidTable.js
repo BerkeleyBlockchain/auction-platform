@@ -3,59 +3,54 @@ import _ from 'lodash';
 import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import BidRow from '../components/BidRow';
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 class BidTable extends Component {
 	constructor(props) {
     super(props)
     this.state = {
-        contractId: "",
-        suppliers: "",
-        prices: "",
-        timesToComplete: ""
-    };
+        tableRows : [],
+				contractId: "",
+				suppliers: "",
+				prices: "",
+				timesToComplete: "",
+		 };
   }
 
   componentWillMount() {
     var data = smartContract.getBids(this.props.getContractID);
-    this.setState({
+		var TableRows = [];
+
+		this.setState({
       contractId: String(data[0]).split(','),
       suppliers: String(data[1]).split(','),
       prices: String(data[2]).split(','),
       timesToComplete: String(data[3]).split(',')
-    })
-  }
 
-	rows() {
-		var TableRows = []
+    });
 
     _.each(this.state.contractId, (value, index) => {
-			var input = {
+			TableRows.push({
 				contractId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
         suppliers: ETHEREUM_CLIENT.toAscii(this.state.suppliers[index]),
         prices: ETHEREUM_CLIENT.toDecimal(this.state.prices[index]),
         timesToComplete: ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])
-			};
-			console.log(input);
-			return <BidRow contractId={input.contractId} suppliers={input.contractId} prices={input.prices} timesToComplete={input.timesToComplete} />
-    });
-	}
+			});
+ 		});
+
+		this.setState({ tableRows: TableRows});
+		console.log(this.state);
+  }
 
   render() {
-
+			console.log(this.state.tableRows);
 	    return (
-	    	<table cellSpacing="10" cellPadding="10">
-		        <thead>
-		          <tr>
-                <th>ContractID</th>
-		            <th>Supplier</th>
-		            <th>Bidding Price</th>
-		            <th>Time to Complete</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-							{this.rows()}
-		        </tbody>
-		     </table>
+				<BootstrapTable data={this.state.tableRows} striped hover>
+				<TableHeaderColumn isKey dataField='contractId'>Contract Id</TableHeaderColumn>
+				<TableHeaderColumn dataField='suppliers'>Suppliers</TableHeaderColumn>
+        <TableHeaderColumn dataField='prices'>Prices</TableHeaderColumn>
+				<TableHeaderColumn dataField='timesToComplete'>Time To Complete</TableHeaderColumn>
+			</BootstrapTable>
 	    );
 	}
 }
