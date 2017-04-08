@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 class BidTable extends Component {
 	constructor(props) {
@@ -24,34 +26,38 @@ class BidTable extends Component {
     })
   }
 
-  render() {
+	render() {
     var TableRows = []
 
     _.each(this.state.contractId, (value, index) => {
-      TableRows.push(
-        <tr>
-          <td>{ETHEREUM_CLIENT.toDecimal(this.state.contractId[index])}</td>
-          <td>{ETHEREUM_CLIENT.toAscii(this.state.suppliers[index])}</td>
-          <td>{ETHEREUM_CLIENT.toDecimal(this.state.prices[index])}</td>
-          <td>{ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])}</td>
-        </tr>
-        )
-    })
-	    return (
-	    	<table cellSpacing="10" cellPadding="10">
-		        <thead>
-		          <tr>
-                <th>ContractID</th>
-		            <th>Supplier</th>
-		            <th>Bidding Price</th>
-		            <th>Time to Complete</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		          {TableRows}
-		        </tbody>
-		     </table>
-	    );
-	}
+      TableRows.push( {
+          cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
+          suppliers: ETHEREUM_CLIENT.toAscii(this.state.suppliers[index]),
+          price: ETHEREUM_CLIENT.toDecimal(this.state.prices[index]),
+          time : ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])
+      }
+        );
+    });
+
+    const columns = [{
+    header: 'Contract Id',
+    accessor: 'cId' // String-based value accessors!
+    },{
+    header: 'Supplier',
+    accessor: 'suppliers' // String-based value accessors!
+    },{
+    header: 'Price',
+    accessor: 'price' // String-based value accessors!
+    },{
+    header: 'Time to Complete',
+    accessor: 'time' // String-based value accessors!
+  }];
+      return (
+				<div>
+					<h3>Bids</h3>
+          <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
+				</div>
+      );
+  }
 }
 export default BidTable;

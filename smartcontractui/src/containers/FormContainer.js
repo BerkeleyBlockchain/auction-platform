@@ -54,7 +54,6 @@ class FormContainer extends Component {
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
-		//Get this shit done before sunday
 		const formPayload = {
 			thing1: this.state.thing1,
 			thing2: this.state.thing2,

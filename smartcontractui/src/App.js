@@ -12,12 +12,12 @@ import { Connect } from 'uport-connect';
 class App extends Component {
     constructor(props) {
         super(props);
-    };
-
-    componentWillMount() {
         this.state = {
             credential: 'null'
         };
+    };
+
+    componentWillMount() {
         const uport = new Connect('Airbus');
         uport.requestCredentials().then((credentials) => {
             this.setState( {credential : credentials} );
@@ -31,7 +31,7 @@ class App extends Component {
 
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h3>Logged in {this.state.credential.name} as with address {this.state.credential.address}</h3>
+          <h3>Logged in as {this.state.credential.name} with address {this.state.credential.address}</h3>
         </div>
 
         <div className="Aligner">
@@ -47,7 +47,9 @@ class App extends Component {
           <div className="formRight">
             <style>{"table{border: 3px solid #ccc; padding: 0 20px 25px 20px; border-radius: 10px;}"}</style>
               <div className="table">
-                <ContractTable  />
+                <ContractTable/>
+              </div>
+              <div className="table">
                 <BidTable  />
               </div>
           </div>
