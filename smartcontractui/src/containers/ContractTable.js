@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
