@@ -48,6 +48,8 @@ class App extends Component {
             <style>{"table{border: 3px solid #ccc; padding: 0 20px 25px 20px; border-radius: 10px;}"}</style>
               <div className="table">
                 <ContractTable/>
+              </div>
+              <div className="table">
                 <BidTable  />
               </div>
           </div>

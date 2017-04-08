@@ -57,11 +57,10 @@ class ContractTable extends Component {
     accessor: 'time' // String-based value accessors!
   }];
       return (
-          <ReactTable
-            data={TableRows}
-            columns={columns}
-            defaultPageSize={5}
-              />
+        <div>
+         <h3>Active Contracts</h3>
+          <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
+          </div>
       );
   }
 }
