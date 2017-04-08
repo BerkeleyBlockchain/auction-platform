@@ -14,6 +14,7 @@ class ContractTable extends Component {
         qty: "",
         tPrice: "",
         tTime: "",
+        interval : 0
     }
   }
   componentWillMount() {
@@ -24,9 +25,25 @@ class ContractTable extends Component {
       qty: String(data[2]).split(','),
       tPrice: String(data[3]).split(','),
       tTime: String(data[4]).split(',')
-
     })
   }
+
+  componentDidMount(){
+    setInterval(function() {
+        var data = smartContract.getContracts()
+        this.setState({
+          contractId: String(data[0]).split(','),
+          asset: String(data[1]).split(','),
+          qty: String(data[2]).split(','),
+          tPrice: String(data[3]).split(','),
+          tTime: String(data[4]).split(','),
+          interval: this.state.interval + 1
+        })
+        this.render()
+    }.bind(this), 5000);
+  }
+
+
 
   render() {
     var TableRows = []
