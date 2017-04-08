@@ -50,6 +50,7 @@ class BiddingForm extends Component {
 			thing4: ''
 		});
 	}
+	
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
@@ -79,15 +80,15 @@ class BiddingForm extends Component {
 					<tbody>
 					<tr>
 
-						<td><label className="form-label">Asset</label></td>
+						<td><label className="form-label">Contract Id</label></td>
 
 						<td><SingleInput
 						className="inputField"
-						inputType={'text'}
+						inputType={'number'}
 						name={'name'}
 						controlFunc={this.handleThing1}
 						content={this.state.thing1}
-						placeholder={'Asset'} />
+						placeholder={'Contract Id'} />
 						</td>
 					</tr>
 
@@ -97,7 +98,7 @@ class BiddingForm extends Component {
 
 						<td><SingleInput
 							className="inputfield"
-							inputType={'number'}
+							inputType={'text'}
 							title={'Supplier   '}
 							name={'name'}
 							controlFunc={this.handleThing2}
