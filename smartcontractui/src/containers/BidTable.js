@@ -49,8 +49,8 @@ class BidTable extends Component {
       TableRows.push( {
           cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
           suppliers: ETHEREUM_CLIENT.toAscii(this.state.suppliers[index]),
-          price: ETHEREUM_CLIENT.toAscii(this.state.prices[index]),
-          time : ETHEREUM_CLIENT.toAscii(this.state.timesToComplete[index])
+          price: ETHEREUM_CLIENT.toDecimal(this.state.prices[index]),
+          time : ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])
       }
         );
     });
@@ -70,7 +70,7 @@ class BidTable extends Component {
   }];
       return (
 				<div>
-					<h2>Bids</h2>
+					<h2 className = "bloo">Bids</h2>
           <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
 					<BidModal/>
 				</div>

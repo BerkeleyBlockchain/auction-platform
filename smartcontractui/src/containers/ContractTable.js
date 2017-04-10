@@ -5,6 +5,8 @@ import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ContractModal from './ContractModal';
+import AddFieldModal from './AddFieldModal';
+
 
 class ContractTable extends Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class ContractTable extends Component {
         qty: "",
         tPrice: "",
         tTime: "",
+        ef1: "",
         interval : 0
     }
   }
@@ -25,7 +28,8 @@ class ContractTable extends Component {
       asset: String(data[1]).split(','),
       qty: String(data[2]).split(','),
       tPrice: String(data[3]).split(','),
-      tTime: String(data[4]).split(',')
+      tTime: String(data[4]).split(','),
+      ef1: String(data[5]).split(',')
     })
   }
 
@@ -38,6 +42,7 @@ class ContractTable extends Component {
           qty: String(data[2]).split(','),
           tPrice: String(data[3]).split(','),
           tTime: String(data[4]).split(','),
+          ef1: String(data[5]).split(','),
           interval: this.state.interval + 1
         })
         this.render()
@@ -53,9 +58,10 @@ class ContractTable extends Component {
       TableRows.push( {
           cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
           asset: ETHEREUM_CLIENT.toAscii(this.state.asset[index]),
-          qty: this.state.qty[index],
+          qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
           price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
-          time : ETHEREUM_CLIENT.toDecimal(this.state.tTime[index])
+          time : ETHEREUM_CLIENT.toDecimal(this.state.tTime[index]),
+          ef1 : ETHEREUM_CLIENT.toAscii(this.state.ef1[index])
       }
         );
     });
@@ -67,20 +73,24 @@ class ContractTable extends Component {
     header: 'Asset',
     accessor: 'asset' // String-based value accessors!
     },{
-    header: 'Price',
-    accessor: 'price' // String-based value accessors!
-    },{
     header: 'Quantity',
     accessor: 'qty' // String-based value accessors!
     },{
+    header: 'Price',
+    accessor: 'price' // String-based value accessors!
+    },{
     header: 'Time to Complete',
     accessor: 'time' // String-based value accessors!
+    },{
+    header: 'Additional Field',
+    accessor: 'ef1' // String-based value accessors!
   }];
       return (
         <div>
          <h2 className="bloo">Active Contracts</h2>
          <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
          <ContractModal/>
+         <AddFieldModal/>
        </div>
       );
   }

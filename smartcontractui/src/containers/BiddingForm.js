@@ -85,6 +85,7 @@ class BiddingForm extends Component {
 						<td><SingleInput
 						className="inputField"
 						inputType={'number'}
+						title={'Contract ID		'}
 						name={'name'}
 						controlFunc={this.handleThing1}
 						content={this.state.thing1}
