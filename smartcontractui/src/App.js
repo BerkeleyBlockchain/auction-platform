@@ -3,11 +3,12 @@ import logo from './assets/img/Airbus-PNG-Picture.png';
 import './assets/css/App.css';
 import _ from 'lodash';
 import './assets/css/aispec.ttf';
-import FormContainer from './containers/FormContainer';
-import BiddingForm from './containers/BiddingForm';
+// import FormContainer from './containers/FormContainer';
+// import BiddingForm from './containers/BiddingForm';
 import BidTable from './containers/BidTable';
 import ContractTable from './containers/ContractTable';
 import { Connect } from 'uport-connect';
+
 
 class App extends Component {
     constructor(props) {
@@ -31,28 +32,15 @@ class App extends Component {
 
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h3>Logged in as {this.state.credential.name} with address {this.state.credential.address}</h3>
+          <h3 className="h3-right bloo">Logged in as {this.state.credential.name} with address {this.state.credential.address}</h3>
         </div>
 
-        <div className="Aligner">
-            <div className="left">
-              <div className="formLeft">
-                <FormContainer  />
-                <BiddingForm  />
-              </div>
-            </div>
+        <div className="contract">
+          <ContractTable />
         </div>
 
-        <div className="right">
-          <div className="formRight">
-            <style>{"table{border: 3px solid #ccc; padding: 0 20px 25px 20px; border-radius: 10px;}"}</style>
-              <div className="table">
-                <ContractTable/>
-              </div>
-              <div className="table">
-                <BidTable  />
-              </div>
-          </div>
+        <div className="bid">
+          <BidTable />
         </div>
 
       </div>

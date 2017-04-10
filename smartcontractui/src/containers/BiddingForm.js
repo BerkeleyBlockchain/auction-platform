@@ -75,7 +75,7 @@ class BiddingForm extends Component {
 	render() {
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5>BID FORM</h5>
+				<h5 className="bloo">Bid Form</h5>
 				<table cellSpacing="10" cellPadding="10">
 					<tbody>
 					<tr>
@@ -112,7 +112,7 @@ class BiddingForm extends Component {
 
 						<td><SingleInput
 							className="inputfield"
-							inputType={'number'}
+							inputType={'text'}
 							title={'Target Price   '}
 							name={'name'}
 							controlFunc={this.handleThing3}
@@ -126,7 +126,7 @@ class BiddingForm extends Component {
 
 						<td><SingleInput
 							className="inputfield"
-							inputType={'number'}
+							inputType={'text'}
 							title={'Target Time   '}
 							name={'name'}
 							controlFunc={this.handleThing4}
@@ -142,7 +142,7 @@ class BiddingForm extends Component {
 					className="submitButton"
 					value="Submit"/>
 				<button
-					className="clear"
+					className="submitButton"
 					onClick={this.handleClearForm}>Clear</button>
 			</form>
 		);
