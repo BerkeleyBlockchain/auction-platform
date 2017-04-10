@@ -1,7 +1,67 @@
 .App {
   text-align: left;
   font-family: 'Montserrat', sans-serif;
-  background-color: #A4C4E5;
+  background-color: #FFFFFF;
+}
+
+.contract {
+  margin: 20px;
+  margin-top: 25px;
+}
+
+.bloo {
+  color: #0D47A1;
+}
+
+.h3-right {
+  float: right;
+}
+
+.bid {
+  margin: 20px;
+  margin-top: 100px;
+  color: #0D47A1;
+}
+
+.modal{
+  background: #FFFFFF;
+  color: #0D47A1;
+  border-radius: 3px;
+  border-color: #0D47A1;
+  font-size: 20px;
+  width: 170px;
+  height: 85px;
+  float: right;
+  margin-top: 30px;
+  margin-right: 30px;
+  border-radius: 30px;
+  margin-bottom: 100px;
+}
+
+.modal:hover{
+  background: #0D47A1;
+  color: #FFFFFF;
+  border-color: #0D47A1;
+}
+
+.modalDone{
+  background: #FFFFFF;
+  color: #0D47A1;
+  border-radius: 3px;
+  border-color: #0D47A1;
+  font-size: 20px;
+  width: 170px;
+  height: 85px;
+  float: right;
+  margin-top: 30px;
+  margin-right: 30px;
+  border-radius: 30px;
+}
+
+.modalDone:hover{
+  background: #0D47A1;
+  color: #FFFFFF;
+  border-color: #0D47A1;
 }
 
 @font-face {
@@ -16,7 +76,7 @@
 }
 
 .App-header {
-  background-color: #647EA5;
+  background-color: #EEEEEE;
   height: 60px;
   padding: 5px;
   color: #0B0B85;
@@ -94,7 +154,7 @@ td {
 }
 
 body {
-  background-color: #7a9aca;
+  background-color: #FFFFFF;
   padding-bottom: 80px;
   font-family: 'Montserrat', sans-serif;
 
@@ -143,11 +203,7 @@ input[type=submit],
 }*/
 
 .container {
-  background-color: #7a9aca;
-}
-
-.container:hover {
-  background-color: #6789BB;
+  background-color: #FFFFFF;
 }
 
 .inputField {
@@ -155,57 +211,27 @@ input[type=submit],
   border: none;
   border-bottom: solid 2px #c9c9c9;
   transition: border 0.3s;
+  width: 250px;
 }
 
 .submitButton {
-  width: 100px;
-  height: 30px;
-  background: #fff;
-  padding: 5px 20px;
-  border: 2px solid #6789BB;
-  border-radius: 15px;
-  cursor: pointer;
-  outline: none;
-  transition: all 250ms;
-
-  color: #6789BB;
-  letter-spacing: 1px;
-  font-size: 17px;
-  font-weight: bold;
-  font-family: 'Noto Sans', sans-serif;
-  transition: all 250ms;
+  background: #FFFFFF;
+  color: #0D47A1;
+  border-radius: 3px;
+  border-color: #0D47A1;
+  font-size: 20px;
+  width: 85px;
+  height: 42px;
+  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
 
 }
 
 .submitButton:hover {
-  background: #6789BB;
-  color: #fff;
-  font-size: 18px;
-}
-
-.clear {
-  width: 100px;
-  height: 30px;
-  background: #fff;
-  padding: 5px 20px;
-  border: 2px solid #6789BB;
-  border-radius: 15px;
-  cursor: pointer;
-  outline: none;
-  transition: all 250ms;
-
-  color: #6789BB;
-  letter-spacing: 1px;
-  font-size: 17px;
-  font-weight: bold;
-  font-family: 'Noto Sans', sans-serif;
-  transition: all 250ms;
-}
-
-.clear:hover {
-  background: #6789BB;
-  color: #fff;
-  font-size: 18px;
+  background: #0D47A1;
+  color: #FFFFFF;
+  border-color: #0D47A1;
 }
 
 h5 {

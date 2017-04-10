@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+import BidModal from './BidModal.js';
 
 class BidTable extends Component {
 	constructor(props) {
@@ -48,8 +49,8 @@ class BidTable extends Component {
       TableRows.push( {
           cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
           suppliers: ETHEREUM_CLIENT.toAscii(this.state.suppliers[index]),
-          price: ETHEREUM_CLIENT.toDecimal(this.state.prices[index]),
-          time : ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])
+          price: ETHEREUM_CLIENT.toAscii(this.state.prices[index]),
+          time : ETHEREUM_CLIENT.toAscii(this.state.timesToComplete[index])
       }
         );
     });
@@ -69,8 +70,9 @@ class BidTable extends Component {
   }];
       return (
 				<div>
-					<h3>Bids</h3>
+					<h2>Bids</h2>
           <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
+					<BidModal/>
 				</div>
       );
   }

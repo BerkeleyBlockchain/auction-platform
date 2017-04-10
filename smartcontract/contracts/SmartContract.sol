@@ -15,20 +15,21 @@ contract SmartContract {
         uint quantity;
         uint targetPrice;
         uint targetTime;
-        bytes32 supplier;
+        bytes32 ef1;
+        //bytes32 supplier;
         /*Date date;*/
     }
     struct Bid {
         uint contractId;
         bytes32 supplier;
-    address owner;
-    uint price;
-    uint bidTime;
+        address owner;
+        uint price;
+        uint bidTime;
     }
     function SmartContract() {
         count = 0;
     }
-    function addContract(bytes32 _asset, uint _quantity, uint _targetPrice, uint _targetTime, bytes32 _supplier) returns (bool success) {
+    function addContract(bytes32 _asset, uint _quantity, uint _targetPrice, uint _targetTime) returns (bool success) {
         Contract memory newContract; //creates new struct and memory
         /*Date memory _date;*/
         newContract.contractId = count;
@@ -36,15 +37,24 @@ contract SmartContract {
         newContract.quantity = _quantity;
         newContract.targetPrice = _targetPrice;
         newContract.targetTime = _targetTime;
+
+        bytes32 extraField1 = "";
+        newContract.ef1 = extraField1;
         /*_date.day = _day;
         _date.month = _month;
         _date.year = _year;*/
-        newContract.supplier = _supplier;
+        //newContract.supplier = _supplier;
         /*newContract.date = _date;*/
         contracts.push(newContract);//add elem to array
         count += 1;
         return true;
     }
+
+    function addField(uint _cid, bytes32 _extraField) returns (bool success) {
+      contracts[_cid].ef1 = _extraField;
+      return true;
+    }
+
     function bid(uint cid, bytes32 _supplier, uint _price, uint _bidTime) returns (bool success) {
         Bid memory newBid;
         newBid.contractId = cid;
@@ -62,7 +72,8 @@ contract SmartContract {
         uint[] memory qty = new uint[](length);
         uint[] memory targetPrice = new uint[](length);
         uint[] memory targetTime = new uint[](length);
-        bytes32[] memory supplier = new bytes32[](length);
+        bytes32[] memory extraField1 = new bytes32[](length);
+        //bytes32[] memory supplier = new bytes32[](length);
         /*Date[] memory date = new Date[](length);*/
         for (uint i = 0; i < contracts.length; i++) {
             Contract memory currentContract;
@@ -72,10 +83,11 @@ contract SmartContract {
             qty[i] = currentContract.quantity;
             targetPrice[i] = currentContract.targetPrice;
             targetTime[i] = currentContract.targetTime;
-            supplier[i] = currentContract.supplier;
+            extraField1[i] = currentContract.ef1;
+            //supplier[i] = currentContract.supplier;
             /*date[i] = currentContract.date;*/
         }
-        return (contractId, asset, qty, targetPrice, targetTime, supplier);
+        return (contractId, asset, qty, targetPrice, targetTime, extraField1);
     }
     function getBids(uint contractId) constant returns (uint[], bytes32[], uint[], uint[]){
         uint length = bidMap[contractId].length;

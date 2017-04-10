@@ -4,6 +4,7 @@ import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import ContractModal from './ContractModal';
 
 class ContractTable extends Component {
   constructor(props) {
@@ -52,9 +53,9 @@ class ContractTable extends Component {
       TableRows.push( {
           cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
           asset: ETHEREUM_CLIENT.toAscii(this.state.asset[index]),
-          qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
+          qty: this.state.qty[index],
           price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
-          time : this.state.tTime[index]
+          time : ETHEREUM_CLIENT.toDecimal(this.state.tTime[index])
       }
         );
     });
@@ -66,6 +67,9 @@ class ContractTable extends Component {
     header: 'Asset',
     accessor: 'asset' // String-based value accessors!
     },{
+    header: 'Price',
+    accessor: 'price' // String-based value accessors!
+    },{
     header: 'Quantity',
     accessor: 'qty' // String-based value accessors!
     },{
@@ -74,9 +78,10 @@ class ContractTable extends Component {
   }];
       return (
         <div>
-         <h3>Active Contracts</h3>
-          <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
-          </div>
+         <h2 className="bloo">Active Contracts</h2>
+         <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
+         <ContractModal/>
+       </div>
       );
   }
 }
