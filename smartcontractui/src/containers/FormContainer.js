@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
 import '../assets/css/App.css';
+
 // import ContractTable from './ContractTable';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from 'react-select';
@@ -16,10 +17,13 @@ class FormContainer extends Component {
 			thing2 : '',
 			thing3 : '',
 			thing4 : '',
+			thing5 : '',
 			selection1 : 'asset',
-			selection3 : 'quantity',
-			selection4 : 'price',
-			selection5 : 'time',
+			selection2 : 'quantity',
+			selection3 : 'price',
+			selection4 : 'time',
+			selection5 : 'extraField1',
+			showEf1 : false
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
@@ -27,10 +31,15 @@ class FormContainer extends Component {
 		this.handleThing2 = this.handleThing2.bind(this);
 		this.handleThing3 = this.handleThing3.bind(this);
 		this.handleThing4 = this.handleThing4.bind(this);
+		this.handleThing5 = this.handleThing5.bind(this);
 		this.handleSelection1 = this.handleSelection1.bind(this);
 		this.handleSelection2 = this.handleSelection2.bind(this);
 		this.handleSelection3 = this.handleSelection3.bind(this);
 		this.handleSelection4 = this.handleSelection4.bind(this);
+		this.handleSelection5 = this.handleSelection5.bind(this);
+
+		this.handleOpenEf1 = this.handleOpenEf1.bind(this);
+    this.handleCloseEf1 = this.handleCloseEf1.bind(this);
 	}
 
 	handleSelection1(val) {
@@ -49,6 +58,10 @@ class FormContainer extends Component {
 		this.setState({ selection4: val }, () => console.log('name:', this.state.selection4));
 	}
 
+	handleSelection5(val) {
+		this.setState({ selection5: val }, () => console.log('name:', this.state.selection5));
+	}
+
 	handleThing1(e) {
 		this.setState({ thing1: e.target.value }, () => console.log('name:', this.state.thing1));
 	}
@@ -65,6 +78,10 @@ class FormContainer extends Component {
 		this.setState({ thing4: e.target.value }, () => console.log('name:', this.state.thing4));
 	}
 
+	handleThing5(e) {
+		this.setState({ thing5: e.target.value }, () => console.log('name:', this.state.thing5));
+	}
+
 
 	handleClearForm(e) {
 		e.preventDefault();
@@ -73,10 +90,12 @@ class FormContainer extends Component {
 			thing2: '',
 			thing3: '',
 			thing4: '',
+			thing5: '',
 			selection1 : '',
 			selection2 : '',
 			selection3 : '',
-			selection4 : ''
+			selection4 : '',
+			selection5 : ''
 		});
 	}
 	handleFormSubmit(e) {
@@ -95,17 +114,36 @@ class FormContainer extends Component {
 		//window.location.reload();
 	}
 
+	handleOpenEf1 () {
+    this.setState({ showEf1: true });
+  }
+
+  handleCloseEf1 () {
+    this.setState({ showEf1: false });
+  }
+
+	handleSubmitEf1 (f) {
+		f.preventDefault();
+		const formPayload = {
+			thing5: this.state.thing5
+		};
+		smartContract.addField.sendTransaction(0, formPayload.thing5, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+		console.log('Send this in a POST request:', formPayload);
+		this.handleClearForm(f);
+	}
+
 	render() {
 		var options = [
 		  { value: 'asset', label: 'Asset' },
 			{ value: 'quantity', label: 'Quantity' },
 			{ value: 'price', label: 'Price' },
 			{ value: 'time', label: 'Time to Complete' },
+			{ value: 'ef1', label: 'Additional Field' }
 		];
 
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5 className="bloo">Contact Creation Form</h5>
+				<h5 className="bloo">Contract Creation Form</h5>
 				<table cellSpacing="10" cellPadding="10">
 					<tbody>
 						<tr>
@@ -123,6 +161,7 @@ class FormContainer extends Component {
 						  <td><SingleInput
 						  className="inputField"
 						  inputType={'text'}
+							title={'Asset Type		'}
 						  name={'name'}
 						  controlFunc={this.handleThing1}
 						  content={this.state.thing1}
@@ -144,8 +183,8 @@ class FormContainer extends Component {
 
 						  <td><SingleInput
 						    className="inputfield"
-						    inputType={'text'}
-						    title={'Target Price   '}
+						    inputType={'number'}
+						    title={'Quantity   '}
 						    name={'name'}
 						    controlFunc={this.handleThing2}
 						    content={this.state.thing2}
@@ -168,8 +207,8 @@ class FormContainer extends Component {
 
 						  <td><SingleInput
 						    className="inputfield"
-						    inputType={'text'}
-						    title={'Target Time   '}
+						    inputType={'number'}
+						    title={'Target Price   '}
 						    name={'name'}
 						    controlFunc={this.handleThing3}
 						    content={this.state.thing3}
@@ -178,7 +217,6 @@ class FormContainer extends Component {
 						</tr>
 
 						<tr>
-
 							<td style={{margin : 10, width: 250}}><Select
  									 autofocus
  									 clearable={false}
@@ -191,13 +229,15 @@ class FormContainer extends Component {
 
 						  <td><SingleInput
 						    className="inputfield"
-						    inputType={'text'}
+						    inputType={'number'}
+								title={'Target Time   '}
 						    name={'name'}
 						    controlFunc={this.handleThing4}
 						    content={this.state.thing4}
 						    placeholder={''} />
 						  </td>
 						</tr>
+
 					</tbody>
 				</table>
 				<input
