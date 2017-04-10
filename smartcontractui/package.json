@@ -10,7 +10,8 @@
     "react-select": "^1.0.0-rc.3",
     "web3": "^0.18.2",
     "react-table": "^5.5.0",
-    "react-modal": "^1.7.3"
+    "react-modal": "^1.7.3",
+    "uport-connect": "^0.5.5"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
