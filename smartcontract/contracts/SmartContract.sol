@@ -3,6 +3,7 @@ contract SmartContract {
     Contract[] public contracts; //create array of contracts
     //Bid[] public bids;
     mapping(uint => Bid[]) bidMap;
+    uint bidTableContractId = 0;
     uint count;
     /*struct Date {
         uint day;
@@ -51,7 +52,18 @@ contract SmartContract {
     }
 
     function addField(uint _cid, bytes32 _extraField) returns (bool success) {
+      if (_cid > contracts.length) {
+        throw;
+      }
       contracts[_cid].ef1 = _extraField;
+      return true;
+    }
+
+    function setBidTableContractId(uint _cid) returns (bool success) {
+      if (_cid > contracts.length) {
+        throw;
+      }
+      bidTableContractId = _cid;
       return true;
     }
 
@@ -89,9 +101,9 @@ contract SmartContract {
         }
         return (contractId, asset, qty, targetPrice, targetTime, extraField1);
     }
-    function getBids(uint contractId) constant returns (uint[], bytes32[], uint[], uint[]){
-        uint length = bidMap[contractId].length;
-        Bid[] bids = bidMap[contractId];
+    function getBids() constant returns (uint[], bytes32[], uint[], uint[]){
+        uint length = bidMap[bidTableContractId].length;
+        Bid[] bids = bidMap[bidTableContractId];
         uint[] memory contractIds = new uint[](length);
         bytes32[] memory suppliers = new bytes32[](length);
         uint[] memory prices = new uint[](length);

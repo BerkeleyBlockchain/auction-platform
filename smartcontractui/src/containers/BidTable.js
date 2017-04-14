@@ -5,6 +5,7 @@ import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import BidModal from './BidModal.js';
+import GetContractBidsModal from './GetContractBidsModal.js';
 
 class BidTable extends Component {
 	constructor(props) {
@@ -18,7 +19,8 @@ class BidTable extends Component {
     }
   }
   componentWillMount() {
-    var data = smartContract.getBids(this.props.getContractID);
+    var data = smartContract.getBids();
+		console.log("here");
     this.setState({
       contractId: String(data[0]).split(','),
       suppliers: String(data[1]).split(','),
@@ -70,9 +72,10 @@ class BidTable extends Component {
   }];
       return (
 				<div>
-					<h2 className = "bloo">Bids</h2>
+					<h2 className="bloo">Bids</h2>
           <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
 					<BidModal/>
+					<GetContractBidsModal/>
 				</div>
       );
   }
