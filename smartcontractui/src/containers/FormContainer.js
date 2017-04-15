@@ -23,7 +23,6 @@ class FormContainer extends Component {
 			selection3 : 'price',
 			selection4 : 'time',
 			selection5 : 'extraField1',
-			showEf1 : false
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
@@ -37,9 +36,6 @@ class FormContainer extends Component {
 		this.handleSelection3 = this.handleSelection3.bind(this);
 		this.handleSelection4 = this.handleSelection4.bind(this);
 		this.handleSelection5 = this.handleSelection5.bind(this);
-
-		this.handleOpenEf1 = this.handleOpenEf1.bind(this);
-    this.handleCloseEf1 = this.handleCloseEf1.bind(this);
 	}
 
 	handleSelection1(val) {
@@ -114,23 +110,6 @@ class FormContainer extends Component {
 		//window.location.reload();
 	}
 
-	handleOpenEf1 () {
-    this.setState({ showEf1: true });
-  }
-
-  handleCloseEf1 () {
-    this.setState({ showEf1: false });
-  }
-
-	handleSubmitEf1 (f) {
-		f.preventDefault();
-		const formPayload = {
-			thing5: this.state.thing5
-		};
-		smartContract.addField.sendTransaction(0, formPayload.thing5, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-		console.log('Send this in a POST request:', formPayload);
-		this.handleClearForm(f);
-	}
 
 	render() {
 		var options = [
