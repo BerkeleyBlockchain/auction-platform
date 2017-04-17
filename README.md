@@ -1,7 +1,7 @@
-# SmartContractInterface
+# AuctionPlatform
 A smartcontract Dapp with a web based UI that keeps track of contract data by adding it into blocks to be mined on a test network. 
 ## Setup
-1. Etherium Client (original uses testrpc) v3.0.3
+1. Ethereum Client (original uses testrpc) v3.0.3
 2. Truffle v3.1.2
 3. Npm 4.3.0 / Nodejs v6.10.0
 
