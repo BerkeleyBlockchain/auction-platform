@@ -61,6 +61,7 @@ contract SmartContract {
       contracts[_cid].ef1.push(_extraField);
       return true;
     }
+
     function getFieldByContractID(uint _cid) constant returns (bytes32[]) {
       if (_cid > contracts.length) {
         throw;

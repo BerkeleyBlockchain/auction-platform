@@ -45,10 +45,10 @@ class ContractTable extends Component {
           tPrice: String(data[3]).split(','),
           tTime: String(data[4]).split(','),
           extra: String(data[5]).split(','),
-          ef1: String(info),
+          ef1: String(info).split(','),
           interval: this.state.interval + 1
         })
-        console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1))
+        console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1[0]))
         this.render()
     }.bind(this), 5000);
   }
@@ -96,8 +96,10 @@ class ContractTable extends Component {
            defaultPageSize={5}
            SubComponent={(row) => {
              return (
-                <div>
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1)}
+                <div className="bloo">
+                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
+                  <br></br>
+                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[1])}
                 </div>
               )
             }}/>
