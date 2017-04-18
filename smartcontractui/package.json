@@ -11,8 +11,7 @@
     "web3": "^0.18.2",
     "react-table": "^5.5.0",
     "react-modal": "^1.7.3",
-    "uport-connect": "^0.5.5",
-    "homepage" : "https://auction-platform.herokuapp.com/"
+    "uport-connect": "^0.5.5"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
@@ -22,5 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "engines": {
+    "yarn": "0.22.0"
   }
 }
