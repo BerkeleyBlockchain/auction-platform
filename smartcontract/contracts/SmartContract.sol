@@ -94,6 +94,7 @@ contract SmartContract {
         uint[] memory targetPrice = new uint[](length);
         uint[] memory targetTime = new uint[](length);
         bytes32[] memory extraField1 = new bytes32[](length);
+        /*bytes32[][] memory additionalInfo = new bytes32[][](length);*/
         //bytes32[] memory supplier = new bytes32[](length);
         /*Date[] memory date = new Date[](length);*/
         for (uint i = 0; i < contracts.length; i++) {
@@ -105,6 +106,10 @@ contract SmartContract {
             targetPrice[i] = currentContract.targetPrice;
             targetTime[i] = currentContract.targetTime;
             extraField1[i] = currentContract.extra;
+
+            /*for (uint j = 0; j < currentContract.ef1.length; j++) {
+              additionalInfo[i][j] = currentContract.ef1[j];
+            }*/
             //supplier[i] = currentContract.supplier;
             /*date[i] = currentContract.date;*/
         }
