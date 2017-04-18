@@ -38,7 +38,7 @@ class ContractTable extends Component {
     setInterval(function() {
         var data = smartContract.getContracts()
         var i;
-        var info =
+        var info = ''
         for(i=0; i<data[6];i++ ){
           if(i > 0){
             info = info.concat(',');
