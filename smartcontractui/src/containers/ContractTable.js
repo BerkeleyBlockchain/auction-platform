@@ -37,7 +37,15 @@ class ContractTable extends Component {
   componentDidMount(){
     setInterval(function() {
         var data = smartContract.getContracts()
-        var info = smartContract.getFieldByContractID(0)
+        var i;
+        var info =
+        for(i=0; i<data[6];i++ ){
+          if(i > 0){
+            info = info.concat(',');
+          }
+          info = info.concat(smartContract.getFieldByContractID(i));
+        }
+
         this.setState({
           contractId: String(data[0]).split(','),
           asset: String(data[1]).split(','),
@@ -45,9 +53,9 @@ class ContractTable extends Component {
           tPrice: String(data[3]).split(','),
           tTime: String(data[4]).split(','),
           extra: String(data[5]).split(','),
-          ef1: String(info),
+          ef1: String(info).split(','),
           interval: this.state.interval + 1
-        })
+        });
         console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1))
         this.render()
     }.bind(this), 5000);
