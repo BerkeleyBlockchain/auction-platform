@@ -7,11 +7,13 @@
     "react": "^15.4.2",
     "react-bootstrap-table": "^3.1.7",
     "react-dom": "^15.4.2",
-    "react-select": "^1.0.0-rc.3",
-    "web3": "^0.18.2",
-    "react-table": "^5.5.0",
     "react-modal": "^1.7.3",
-    "uport-connect": "^0.5.5"
+    "react-scrolllock": "^1.0.5",
+    "react-select": "^1.0.0-rc.3",
+    "react-table": "^5.5.0",
+    "uport-connect": "^0.5.5",
+    "web3": "^0.18.2",
+    "react-scrolllock" : "1.0.5"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"

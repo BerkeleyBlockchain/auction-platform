@@ -1,6 +1,7 @@
 import React from 'react';
 import AddFieldForm from './AddFieldForm';
 import ReactModal from 'react-modal';
+import ScrollLock from 'react-scrolllock';
 
 class AddFieldModal extends React.Component {
   constructor () {
@@ -27,9 +28,11 @@ class AddFieldModal extends React.Component {
         <button className="addForm" onClick={this.handleOpenAddFieldModal}>Add Contract Field</button>
         <ReactModal
            isOpen={this.state.showAddFieldModal}
-           contentLabel="AddField Form">
+           contentLabel="AddField Form"
+           className="container bloo">
           <AddFieldForm/>
           <button className="addFormDone" onClick={this.handleCloseAddFieldModal}>Done</button>
+          <ScrollLock />
         </ReactModal>
       </div>
     );

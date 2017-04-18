@@ -1,6 +1,7 @@
 import React from 'react';
 import BiddingForm from './BiddingForm';
 import ReactModal from 'react-modal';
+import ScrollLock from 'react-scrolllock';
 
 class BidModal extends React.Component {
   constructor () {
@@ -27,9 +28,11 @@ class BidModal extends React.Component {
         <button className="modal" onClick={this.handleOpenBidModal}>New Bid</button>
         <ReactModal
            isOpen={this.state.showBidModal}
-           contentLabel="Bid Form">
+           contentLabel="Bid Form"
+           className="container bloo">
           <BiddingForm/>
           <button className="modalDone" onClick={this.handleCloseBidModal}>Done</button>
+          <ScrollLock />
         </ReactModal>
       </div>
     );
