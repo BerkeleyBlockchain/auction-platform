@@ -29,7 +29,7 @@ class BidModal extends React.Component {
         <ReactModal
            isOpen={this.state.showBidModal}
            contentLabel="Bid Form"
-           className="container bloo">
+           className="bloo">
           <BiddingForm/>
           <button className="modalDone" onClick={this.handleCloseBidModal}>Done</button>
           <ScrollLock />
