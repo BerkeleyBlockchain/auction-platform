@@ -17,7 +17,10 @@ A smartcontract Dapp with a web based UI that keeps track of contract data by ad
 
 ## Kovan Deployment 
 1. In a new terminal window `$ parity ui --chain=kovan --jsonrpc-apis personal,eth,net,web3` contract is at: 0xEec9E9742774b47baAb33797E86778336b5F725c
-2. In a new terminal window `$ cd smartcontractui`
+2. in a new terminal window enter $ open -a Google\ Chrome --args --disable-web-security --user-data-dir
+   this disables the chrome browser security check that prevents the app from using the same
+   port as the blockchain. 
+3. In a new terminal window `$ cd smartcontractui`
 3. `$ npm start`
 4. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
 
