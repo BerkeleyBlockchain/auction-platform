@@ -73,8 +73,8 @@ class BidTable extends Component {
 				<div>
 					<h2 className="bloo">Bids</h2>
           <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
-					<BidModal/>
 					<GetContractBidsModal/>
+					<BidModal/>
 				</div>
       );
   }

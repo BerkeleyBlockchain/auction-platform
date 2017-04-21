@@ -1,10 +1,12 @@
 pragma solidity ^0.4.8;
 contract SmartContract {
-    Contract[] public contracts; //create array of contracts
+    Contract[] public openContracts; //array of open contracts
+    Contract[] public closedContracts;
+
     //Bid[] public bids;
     mapping(uint => Bid[]) bidMap;
     uint bidTableContractId = 0;
-    uint count;
+    uint count; //number of contracts
     /*struct Date {
         uint day;
         uint month;
@@ -18,6 +20,7 @@ contract SmartContract {
         uint targetTime;
         bytes32[] ef1;
         bytes32 extra;
+        /*bool closed;*/
         //bytes32 supplier;
         /*Date date;*/
     }
@@ -42,53 +45,77 @@ contract SmartContract {
 
         bytes32 extraField1 = "";
         newContract.extra = extraField1;
+        /*newContract.closed = false;*/
         /*_date.day = _day;
         _date.month = _month;
         _date.year = _year;*/
         //newContract.supplier = _supplier;
         /*newContract.date = _date;*/
-        contracts.push(newContract);//add elem to array
+        openContracts.push(newContract);//add elem to array
         count += 1;
         return true;
     }
 
+    function closeContract(uint _cid) returns (bool success) {
+      if (_cid > openContracts.length || _cid < 0) {
+        throw;
+      }
+      uint index = 0;
+      while (index <= openContracts.length) {
+        if (openContracts[index].contractId == _cid){
+          closedContracts.push(openContracts[index]);
+          break;
+        }
+        index++;
+      }
+
+      openContracts[index] = openContracts[openContracts.length - 1];
+      delete openContracts[openContracts.length-1];
+      openContracts.length--;
+      return true;
+    }
+
     function addField(uint _cid, bytes32 _extraField) returns (bool success) {
-      if (_cid > contracts.length) {
+      if (_cid > openContracts.length || _cid < 0) {
         throw;
       }
       bytes32 additional = "Additional Info";
-      contracts[_cid].extra = additional;
-      contracts[_cid].ef1.push(_extraField);
+      openContracts[_cid].extra = additional;
+      openContracts[_cid].ef1.push(_extraField);
       return true;
     }
 
     function getFieldByContractID(uint _cid) constant returns (bytes32[]) {
-      if (_cid > contracts.length) {
+      if (_cid > openContracts.length) {
         throw;
       }
-      return contracts[_cid].ef1;
+      return openContracts[_cid].ef1;
     }
 
     function setBidTableContractId(uint _cid) returns (bool success) {
-      if (_cid > contracts.length) {
+      if (_cid > openContracts.length || _cid < 0) {
         throw;
       }
       bidTableContractId = _cid;
       return true;
     }
 
-    function bid(uint cid, bytes32 _supplier, uint _price, uint _bidTime) returns (bool success) {
+    function bid(uint _cid, bytes32 _supplier, uint _price, uint _bidTime) returns (bool success) {
+      if (_cid > openContracts.length || _cid < 0) {
+        throw;
+      }
         Bid memory newBid;
-        newBid.contractId = cid;
+        newBid.contractId = _cid;
         newBid.supplier = _supplier;
         newBid.price = _price;
         newBid.bidTime = _bidTime;
         newBid.owner = msg.sender;
-        bidMap[cid].push(newBid);
+        bidMap[_cid].push(newBid);
         return true;
     }
-    function getContracts() constant returns (uint[], bytes32[], uint[], uint[], uint[], bytes32[]) {
-        uint length = contracts.length;
+
+    function getClosedContracts() constant returns (uint[], bytes32[], uint[], uint[], uint[], bytes32[]) {
+        uint length = closedContracts.length;
         uint[] memory contractId = new uint[](length);
         bytes32[] memory asset = new bytes32[](length);
         uint[] memory qty = new uint[](length);
@@ -98,24 +125,49 @@ contract SmartContract {
         /*bytes32[][] memory additionalInfo = new bytes32[][](length);*/
         //bytes32[] memory supplier = new bytes32[](length);
         /*Date[] memory date = new Date[](length);*/
-        for (uint i = 0; i < contracts.length; i++) {
+        for (uint i = 0; i < closedContracts.length; i++) {
             Contract memory currentContract;
-            currentContract = contracts[i];
-            contractId[i] = currentContract.contractId;
-            asset[i] = currentContract.asset;
-            qty[i] = currentContract.quantity;
-            targetPrice[i] = currentContract.targetPrice;
-            targetTime[i] = currentContract.targetTime;
-            extraField1[i] = currentContract.extra;
+            currentContract = closedContracts[i];
 
-            /*for (uint j = 0; j < currentContract.ef1.length; j++) {
-              additionalInfo[i][j] = currentContract.ef1[j];
-            }*/
-            //supplier[i] = currentContract.supplier;
-            /*date[i] = currentContract.date;*/
+            /*if (currentContract.closed) {*/
+              contractId[i] = currentContract.contractId;
+              asset[i] = currentContract.asset;
+              qty[i] = currentContract.quantity;
+              targetPrice[i] = currentContract.targetPrice;
+              targetTime[i] = currentContract.targetTime;
+              extraField1[i] = currentContract.extra;
+            /*}*/
         }
         return (contractId, asset, qty, targetPrice, targetTime, extraField1);
     }
+
+    function getOpenContracts() constant returns (uint[], bytes32[], uint[], uint[], uint[], bytes32[]) {
+        uint length = openContracts.length;
+        uint[] memory contractId = new uint[](length);
+        bytes32[] memory asset = new bytes32[](length);
+        uint[] memory qty = new uint[](length);
+        uint[] memory targetPrice = new uint[](length);
+        uint[] memory targetTime = new uint[](length);
+        bytes32[] memory extraField1 = new bytes32[](length);
+        /*bytes32[][] memory additionalInfo = new bytes32[][](length);*/
+        //bytes32[] memory supplier = new bytes32[](length);
+        /*Date[] memory date = new Date[](length);*/
+        for (uint i = 0; i < openContracts.length; i++) {
+            Contract memory currentContract;
+            currentContract = openContracts[i];
+
+            /*if (!currentContract.closed) {*/
+              contractId[i] = currentContract.contractId;
+              asset[i] = currentContract.asset;
+              qty[i] = currentContract.quantity;
+              targetPrice[i] = currentContract.targetPrice;
+              targetTime[i] = currentContract.targetTime;
+              extraField1[i] = currentContract.extra;
+            /*}*/
+        }
+        return (contractId, asset, qty, targetPrice, targetTime, extraField1);
+    }
+
     function getBids() constant returns (uint[], bytes32[], uint[], uint[]){
         uint length = bidMap[bidTableContractId].length;
         Bid[] bids = bidMap[bidTableContractId];

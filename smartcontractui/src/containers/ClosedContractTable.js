@@ -4,12 +4,9 @@ import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import ContractModal from './ContractModal';
-import AddFieldModal from './AddFieldModal';
-import CloseContractModal from './CloseContractModal';
 
 
-class ContractTable extends Component {
+class ClosedContractTable extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,7 +21,7 @@ class ContractTable extends Component {
     }
   }
   componentWillMount() {
-    var data = smartContract.getOpenContracts()
+    var data = smartContract.getClosedContracts()
     this.setState({
       contractId: String(data[0]).split(','),
       asset: String(data[1]).split(','),
@@ -37,8 +34,8 @@ class ContractTable extends Component {
 
   componentDidMount(){
     setInterval(function() {
-        var data = smartContract.getOpenContracts()
-        var info = smartContract.getFieldByContractID(0)
+        var data = smartContract.getClosedContracts()
+        // var info = smartContract.getFieldByContractID(0)
         this.setState({
           contractId: String(data[0]).split(','),
           asset: String(data[1]).split(','),
@@ -46,10 +43,10 @@ class ContractTable extends Component {
           tPrice: String(data[3]).split(','),
           tTime: String(data[4]).split(','),
           extra: String(data[5]).split(','),
-          ef1: String(info).split(','),
+          // ef1: String(info).split(','),
           interval: this.state.interval + 1
         })
-        console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1[0]))
+        // console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1[0]))
         this.render()
     }.bind(this), 5000);
   }
@@ -90,23 +87,23 @@ class ContractTable extends Component {
   }];
       return (
         <div>
-         <h2 className="bloo">Active Contracts</h2>
+         <h2 className="bloo">Closed Contracts</h2>
          <ReactTable
            data={TableRows}
            columns={columns}
            defaultPageSize={5}
-           SubComponent={(row) => {
-             return (
-                <div className="bloo">
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
-                </div>
-              )
-            }}/>
-         <CloseContractModal />
-         <AddFieldModal/>
-         <ContractModal/>
+          //  SubComponent={(row) => {
+          //    return (
+          //       <div className="bloo">
+          //         Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
+          //         <br></br>
+          //         Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[1])}
+          //       </div>
+          //     )
+          //   }}
+          />
        </div>
       );
   }
 }
-export default ContractTable;
+export default ClosedContractTable;
