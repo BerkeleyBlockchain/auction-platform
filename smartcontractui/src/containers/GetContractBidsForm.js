@@ -6,17 +6,19 @@ import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from 'react-select';
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
+import {client} from '../components/Requests';
 
 class GetContractBidsForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			thing1 : '',
-			selection1 : 'cid'
+			cId : '',
+			selection1 : 'cid',
+			TableRows: this.props.TableRows
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
-		this.handleThing1 = this.handleThing1.bind(this);
+		this.handlecId = this.handlecId.bind(this);
 		this.handleSelection1 = this.handleSelection1.bind(this);
 	}
 
@@ -24,15 +26,15 @@ class GetContractBidsForm extends Component {
 		this.setState({ selection1: val }, () => console.log('name:', this.state.selection1));
 	}
 
-	handleThing1(e) {
-		this.setState({ thing1: e.target.value }, () => console.log('name:', this.state.thing1));
+	handlecId(e) {
+		this.setState({ cId: e.target.value }, () => console.log('name:', this.state.cId));
 	}
 
 
 	handleClearForm(e) {
 		e.preventDefault();
 		this.setState({
-			thing1: '',
+			cId: '',
 			selection1 : ''
 		});
 	}
@@ -40,11 +42,10 @@ class GetContractBidsForm extends Component {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
 		const formPayload = {
-			thing1: this.state.thing1
+			cId: this.state.cId
 		};
 		//
-		smartContract.setBidTableContractId.sendTransaction(formPayload.thing1, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-
+		//smartContract.setBidTableContractId.sendTransaction(formPayload.cId, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
 		//window.location.reload();
@@ -77,8 +78,8 @@ class GetContractBidsForm extends Component {
 						  inputType={'number'}
 							title={'contractId		'}
 						  name={'name'}
-						  controlFunc={this.handleThing1}
-						  content={this.state.thing1}
+						  controlFunc={this.handlecId}
+						  content={this.state.cId}
 						  placeholder={''} />
 						  </td>
 						</tr>

@@ -13,12 +13,12 @@ class CloseContractForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			thing1 : '',
+			cId : '',
 			selection1 : 'cid',
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
-		this.handleThing1 = this.handleThing1.bind(this);
+		this.handlecId = this.handlecId.bind(this);
 		this.handleSelection1 = this.handleSelection1.bind(this);
 	}
 
@@ -26,15 +26,15 @@ class CloseContractForm extends Component {
 		this.setState({ selection1: val }, () => console.log('name:', this.state.selection1));
 	}
 
-	handleThing1(e) {
-		this.setState({ thing1: e.target.value }, () => console.log('name:', this.state.thing1));
+	handlecId(e) {
+		this.setState({ cId: e.target.value }, () => console.log('name:', this.state.cId));
 	}
 
 
 	handleClearForm(e) {
 		e.preventDefault();
 		this.setState({
-			thing1: '',
+			cId: '',
 			selection1 : '',
 		});
 	}
@@ -42,9 +42,9 @@ class CloseContractForm extends Component {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
 		const formPayload = {
-			thing1: this.state.thing1,
+			cId: this.state.cId,
 		};
-		smartContract.closeContract.sendTransaction(formPayload.thing1, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 3000000});
+		smartContract.closeContract.sendTransaction(formPayload.cId, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 3000000});
 
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
@@ -78,8 +78,8 @@ class CloseContractForm extends Component {
 						  inputType={'number'}
 							title={'contractId		'}
 						  name={'name'}
-						  controlFunc={this.handleThing1}
-						  content={this.state.thing1}
+						  controlFunc={this.handlecId}
+						  content={this.state.cId}
 						  placeholder={''} />
 						  </td>
 						</tr>
