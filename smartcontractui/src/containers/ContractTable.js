@@ -5,6 +5,7 @@ import {ETHEREUM_CLIENT, } from '../components/EthereumSetup';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ContractModal from './ContractModal';
+import EditContractModal from './EditContractModal';
 // import AddFieldModal from './AddFieldModal';
 import CloseContractModal from './CloseContractModal';
 import {client} from '../components/Requests';
@@ -104,6 +105,7 @@ class ContractTable extends Component {
             }}/>
         <button className="modalDone" onClick={this.handleRefresh}>Refresh Data</button>
          <CloseContractModal />
+         <EditContractModal/>
          <ContractModal/>
        </div>
       );
