@@ -7,7 +7,13 @@ import 'react-table/react-table.css'
 import ContractModal from './ContractModal';
 import AddFieldModal from './AddFieldModal';
 
-
+function hex2a(hexx) {
+    var hex = hexx.toString();//force conversion
+    var str = '';
+    for (var i = 0; i < hex.length; i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    return str;
+}
 class ContractTable extends Component {
   constructor(props) {
     super(props)
@@ -37,7 +43,7 @@ class ContractTable extends Component {
   componentDidMount(){
     setInterval(function() {
         var data = smartContract.getContracts()
-        var info = smartContract.getFieldByContractID(0)
+        // var info = smartContract.getFieldByContractID(0)
         this.setState({
           contractId: String(data[0]).split(','),
           asset: String(data[1]).split(','),
@@ -45,7 +51,7 @@ class ContractTable extends Component {
           tPrice: String(data[3]).split(','),
           tTime: String(data[4]).split(','),
           extra: String(data[5]).split(','),
-          ef1: String(info),
+          // ef1: String(info),
           interval: this.state.interval + 1
         })
         console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1))
@@ -97,7 +103,7 @@ class ContractTable extends Component {
            SubComponent={(row) => {
              return (
                 <div>
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1)}
+                  Additional Field: {hex2a(smartContract.getFieldByContractID(row.index))}
                 </div>
               )
             }}/>

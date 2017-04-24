@@ -61,11 +61,11 @@ contract SmartContract {
       contracts[_cid].ef1.push(_extraField);
       return true;
     }
-    function getFieldByContractID(uint _cid) constant returns (bytes32[]) {
+    function getFieldByContractID(uint _cid) constant returns (bytes32[], uint) {
       if (_cid > contracts.length) {
         throw;
       }
-      return contracts[_cid].ef1;
+      return (contracts[_cid].ef1, _cid);
     }
 
     function setBidTableContractId(uint _cid) returns (bool success) {
@@ -130,4 +130,7 @@ contract SmartContract {
         }
         return (contractIds, suppliers, prices, timesToComplete);
     }
+    /*function returnArg(uint arg) constant returns (bytes32){
+      return arg;
+    }*/
 }
