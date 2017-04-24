@@ -86,7 +86,7 @@ contract SmartContract {
         bidMap[cid].push(newBid);
         return true;
     }
-    function getContracts() constant returns (uint[], bytes32[], uint[], uint[], uint[], bytes32[]) {
+    function getContracts() constant returns (uint[], bytes32[], uint[], uint[], uint[], bytes32[], uint) {
         uint length = contracts.length;
         uint[] memory contractId = new uint[](length);
         bytes32[] memory asset = new bytes32[](length);
@@ -106,14 +106,13 @@ contract SmartContract {
             targetPrice[i] = currentContract.targetPrice;
             targetTime[i] = currentContract.targetTime;
             extraField1[i] = currentContract.extra;
-
             /*for (uint j = 0; j < currentContract.ef1.length; j++) {
               additionalInfo[i][j] = currentContract.ef1[j];
             }*/
             //supplier[i] = currentContract.supplier;
             /*date[i] = currentContract.date;*/
         }
-        return (contractId, asset, qty, targetPrice, targetTime, extraField1);
+        return (contractId, asset, qty, targetPrice, targetTime, extraField1, length);
     }
     function getBids() constant returns (uint[], bytes32[], uint[], uint[]){
         uint length = bidMap[bidTableContractId].length;

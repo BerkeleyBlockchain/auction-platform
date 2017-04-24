@@ -53,7 +53,7 @@ class ContractTable extends Component {
           extra: String(data[5]).split(','),
           // ef1: String(info),
           interval: this.state.interval + 1
-        })
+        });
         console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1))
         this.render()
     }.bind(this), 5000);
