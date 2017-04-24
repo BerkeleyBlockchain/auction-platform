@@ -15,7 +15,7 @@ class BidTable extends Component {
 				TableRows: [],
 				interval: 0
     }
-		this.updateTable.bind(this);
+		this.updateTable = this.updateTable.bind(this);
   }
 
 	componentDidMount(){
@@ -81,7 +81,7 @@ class BidTable extends Component {
 				<div>
 					<h2 className="bloo">Bids</h2>
           <ReactTable data={this.state.TableRows} columns={columns} defaultPageSize={5}/>
-					<button className="modal" onClick={this.updateTable}>Update Table</button>
+					<button className="modal" onClick={this.updateTable}>Refresh Data</button>
 					<BidModal/>
 				</div>
       );

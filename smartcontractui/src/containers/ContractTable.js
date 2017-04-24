@@ -19,6 +19,29 @@ class ContractTable extends Component {
         extra: [],
         interval : 0
     };
+    this.handleRefresh = this.handleRefresh.bind(this);
+  }
+
+  handleRefresh() {
+    var self = this;
+    var TableRows = [];
+    client.get('/contracts/', function(err, res, body) {
+      if (err == null){
+        for(var key in body) {
+          TableRows.push ({
+            cId: body[key]['cId'],
+            asset: body[key]['asset'],
+            qty: body[key]['qty'],
+            time: body[key]['time'],
+            price: body[key]['price'],
+            date: Date(key['date']).toString(),
+						extra: body[key]['price']
+          });
+        }
+        self.setState({TableRows : TableRows});
+      }
+    });
+    this.render();
   }
 
   componentWillMount() {
@@ -79,8 +102,8 @@ class ContractTable extends Component {
                 </div>
               )
             }}/>
+        <button className="modalDone" onClick={this.handleRefresh}>Refresh Data</button>
          <CloseContractModal />
-         <AddFieldModal/>
          <ContractModal/>
        </div>
       );
