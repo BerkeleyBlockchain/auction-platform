@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+// import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import {client} from '../components/Requests';
 
 class BiddingForm extends Component {

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+// import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import BidModal from './BidModal.js';
-import GetContractBidsModal from './GetContractBidsModal.js';
+// import GetContractBidsModal from './GetContractBidsModal.js';
 import {client} from '../components/Requests';
 
 class BidTable extends Component {

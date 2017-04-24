@@ -82,7 +82,7 @@ class ClosedContractTable extends Component {
     header: 'Time to Complete',
     accessor: 'time' // String-based value accessors!
     },{
-    header: 'Additional Field',
+    header: 'Closed By',
     accessor: 'extra' // String-based value accessors!
   }];
       return (
