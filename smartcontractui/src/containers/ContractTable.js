@@ -33,7 +33,8 @@ class ContractTable extends Component {
             qty: body[key]['qty'],
             time: body[key]['time'],
             price: body[key]['price'],
-            date: Date(key['date']).toString()
+            date: Date(key['date']).toString(),
+						extra: body[key]['price']
           });
         }
         self.setState({TableRows : TableRows});
@@ -43,7 +44,7 @@ class ContractTable extends Component {
 
   render() {
     const columns = [{
-    header: 'Contract Id',
+    header: 'Id',
     accessor: 'cId' // String-based value accessors!
     },{
     header: 'Asset',

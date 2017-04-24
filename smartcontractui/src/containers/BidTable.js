@@ -29,7 +29,8 @@ class BidTable extends Component {
             supplier: body[key]['supplier'],
             time: body[key]['time'],
             price: body[key]['price'],
-            date: Date(key['date']).toString()
+            date: Date(key['date']).toString(),
+						extra: body[key]['price']
           });
         }
         self.setState({TableRows : TableRows});
@@ -48,7 +49,8 @@ class BidTable extends Component {
             supplier: body[key]['supplier'],
             time: body[key]['time'],
             price: body[key]['price'],
-            date: Date(key['date']).toString()
+            date: Date(key['date']).toString(),
+						extra: body[key]['price']
           });
         }
         self.setState({TableRows : TableRows});
@@ -60,7 +62,7 @@ class BidTable extends Component {
 	render() {
 
     const columns = [{
-    header: 'Contract Id',
+    header: 'Id',
     accessor: 'cId' // String-based value accessors!
     },{
     header: 'Supplier',

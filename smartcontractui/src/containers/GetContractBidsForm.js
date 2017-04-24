@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
 import '../assets/css/App.css';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 // import ContractTable from './ContractTable';
 import Select from 'react-select';
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
-import {client} from '../components/Requests';
 
 class GetContractBidsForm extends Component {
 	constructor(props) {
