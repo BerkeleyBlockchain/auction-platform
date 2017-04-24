@@ -8,4 +8,28 @@ var smartContractAddress = '0xa5acede8f7977543205633a6786973caeec1eb3e';
 
 ETHEREUM_CLIENT.eth.defaultAccount = ETHEREUM_CLIENT.eth.accounts[0];
 const smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress);
+
+/*var parts = ["wing", "nail", "door", "screw", "seat",
+ "seatbelt", "carpet", "switch", "buckle", "fastener", "cup", "tray", "magazine"];
+var suppliers = ["Ali", "Collin", "Ronen", "Jon", "Max", "Sunny", "Gillian", "Nihar", "Varun", "Oski", "Hug", "DeNero", "Rao"];
+var qty = 209381;
+var time = 2394;
+var price = 1832;
+var i = 1;*/
+
+/* UNCOMMENT THE FOLLOWING PORTION IF YOU WANT A LOT OF CONTRACTS ON THE NETWORK */
+
+/*
+smartContract.addContract.sendTransaction(parts[i*31%(parts.length)], i+1*4*qty % 239, price*i+1*7%23, time*i+1*31%439, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+for(; i < 10; i++) {
+  smartContract.addContract.sendTransaction(parts[i*31%(parts.length)], i+1*4*qty % 239, price*i+1*7%23, time*i+1*31%439, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+}
+
+for(i = 0; i < 10; i++) {
+  for (var j = 0; j < 8; j++){
+    smartContract.bid.sendTransaction(i, suppliers[j*31%(parts.length)], price*j+1*7%23, time*j+1*31%439, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+  }
+}
+*/
+
 export {ETHEREUM_CLIENT, smartContract};
