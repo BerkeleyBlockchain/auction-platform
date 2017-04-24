@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './assets/img/bab.png';
+import logo from './assets/img/Airbus-PNG-Picture.png';
 import './assets/css/App.css';
 import _ from 'lodash';
 import './assets/css/aispec.ttf';
