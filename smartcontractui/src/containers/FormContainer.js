@@ -106,15 +106,17 @@ class FormContainer extends Component {
 			extra: this.state.extra,
 			cId : -1
 		}
-		client.get('/count', function(err, res, body) {
+		client.get('count/', function(err, res, body) {
       if (err == null){
 					formPayload.cId = body.count;
+					console.log(body.count);
+					client.post('contracts/addContract', formPayload, function(err, res, body) {
+							return console.log(body, res);
+					});
 				}
 		});
 		//smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-		client.post('contracts/addContract', formPayload, function(err, res, body) {
-				return console.log(body, res);
-		});
+
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
 		//window.location.reload();

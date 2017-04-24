@@ -130,12 +130,12 @@ class EditContractForm extends Component {
 			qty: this.state.qty,
 			date: Date.now(),
 			extra: this.state.extra,
-			cId: parseInt(this.state.cId)
+			cId: parseInt(this.state.cId, 10)
 		}
 		//smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 		var self = this;
 		client.post('/editContract', formPayload, function(err, res, body) {
-			client.headers['cId'] = parseInt(self.state.cId);
+			client.headers['cId'] = parseInt(self.state.cId, 10);
 			client.get('/closeContract', formPayload, function(err, res, body) {
 					return console.log(body, res);
 			});

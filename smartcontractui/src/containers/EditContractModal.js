@@ -1,7 +1,7 @@
 import React from 'react';
 import EditContractForm from './EditContractForm';
 import ReactModal from 'react-modal';
-import ScrollLock from 'react-scrolllock';
+// import ScrollLock from 'react-scrolllock';
 
 class EditContractModal extends React.Component {
   constructor () {
