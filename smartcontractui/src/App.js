@@ -7,6 +7,7 @@ import './assets/css/aispec.ttf';
 // import BiddingForm from './containers/BiddingForm';
 import BidTable from './containers/BidTable';
 import ContractTable from './containers/ContractTable';
+import ClosedContractTable from './containers/ClosedContractTable'
 import { Connect } from 'uport-connect';
 
 
@@ -41,6 +42,10 @@ class App extends Component {
 
         <div className="bid">
           <BidTable />
+        </div>
+
+        <div className="contractClosed">
+          <ClosedContractTable />
         </div>
 
       </div>

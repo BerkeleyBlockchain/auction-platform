@@ -1,83 +1,91 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import '../assets/css/App.css';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
+// import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import BidModal from './BidModal.js';
-import GetContractBidsModal from './GetContractBidsModal.js';
+// import GetContractBidsModal from './GetContractBidsModal.js';
+import {client} from '../components/Requests';
 
 class BidTable extends Component {
 	constructor(props) {
     super(props)
     this.state = {
-        contractId: "",
-        suppliers: "",
-        prices: "",
-        timesToComplete: "",
+				TableRows: [],
 				interval: 0
     }
-  }
-  componentWillMount() {
-    var data = smartContract.getBids();
-		console.log("here");
-    this.setState({
-      contractId: String(data[0]).split(','),
-      suppliers: String(data[1]).split(','),
-      prices: String(data[2]).split(','),
-      timesToComplete: String(data[3]).split(',')
-
-    })
+		this.updateTable = this.updateTable.bind(this);
   }
 
 	componentDidMount(){
-    setInterval(function() {
-        var data = smartContract.getBids()
-        this.setState({
-          contractId: String(data[0]).split(','),
-          suppliers: String(data[1]).split(','),
-          prices: String(data[2]).split(','),
-          timesToComplete: String(data[3]).split(','),
-          interval: this.state.interval + 1
-        })
-        this.render()
-    }.bind(this), 5000);
+		var self = this;
+    var TableRows = [];
+    client.get('/bids/', function(err, res, body) {
+      if (err == null){
+        for(var key in body) {
+          TableRows.push ({
+            cId: body[key]['cId'],
+            supplier: body[key]['supplier'],
+            time: body[key]['time'],
+            price: body[key]['price'],
+            date: Date(key['date']).toString(),
+						extra: body[key]['price']
+          });
+        }
+        self.setState({TableRows : TableRows});
+      }
+    });
   }
 
-	render() {
-    var TableRows = []
-
-    _.each(this.state.contractId, (value, index) => {
-      TableRows.push( {
-          cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
-          suppliers: ETHEREUM_CLIENT.toAscii(this.state.suppliers[index]),
-          price: ETHEREUM_CLIENT.toDecimal(this.state.prices[index]),
-          time : ETHEREUM_CLIENT.toDecimal(this.state.timesToComplete[index])
+	updateTable() {
+		var self = this;
+    var TableRows = [];
+    client.get('/bids/', function(err, res, body) {
+      if (err == null){
+        for(var key in body) {
+          TableRows.push ({
+            cId: body[key]['cId'],
+            supplier: body[key]['supplier'],
+            time: body[key]['time'],
+            price: body[key]['price'],
+            date: Date(key['date']).toString(),
+						extra: body[key]['price']
+          });
+        }
+        self.setState({TableRows : TableRows});
       }
-        );
     });
+		self.render();
+	}
+
+	render() {
 
     const columns = [{
-    header: 'Contract Id',
+    header: 'Id',
     accessor: 'cId' // String-based value accessors!
     },{
     header: 'Supplier',
-    accessor: 'suppliers' // String-based value accessors!
+    accessor: 'supplier' // String-based value accessors!
     },{
     header: 'Price',
     accessor: 'price' // String-based value accessors!
     },{
     header: 'Time to Complete',
     accessor: 'time' // String-based value accessors!
-  }];
+	  },{
+		header: 'Date',
+		accessor: 'date'
+		}];
       return (
 				<div>
 					<h2 className="bloo">Bids</h2>
-          <ReactTable data={TableRows} columns={columns} defaultPageSize={5}/>
+          <ReactTable data={this.state.TableRows} columns={columns} defaultPageSize={5}/>
+					<button className="modal" onClick={this.updateTable}>Refresh Data</button>
 					<BidModal/>
-					<GetContractBidsModal/>
 				</div>
       );
+			//<GetContractBidsModal/> removed for the time being
   }
 }
 export default BidTable;

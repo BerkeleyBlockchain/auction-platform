@@ -3,10 +3,10 @@ require('babel-register')
 
 module.exports = {
   networks: {
-    development: {
+    kovan: {
+      network_id: 42, // Match any network id
       host: 'localhost',
-      port: 8545,
-      network_id: '*' // Match any network id
+      port: 8545
     }
   }
 }

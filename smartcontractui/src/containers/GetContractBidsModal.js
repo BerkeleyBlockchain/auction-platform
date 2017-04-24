@@ -1,6 +1,7 @@
 import React from 'react';
 import GetContractBidsForm from './GetContractBidsForm.js';
 import ReactModal from 'react-modal';
+import ScrollLock from 'react-scrolllock';
 
 class GetContractBidsModal extends React.Component {
   constructor () {
@@ -27,9 +28,11 @@ class GetContractBidsModal extends React.Component {
         <button className="addForm" onClick={this.handleOpenAddFieldModal}>Get Contract Bids</button>
         <ReactModal
            isOpen={this.state.showAddFieldModal}
-           contentLabel="AddField Form">
+           contentLabel="AddField Form"
+           className="container bloo">
           <GetContractBidsForm/>
           <button className="addFormDone" onClick={this.handleCloseAddFieldModal}>Done</button>
+          <ScrollLock />
         </ReactModal>
       </div>
     );
