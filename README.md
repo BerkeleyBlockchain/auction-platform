@@ -19,14 +19,21 @@ A smartcontract Dapp with a web based UI that keeps track of contract data by ad
 1. in a new terminal window enter `$ open -a Google\ Chrome --args --disable-web-security --user-data-dir`
    this disables the chrome browser security check that prevents the app from using the same
    port as the blockchain. 
-2. In a new terminal window `$ parity ui --chain=kovan --jsonrpc-apis personal,eth,net,web3` contract is at: 0xEec9E9742774b47baAb33797E86778336b5F725c
-
+2. In a new terminal window `$ parity ui --chain=kovan --jsonrpc-apis personal,eth,net,web3` contract is at: 0xa5acede8f7977543205633a6786973caeec1eb3e
 3. In a new terminal window `$ cd smartcontractui`
 4. `$ npm start`
 5. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
 
 ## Interface / Methods
-coming soon
+### New Contract
+Creates a new contract with the specified Asset, Quantity, Price, Time, and optional additional field. The contract is submitted to the database and is open and able to be edited.
+### Close Contract
+Removes contract with given contract ID number (cId) from the database and mines the contract on the connected blockchain. The mined contract is immutable and will be displayed in the Closed Contracts table
+### Refresh
+Refreshes the database once a contract is added or closed.
+### New Bid
+Generates a new bid for the given cId. A bid consists of a Supplier, Price, and Time that a bidder is willing to bet. 
 
-### Credits:
+
+## Credits:
 This smart contract was adapted from a tutorial by [Jordan Leigh](https://www.youtube.com/watch?v=3-XPBtAfcqo&list=PLV1JDFUtrXpGvu8QHL9b78WYNSJsYNZsb&index=2)..
