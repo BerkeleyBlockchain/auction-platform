@@ -9,15 +9,17 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 
-class FormContainer extends Component {
+class EditContractForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			cId: '',
 			asset : '',
 			time : '',
 			price : '',
 			qty : '',
 			extra : '',
+			selectionCId: 'cId',
 			selection1 : 'asset',
 			selection2 : 'quantity',
 			selection3 : 'price',
@@ -31,11 +33,16 @@ class FormContainer extends Component {
 		this.handleprice = this.handleprice.bind(this);
 		this.handleQty = this.handleQty.bind(this);
 		this.handleExtra = this.handleExtra.bind(this);
+		this.handleCId = this.handleCId.bind(this);
 		this.handleSelection1 = this.handleSelection1.bind(this);
 		this.handleSelection2 = this.handleSelection2.bind(this);
 		this.handleSelection3 = this.handleSelection3.bind(this);
 		this.handleSelection4 = this.handleSelection4.bind(this);
 		this.handleSelection5 = this.handleSelection5.bind(this);
+	}
+
+	handleSelectionCId(val) {
+		this.setState({ selectionCId: val }, () => console.log('name:', this.state.selectionCId));
 	}
 
 	handleSelection1(val) {
@@ -56,6 +63,25 @@ class FormContainer extends Component {
 
 	handleSelection5(val) {
 		this.setState({ selection5: val }, () => console.log('name:', this.state.selection5));
+	}
+
+	handleCId(e){
+		this.setState({ cId: e.target.value }, () => console.log('name:', this.state.cId));
+		client.headers['cId'] = e.target.value;
+		var self = this;
+		client.get('contractById', function(err, res, body) {
+				console.log(body.asset);
+				console.log(body.price);
+				console.log(body.time);
+				console.log(body.qty);
+				self.setState({
+					asset: body.asset,
+					price: body.price,
+					time: body.time,
+					qty: body.qty
+				});
+				console.log(self.state);
+		});
 	}
 
 	handleAsset(e) {
@@ -104,16 +130,15 @@ class FormContainer extends Component {
 			qty: this.state.qty,
 			date: Date.now(),
 			extra: this.state.extra,
-			cId : -1
+			cId: parseInt(this.state.cId)
 		}
-		client.get('/count', function(err, res, body) {
-      if (err == null){
-					formPayload.cId = body.count;
-				}
-		});
 		//smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-		client.post('contracts/addContract', formPayload, function(err, res, body) {
-				return console.log(body, res);
+		var self = this;
+		client.post('/editContract', formPayload, function(err, res, body) {
+			client.headers['cId'] = parseInt(self.state.cId);
+			client.get('/closeContract', formPayload, function(err, res, body) {
+					return console.log(body, res);
+			});
 		});
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
@@ -123,6 +148,7 @@ class FormContainer extends Component {
 
 	render() {
 		var options = [
+			{ value: 'cId', label: 'Contract Id'},
 		  { value: 'asset', label: 'Asset' },
 			{ value: 'quantity', label: 'Quantity' },
 			{ value: 'price', label: 'Price' },
@@ -135,6 +161,30 @@ class FormContainer extends Component {
 				<h5 className="bloo">Contract Creation Form</h5>
 				<table cellSpacing="10" cellPadding="10">
 					<tbody>
+						<tr>
+
+						  <td style={{margin : 10, width: 250}}><Select
+										autofocus
+										clearable={false}
+						        name="form-field-name"
+						        value={this.state.selectionCId}
+						        options={options}
+						        onChange={this.handleSelectionCId}
+										autosize={true}
+						                />
+							</td>
+
+						  <td><SingleInput
+						  className="inputField"
+						  inputType={'number'}
+							title={'Contract Id		'}
+						  name={'name'}
+						  controlFunc={this.handleCId}
+						  content={this.state.cId}
+						  placeholder={''} />
+						  </td>
+						</tr>
+
 						<tr>
 
 						  <td style={{margin : 10, width: 250}}><Select
@@ -263,4 +313,4 @@ class FormContainer extends Component {
 	}
 }
 
-export default FormContainer;
+export default EditContractForm;

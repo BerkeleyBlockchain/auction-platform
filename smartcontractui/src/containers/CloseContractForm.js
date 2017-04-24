@@ -1,18 +1,22 @@
 import React, {Component} from 'react';
 import SingleInput from '../components/SingleInput';
 import '../assets/css/App.css';
+
 // import ContractTable from './ContractTable';
+import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from 'react-select';
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
+import {client} from '../components/Requests';
 
-class GetContractBidsForm extends Component {
+
+
+class CloseContractForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			cId : '',
 			selection1 : 'cid',
-			TableRows: this.props.TableRows
 		};
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleClearForm = this.handleClearForm.bind(this);
@@ -33,18 +37,36 @@ class GetContractBidsForm extends Component {
 		e.preventDefault();
 		this.setState({
 			cId: '',
-			selection1 : ''
+			asset:'',
+			qty:'',
+			price:'',
+			time:'',
+			extra:'',
+			selection1 : '',
 		});
 	}
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
-		const formPayload = {
-			cId: this.state.cId
+		var formPayload = {
+			cId: this.state.cId,
 		};
-		//
-		//smartContract.setBidTableContractId.sendTransaction(formPayload.cId, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-		console.log('Send this in a POST request:', formPayload);
+		// var data = {};
+		client.headers['cId'] = formPayload.cId;
+		client.get('/contractById', function(err, res, body) {
+				// console.log(body);
+				var qty = parseInt(body.qty,10);
+				var price = parseInt(body.price,10);
+				var time = parseInt(body.time,10);
+
+				smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+		});
+
+		client.headers['cId'] = this.state.cId;
+		client.get('/closeContract', function(err, res, body) {
+			return console.log(body)
+		});
+
 		this.handleClearForm(e);
 		//window.location.reload();
 	}
@@ -56,7 +78,7 @@ class GetContractBidsForm extends Component {
 
 		return (
 			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5 className="bloo">Select which contract's bids appear in table</h5>
+				<h5 className="bloo">Close Contract Form</h5>
 				<table cellSpacing="10" cellPadding="10">
 					<tbody>
 						<tr>
@@ -81,7 +103,6 @@ class GetContractBidsForm extends Component {
 						  placeholder={''} />
 						  </td>
 						</tr>
-
 					</tbody>
 				</table>
 				<input
@@ -95,4 +116,5 @@ class GetContractBidsForm extends Component {
 		);
 	}
 }
-export default GetContractBidsForm;
+
+export default CloseContractForm;
