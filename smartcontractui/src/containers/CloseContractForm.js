@@ -41,10 +41,18 @@ class CloseContractForm extends Component {
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
-		const formPayload = {
+		var formPayload = {
 			cId: this.state.cId,
 		};
-		smartContract.closeContract.sendTransaction(formPayload.cId, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 3000000});
+
+		client.headers['cId'] = formPayload.cId;
+		client.get('/contractById', function(err, res, body) {
+			if (err == null){
+				formPayload = body;
+			}
+		});
+
+		smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 
 		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
