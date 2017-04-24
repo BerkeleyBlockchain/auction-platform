@@ -7,13 +7,13 @@ var smartContractAddress = '0x877745f82468d6448a8b15a585b200478fc64985';
 
 const smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress);
 
-var parts = ["wing", "nail", "door", "screw", "seat",
+/*var parts = ["wing", "nail", "door", "screw", "seat",
  "seatbelt", "carpet", "switch", "buckle", "fastener", "cup", "tray", "magazine"];
 var suppliers = ["Ali", "Collin", "Ronen", "Jon", "Max", "Sunny", "Gillian", "Nihar", "Varun", "Oski", "Hug", "DeNero", "Rao"];
 var qty = 209381;
 var time = 2394;
 var price = 1832;
-var i = 1;
+var i = 1;*/
 
 /* UNCOMMENT THE FOLLOWING PORTION IF YOU WANT A LOT OF CONTRACTS ON THE NETWORK */
 
