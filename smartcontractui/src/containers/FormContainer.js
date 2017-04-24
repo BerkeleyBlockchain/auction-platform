@@ -97,9 +97,6 @@ class FormContainer extends Component {
 	handleFormSubmit(e) {
 		e.preventDefault();
 		// This is where you would call the web3 functions to make a new contract
-		if (this.state.extra === "") {
-			this.setState({extra: "No Data"});
-		}
 		var formPayload = {
 			asset: this.state.asset,
 			time: this.state.time,

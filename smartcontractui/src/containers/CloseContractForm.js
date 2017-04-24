@@ -7,6 +7,8 @@ import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from 'react-select';
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
+import {client} from '../components/Requests';
+
 
 
 class CloseContractForm extends Component {
@@ -35,6 +37,11 @@ class CloseContractForm extends Component {
 		e.preventDefault();
 		this.setState({
 			cId: '',
+			asset:'',
+			qty:'',
+			price:'',
+			time:'',
+			extra:'',
 			selection1 : '',
 		});
 	}
@@ -44,17 +51,17 @@ class CloseContractForm extends Component {
 		var formPayload = {
 			cId: this.state.cId,
 		};
-
+		var data = {};
 		client.headers['cId'] = formPayload.cId;
 		client.get('/contractById', function(err, res, body) {
-			if (err == null){
-				formPayload = body;
-			}
+				console.log(body);
+				smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 		});
+		// client.headers['cId'] = formPayload.cId;
+		// client.get('/closeContract', function(err, res, body) {
+		// 	return console.log(body)
+		// });
 
-		smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-
-		console.log('Send this in a POST request:', formPayload);
 		this.handleClearForm(e);
 		//window.location.reload();
 	}
