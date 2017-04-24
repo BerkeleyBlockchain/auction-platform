@@ -55,6 +55,10 @@ class CloseContractForm extends Component {
 		client.headers['cId'] = formPayload.cId;
 		client.get('/contractById', function(err, res, body) {
 				console.log(body);
+				var qty = parseInt(body.qty,10);
+				var price = parseInt(body.price,10);
+				var time = parseInt(body.time,10);
+
 				smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
 		});
 		// client.headers['cId'] = formPayload.cId;
