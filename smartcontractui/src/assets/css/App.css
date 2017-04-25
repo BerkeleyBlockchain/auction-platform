@@ -4,6 +4,37 @@
   background-color: #FFFFFF;
 }
 
+.center{
+  align-items: center;
+}
+
+.square-box{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #FFFFFF;
+    height: 180px;
+}
+.square-box:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+.square-content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: #0D47A1;
+    text-align: center;
+}
+
+.square-content table{
+  margin: 0 auto;
+  text-align: left;
+}
+
 .contract {
   margin: 20px;
   margin-top: 25px;
@@ -156,7 +187,7 @@ td {
 
 .left-top {
   width: 50%;
-  height: 50%%;
+  height: 50%;
   text-align: center;
   margin-left: auto;
   position: relative;
@@ -166,7 +197,7 @@ td {
 
 .left-bottom {
   width: 50%;
-  height: 50%%;
+  height: 50%;
   text-align: center;
   margin-left: auto;
   position: relative;
@@ -287,7 +318,7 @@ h5 {
 }
 
 p {
-  color: white;
+  color: black;
   margin-top: 5px;
 }
 

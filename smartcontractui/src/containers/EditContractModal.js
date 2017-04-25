@@ -4,37 +4,37 @@ import ReactModal from 'react-modal';
 // import ScrollLock from 'react-scrolllock';
 
 class EditContractModal extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      showEditContractModal: false
-    };
+    constructor() {
+        super();
+        this.state = {
+            showEditContractModal: false
+        };
 
-    this.handleOpenEditContractModal = this.handleOpenEditContractModal.bind(this);
-    this.handleCloseEditContractModal = this.handleCloseEditContractModal.bind(this);
-  }
+        this.handleOpenEditContractModal = this.handleOpenEditContractModal.bind(this);
+        this.handleCloseEditContractModal = this.handleCloseEditContractModal.bind(this);
+    }
 
-  handleOpenEditContractModal () {
-    this.setState({ showEditContractModal: true });
-  }
+    handleOpenEditContractModal() {
+        this.setState({showEditContractModal: true});
+    }
 
-  handleCloseEditContractModal () {
-    this.setState({ showEditContractModal: false });
-  }
+    handleCloseEditContractModal() {
+        this.setState({showEditContractModal: false});
+    }
 
-  render () {
-    return (
-      <div>
-        <button className="addForm" onClick={this.handleOpenEditContractModal}>Edit Contract</button>
-        <ReactModal
-           isOpen={this.state.showEditContractModal}
-           contentLabel="Close Contract"
-           className="container bloo">
-          <EditContractForm/>
-          <button className="addFormDone" onClick={this.handleCloseEditContractModal}>Done</button>
-        </ReactModal>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <button className="addForm" onClick={this.handleOpenEditContractModal}>Edit Contract</button>
+                <ReactModal
+                    isOpen={this.state.showEditContractModal}
+                    contentLabel="Close Contract"
+                    className="container bloo">
+                    <EditContractForm/>
+                    <button className="addFormDone" onClick={this.handleCloseEditContractModal}>Done</button>
+                </ReactModal>
+            </div>
+        );
+    }
 }
 export default EditContractModal;
