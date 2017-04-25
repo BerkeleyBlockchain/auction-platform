@@ -96,13 +96,7 @@ class ContractTable extends Component {
            data={this.state.TableRows}
            columns={columns}
            defaultPageSize={5}
-           SubComponent={(row) => {
-             return (
-                <div className="bloo">
-                  Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
-                </div>
-              )
-            }}/>
+           />
         <button className="modalDone" onClick={this.handleRefresh}>Refresh Data</button>
          <CloseContractModal />
          <EditContractModal/>
