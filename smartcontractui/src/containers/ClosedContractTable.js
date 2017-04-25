@@ -6,19 +6,23 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import ReactModal from 'react-modal';
 import ScrollLock from 'react-scrolllock';
+import ClosedContractTile from './ClosedContractTile';
 
 
 class ClosedContractTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            contractId: "",
+            contractIdArr: "",
+            assetArr: "",
+            qtyArr: "",
+            priceArr: "",
+            timeArr: "",
             asset: "",
             qty: "",
             tPrice: "",
             tTime: "",
-            ef1: [],
-            extra: "",
+            extraArr: "",
             showBidModal: false,
             cId: "",
             supplier: "",
@@ -31,8 +35,13 @@ class ClosedContractTable extends Component {
     }
 
     handleOpenBidModal(e) {
-        var bidData = smartContract.getBid(e)
+        var bidData = smartContract.getBid(e.cId)
         this.setState({
+            asset: e.asset,
+            qty: e.qty,
+            tPrice: e.price,
+            tTime: e.time,
+            extra: e.extra,
             showBidModal: true,
             cId: String(bidData[0]),
             supplier: ETHEREUM_CLIENT.toAscii(ETHEREUM_CLIENT.toHex(bidData[1])),
@@ -48,27 +57,25 @@ class ClosedContractTable extends Component {
     componentWillMount() {
         var data = smartContract.getClosedContracts()
         this.setState({
-            contractId: String(data[0]).split(','),
-            asset: String(data[1]).split(','),
-            qty: String(data[2]).split(','),
-            tPrice: String(data[3]).split(','),
-            tTime: String(data[4]).split(','),
-            extra: String(data[5]).split(',')
+            contractIdArr: String(data[0]).split(','),
+            assetArr: String(data[1]).split(','),
+            qtyArr: String(data[2]).split(','),
+            priceArr: String(data[3]).split(','),
+            timeArr: String(data[4]).split(','),
+            extraArr: String(data[5]).split(',')
         })
     }
 
     componentDidMount() {
         setInterval(function () {
             var data = smartContract.getClosedContracts()
-            // var info = smartContract.getFieldByContractID(0)
             this.setState({
-                contractId: String(data[0]).split(','),
-                asset: String(data[1]).split(','),
-                qty: String(data[2]).split(','),
-                tPrice: String(data[3]).split(','),
-                tTime: String(data[4]).split(','),
-                extra: String(data[5]).split(','),
-                // ef1: String(info).split(','),
+                contractIdArr: String(data[0]).split(','),
+                assetArr: String(data[1]).split(','),
+                qtyArr: String(data[2]).split(','),
+                priceArr: String(data[3]).split(','),
+                timeArr: String(data[4]).split(','),
+                extraArr: String(data[5]).split(','),
                 interval: this.state.interval + 1
             })
             this.render()
@@ -78,42 +85,17 @@ class ClosedContractTable extends Component {
     render() {
         var TableRows = []
 
-        _.each(this.state.contractId, (value, index) => {
+        _.each(this.state.contractIdArr, (value, index) => {
             TableRows.push({
-                    cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
-                    asset: ETHEREUM_CLIENT.toAscii(this.state.asset[index]),
-                    qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
-                    price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
-                    time: ETHEREUM_CLIENT.toDecimal(this.state.tTime[index]),
-                    extra: ETHEREUM_CLIENT.toAscii(this.state.extra[index])
+                    cId: ETHEREUM_CLIENT.toDecimal(this.state.contractIdArr[index]),
+                    asset: ETHEREUM_CLIENT.toAscii(this.state.assetArr[index]),
+                    qty: ETHEREUM_CLIENT.toDecimal(this.state.qtyArr[index]),
+                    price: ETHEREUM_CLIENT.toDecimal(this.state.priceArr[index]),
+                    time: ETHEREUM_CLIENT.toDecimal(this.state.timeArr[index]),
+                    extra: ETHEREUM_CLIENT.toAscii(this.state.extraArr[index])
                 }
             );
         });
-
-        var bidStuff = []
-        _.each(this.state.cId, (value) => {
-            bidStuff.push({
-                    bcId: this.state.cId,
-                    supplier: this.state.supplier,
-                    btime: this.state.time,
-                    bprice: this.state.price,
-                }
-            );
-        });
-
-        const bidColumns = [{
-            header: 'Id',
-            accessor: 'bcId' // String-based value accessors!
-        }, {
-            header: 'Supplier',
-            accessor: 'supplier' // String-based value accessors!
-        }, {
-            header: 'Price',
-            accessor: 'bprice' // String-based value accessors!
-        }, {
-            header: 'Time to Complete',
-            accessor: 'btime' // String-based value accessors!
-        }]
 
         const columns = [{
             header: 'Contract Id',
@@ -142,7 +124,7 @@ class ClosedContractTable extends Component {
                         return {
                             onClick: e => {
                                 console.log(rowInfo)
-                                this.handleOpenBidModal(rowInfo.rowValues.cId)
+                                this.handleOpenBidModal(rowInfo.rowValues)
                             }
                         }
                     }}
@@ -155,11 +137,15 @@ class ClosedContractTable extends Component {
                     contentLabel="Bid Form"
                     className="container">
                     <h2 className="bloo">Winning Bidder: {this.state.supplier}</h2>
-                    <ReactTable
-                        data={bidStuff}
-                        columns={bidColumns}
-                        defaultPageSize={5}
-                    />
+                    <ClosedContractTile
+                        asset={this.state.asset}
+                        quantity={this.state.qty}
+                        tPrice={this.state.tPrice}
+                        tTime={this.state.tTime}
+                        extra={this.state.extra}
+                        supplier={this.state.supplier}
+                        price={this.state.price}
+                        time={this.state.time}/>
                     <button className="modalDone" onClick={this.handleCloseBidModal}>Done</button>
                     <ScrollLock />
                 </ReactModal>

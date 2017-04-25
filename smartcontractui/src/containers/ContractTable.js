@@ -66,7 +66,7 @@ class ContractTable extends Component {
     }
 
     handleWinner(e) {
-        smartContract.addBid.sendTransaction(this.state.cId,
+        smartContract.bid.sendTransaction(this.state.cId,
             this.state.selectedBid.supplier,
             this.state.selectedBid.price,
             this.state.selectedBid.time,

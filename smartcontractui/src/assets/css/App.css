@@ -13,7 +13,7 @@
     width: 100%;
     overflow: hidden;
     background: #FFFFFF;
-    height: 180px;
+    height: 250px;
 }
 .square-box:before{
     content: "";
