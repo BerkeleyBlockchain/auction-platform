@@ -59,6 +59,9 @@ contract SmartContract {
       bytes32 additional = "Additional Info";
       contracts[_cid].extra = additional;
       contracts[_cid].ef1.push(_extraField);
+      contracts[_cid].ef1.push("\0");
+      contracts[_cid].ef1.push(", ");
+      contracts[_cid].ef1.push("\0");
       return true;
     }
     function getFieldByContractID(uint _cid) constant returns (bytes32[], uint) {
