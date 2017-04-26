@@ -87,12 +87,7 @@ class FormContainer extends Component {
             time: '',
             price: '',
             qty: '',
-            extra: '',
-            selection1: '',
-            selection2: '',
-            selection3: '',
-            selection4: '',
-            selection5: ''
+            extra: ''
         });
     }
 
@@ -105,7 +100,6 @@ class FormContainer extends Component {
             price: this.state.price,
             qty: this.state.qty,
             date: timestamp(),
-            extra: this.state.extra,
             cId: -1
         };
         client.get('count/', function (err, res, body) {
@@ -114,15 +108,6 @@ class FormContainer extends Component {
                 console.log(body.count);
                 client.post('contracts/', formPayload, function (err, res, body) {
                     return console.log(body, res);
-                });
-
-                let field = {
-                    cId: formPayload.cId,
-                    extrafield: formPayload.extra
-                };
-
-                client.post('/fields', field, function(err, res, body){
-                    return console.log(res)
                 });
             }
         });
@@ -235,29 +220,7 @@ class FormContainer extends Component {
                             placeholder={''}/>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td style={{margin: 10, width: 250}}><Select
-                            autofocus
-                            clearable={false}
-                            name="form-field-name"
-                            value={this.state.selection5}
-                            options={options}
-                            onChange={this.handleSelection5}
-                            autosize={true}
-                        /></td>
-
-                        <td><SingleInput
-                            className="inputfield"
-                            inputType={'text'}
-                            title={'Extra Data   '}
-                            name={'name'}
-                            controlFunc={this.handleExtra}
-                            content={this.state.extra}
-                            placeholder={""}/>
-                        </td>
-                    </tr>
-
+                    
                     </tbody>
                 </table>
                 <input
