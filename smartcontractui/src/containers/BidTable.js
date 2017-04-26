@@ -27,7 +27,7 @@ class BidTable extends Component {
                         supplier: body[key]['supplier'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: new Date(key['date']).toString(),
+                        date: body[key]['date'],
                         extra: body[key]['price']
                     });
                 }
@@ -47,7 +47,7 @@ class BidTable extends Component {
                         supplier: body[key]['supplier'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: new Date(key['date']).toString(),
+                        date: body[key]['date'],
                         extra: body[key]['price']
                     });
                 }

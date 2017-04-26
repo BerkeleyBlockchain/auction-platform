@@ -2,10 +2,7 @@ import React, {Component} from "react";
 import SingleInput from "../components/SingleInput";
 import "../assets/css/App.css";
 import {client} from "../components/Requests";
-// import ContractTable from './ContractTable';
-//import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from "react-select";
-// Be sure to include styles at some point, probably during your bootstrapping
 import "react-select/dist/react-select.css";
 var timestamp = require('time-stamp');
 

@@ -124,7 +124,7 @@ class ContractTable extends Component {
                         qty: body[key]['qty'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: Date(key['date']).toString(),
+                        date: body[key]['date'],
                         extra: body[key]['price']
                     });
                 }
