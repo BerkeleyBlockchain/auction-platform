@@ -123,9 +123,8 @@ class ClosedContractTable extends Component {
                     getTdProps={(state, rowInfo) => {
                         return {
                             onClick: e => {
-
                                 console.log(rowInfo);
-                                this.handleOpenBidModal(rowInfo.rowValues.cId)
+                                this.handleOpenBidModal(rowInfo.rowValues)
                             }
                         }
                     }}
