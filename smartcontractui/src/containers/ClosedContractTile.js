@@ -29,7 +29,7 @@ class ClosedContractTile extends Component {
                             <td>{this.props.tTime}</td>
                         </tr>
                         <tr>
-                            <td>Additional Field</td>
+                            <td>Sender Address</td>
                             <td>{this.props.extra}</td>
                         </tr>
                         <tr>
