@@ -6,31 +6,24 @@ A smartcontract Dapp with a web based UI that keeps track of contract data by ad
 3. Npm 4.3.0 / Nodejs v6.10.0
 4. [parity](https://github.com/paritytech/parity) v1.5.7 (one line install for mac recommended)
 
-## testrpc Deployment
-1. In a new terminal window `$ testrpc`
-2. In a new terminal window `$ cd smartcontract`
-3. `$ truffle compile` And `$ truffle migrate`
-4. Once the contract is mined, copy and paste the contract address into `var smartContractAddress = '___'` in Components/EthereumSetup.js
-5. In a new terminal window `$ cd smartcontractui`
-6. `$ npm start`
-7. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
-
 ## Kovan Deployment
 1. in a new terminal window enter `$ open -a Google\ Chrome --args --disable-web-security --user-data-dir`
    this disables the chrome browser security check that prevents the app from using the same
    port as the blockchain.
-2. In a new terminal window `$ parity ui --chain=kovan --jsonrpc-apis personal,eth,net,web3` contract is at: 0xa5acede8f7977543205633a6786973caeec1eb3e
+2. In a new terminal window `$ parity ui --chain=kovan --jsonrpc-apis personal,eth,net,web3` contract is at: 0x8a4f9c87e7066d02b4e97d7bc1e5bff31b96c715
 3. In a new terminal window `$ cd smartcontractui`
 4. `$ npm start`
 5. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
-### Kovan Expenses
-.0188 Eth (.9 dollars) to publish contract to blockchain
 
 ## Interface / Methods
+### Active Contracts
+Table of unpublished contracts. Clicking columns changes order by. Clicking rows shows all submitted bids to the contract and ability to publish contract with given contract ID number (cId) from the database and mines the contract on the connected blockchain. The mined contract is immutable and will be displayed in the Closed Contracts table
 ### New Contract
-Creates a new contract with the specified Asset, Quantity, Price, Time, and optional additional field. The contract is submitted to the database and is open and able to be edited.
-### Close Contract
-Removes contract with given contract ID number (cId) from the database and mines the contract on the connected blockchain. The mined contract is immutable and will be displayed in the Closed Contracts table
+Creates a new contract with the specified Asset, Quantity, Price, and Time. The contract is submitted to the database and is open and able to be edited.
+### Add Contract Field
+Allows user to view and add multiple addition fields to an unpublished contract
+### Edit Contract
+ill finish this later tbh
 ### Refresh
 Refreshes the database once a contract is added or closed.
 ### New Bid
