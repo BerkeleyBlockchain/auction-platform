@@ -10,111 +10,115 @@ import 'react-select/dist/react-select.css';
 import {client} from '../components/Requests';
 
 
-
 class CloseContractForm extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			cId : '',
-			selection1 : 'cid',
-		};
-		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-		this.handleClearForm = this.handleClearForm.bind(this);
-		this.handlecId = this.handlecId.bind(this);
-		this.handleSelection1 = this.handleSelection1.bind(this);
-	}
+    constructor(props) {
+        super(props);
+        this.state = {
+            cId: '',
+            selection1: 'cid',
+        };
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleClearForm = this.handleClearForm.bind(this);
+        this.handlecId = this.handlecId.bind(this);
+        this.handleSelection1 = this.handleSelection1.bind(this);
+    }
 
-	handleSelection1(val) {
-		this.setState({ selection1: val }, () => console.log('name:', this.state.selection1));
-	}
+    handleSelection1(val) {
+        this.setState({selection1: val}, () => console.log('name:', this.state.selection1));
+    }
 
-	handlecId(e) {
-		this.setState({ cId: e.target.value }, () => console.log('name:', this.state.cId));
-	}
+    handlecId(e) {
+        this.setState({cId: e.target.value}, () => console.log('name:', this.state.cId));
+    }
 
 
-	handleClearForm(e) {
-		e.preventDefault();
-		this.setState({
-			cId: '',
-			asset:'',
-			qty:'',
-			price:'',
-			time:'',
-			extra:'',
-			selection1 : '',
-		});
-	}
-	handleFormSubmit(e) {
-		e.preventDefault();
-		// This is where you would call the web3 functions to make a new contract
-		var formPayload = {
-			cId: this.state.cId,
-		};
-		// var data = {};
-		client.headers['cId'] = formPayload.cId;
-		client.get('/contractById', function(err, res, body) {
-				// console.log(body);
-				var qty = parseInt(body.qty,10);
-				var price = parseInt(body.price,10);
-				var time = parseInt(body.time,10);
+    handleClearForm(e) {
+        e.preventDefault();
+        this.setState({
+            cId: '',
+            asset: '',
+            qty: '',
+            price: '',
+            time: '',
+            extra: '',
+            selection1: '',
+        });
+    }
 
-				smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-		});
+    handleFormSubmit(e) {
+        e.preventDefault();
+        // This is where you would call the web3 functions to make a new contract
+        var formPayload = {
+            cId: this.state.cId,
+        };
+        // var data = {};
+        client.headers['cId'] = formPayload.cId;
+        client.get('/contractById', function (err, res, body) {
+            // console.log(body);
+            var qty = parseInt(body.qty, 10);
+            var price = parseInt(body.price, 10);
+            var time = parseInt(body.time, 10);
 
-		client.headers['cId'] = this.state.cId;
-		client.get('/closeContract', function(err, res, body) {
-			return console.log(body)
-		});
+            smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {
+                from: ETHEREUM_CLIENT.eth.accounts[0],
+                gas: 200000
+            });
+        });
 
-		this.handleClearForm(e);
-		//window.location.reload();
-	}
+        client.headers['cId'] = this.state.cId;
+        client.get('/closeContract', function (err, res, body) {
+            return console.log(body)
+        });
 
-	render() {
-		var options = [
-		  { value: 'cid', label: 'ContractId' },
-		];
+        this.handleClearForm(e);
+        //window.location.reload();
+    }
 
-		return (
-			<form className="container" onSubmit={this.handleFormSubmit}>
-				<h5 className="bloo">Close Contract Form</h5>
-				<table cellSpacing="10" cellPadding="10">
-					<tbody>
-						<tr>
+    render() {
+        var options = [
+            {value: 'cid', label: 'ContractId'},
+        ];
 
-						  <td style={{margin : 10, width: 250}}><Select
-										autofocus
-										clearable={false}
-						        name="form-field-name"
-						        value={this.state.selection1}
-						        options={options}
-						        onChange={this.handleSelection1}
-										autosize={true}
-						                /></td>
+        return (
+            <form className="container" onSubmit={this.handleFormSubmit}>
+                <h5 className="bloo">Close Contract Form</h5>
+                <table cellSpacing="10" cellPadding="10">
+                    <tbody>
+                    <tr>
 
-						  <td><SingleInput
-						  className="inputField"
-						  inputType={'number'}
-							title={'contractId		'}
-						  name={'name'}
-						  controlFunc={this.handlecId}
-						  content={this.state.cId}
-						  placeholder={''} />
-						  </td>
-						</tr>
-					</tbody>
-				</table>
-				<input
-					type="submit"
-					className="submitButton"
-					value="Submit"/>
-				<button
-					className="submitButton"
-					onClick={this.handleClearForm}>Clear</button>
-			</form>
-		);
-	}
+                        <td style={{margin: 10, width: 250}}><Select
+                            autofocus
+                            clearable={false}
+                            name="form-field-name"
+                            value={this.state.selection1}
+                            options={options}
+                            onChange={this.handleSelection1}
+                            autosize={true}
+                        /></td>
+
+                        <td><SingleInput
+                            className="inputField"
+                            inputType={'number'}
+                            title={'contractId		'}
+                            name={'name'}
+                            controlFunc={this.handlecId}
+                            content={this.state.cId}
+                            placeholder={''}/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <input
+                    type="submit"
+                    className="submitButton"
+                    value="Submit"/>
+                <button
+                    className="submitButton"
+                    onClick={this.handleClearForm}>Clear
+                </button>
+            </form>
+        );
+    }
 }
 
 export default CloseContractForm;

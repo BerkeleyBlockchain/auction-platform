@@ -3,7 +3,7 @@ contract SmartContract {
     Contract[] public contracts; //array of open contracts
 
     //Bid[] public bids;
-    mapping(uint => Bid[]) bidMap;
+    mapping(uint => Bid) bidMap;
     uint bidTableContractId = 0;
     uint count; //number of contracts
     /*struct Date {
@@ -51,7 +51,7 @@ contract SmartContract {
         newBid.price = _price;
         newBid.bidTime = _bidTime;
         newBid.owner = msg.sender;
-        bidMap[_cid].push(newBid);
+        bidMap[_cid] = newBid;
         return true;
     }
 
@@ -78,19 +78,12 @@ contract SmartContract {
         return (contractId, asset, qty, targetPrice, targetTime, extraField1);
     }
 
-    function getBids() constant returns (uint[], bytes32[], uint[], uint[]){
-        uint length = bidMap[bidTableContractId].length;
-        Bid[] bids = bidMap[bidTableContractId];
-        uint[] memory contractIds = new uint[](length);
-        bytes32[] memory suppliers = new bytes32[](length);
-        uint[] memory prices = new uint[](length);
-        uint[] memory timesToComplete = new uint[](length);
-        for (uint i = 0; i < length; i++) {
-            contractIds[i] = bids[i].contractId;
-            suppliers[i] = bids[i].supplier;
-            prices[i] = bids[i].price;
-            timesToComplete[i] = bids[i].bidTime;
-        }
-        return (contractIds, suppliers, prices, timesToComplete);
+    function getBid(uint _cid) constant returns (uint, bytes32, uint, uint){
+        var bid = bidMap[_cid];
+        uint contractId = bid.contractId;
+        bytes32 supplier = bid.supplier;
+        uint price = bid.price;
+        uint timeToComplete = bid.bidTime;
+        return (contractId, supplier, price, timeToComplete);
     }
 }

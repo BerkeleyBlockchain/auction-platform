@@ -4,106 +4,153 @@ import '../assets/css/App.css';
 import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import ReactModal from 'react-modal';
+import ScrollLock from 'react-scrolllock';
+import ClosedContractTile from './ClosedContractTile';
 
 
 class ClosedContractTable extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-        contractId: "",
-        asset: "",
-        qty: "",
-        tPrice: "",
-        tTime: "",
-        ef1: "",
-        extra: "",
-        interval : 0
+    constructor(props) {
+        super(props);
+        this.state = {
+            contractIdArr: "",
+            assetArr: "",
+            qtyArr: "",
+            priceArr: "",
+            timeArr: "",
+            asset: "",
+            qty: "",
+            tPrice: "",
+            tTime: "",
+            extraArr: "",
+            showBidModal: false,
+            cId: "",
+            supplier: "",
+            time: "",
+            price: "",
+            interval: 0
+        };
+        this.handleOpenBidModal = this.handleOpenBidModal.bind(this);
+        this.handleCloseBidModal = this.handleCloseBidModal.bind(this);
     }
-  }
-  componentWillMount() {
-    var data = smartContract.getClosedContracts()
-    this.setState({
-      contractId: String(data[0]).split(','),
-      asset: String(data[1]).split(','),
-      qty: String(data[2]).split(','),
-      tPrice: String(data[3]).split(','),
-      tTime: String(data[4]).split(','),
-      extra: String(data[5]).split(',')
-    })
-  }
 
-  componentDidMount(){
-    setInterval(function() {
-        var data = smartContract.getClosedContracts()
-        // var info = smartContract.getFieldByContractID(0)
+    handleOpenBidModal(e) {
+        const bidData = smartContract.getBid(e.cId)
         this.setState({
-          contractId: String(data[0]).split(','),
-          asset: String(data[1]).split(','),
-          qty: String(data[2]).split(','),
-          tPrice: String(data[3]).split(','),
-          tTime: String(data[4]).split(','),
-          extra: String(data[5]).split(','),
-          // ef1: String(info).split(','),
-          interval: this.state.interval + 1
+            asset: e.asset,
+            qty: e.qty,
+            tPrice: e.price,
+            tTime: e.time,
+            extra: e.extra,
+            showBidModal: true,
+            cId: String(bidData[0]),
+            supplier: ETHEREUM_CLIENT.toAscii(ETHEREUM_CLIENT.toHex(bidData[1])),
+            price: String(bidData[2]),
+            time: String(bidData[3])
         })
-        // console.log(ETHEREUM_CLIENT.toAscii(this.state.ef1[0]))
-        this.render()
-    }.bind(this), 5000);
-  }
+    }
 
-  render() {
-    var TableRows = []
+    handleCloseBidModal() {
+        this.setState({showBidModal: false});
+    }
 
-    _.each(this.state.contractId, (value, index) => {
-      TableRows.push( {
-          cId: ETHEREUM_CLIENT.toDecimal(this.state.contractId[index]),
-          asset: ETHEREUM_CLIENT.toAscii(this.state.asset[index]),
-          qty: ETHEREUM_CLIENT.toDecimal(this.state.qty[index]),
-          price: ETHEREUM_CLIENT.toDecimal(this.state.tPrice[index]),
-          time : ETHEREUM_CLIENT.toDecimal(this.state.tTime[index]),
-          extra : ETHEREUM_CLIENT.toAscii(this.state.extra[index])
-      }
+    componentWillMount() {
+        const data = smartContract.getClosedContracts();
+        this.setState({
+            contractIdArr: String(data[0]).split(','),
+            assetArr: String(data[1]).split(','),
+            qtyArr: String(data[2]).split(','),
+            priceArr: String(data[3]).split(','),
+            timeArr: String(data[4]).split(','),
+            extraArr: String(data[5]).split(',')
+        })
+    }
+
+    componentDidMount() {
+        setInterval(function () {
+            const data = smartContract.getClosedContracts()
+            this.setState({
+                contractIdArr: String(data[0]).split(','),
+                assetArr: String(data[1]).split(','),
+                qtyArr: String(data[2]).split(','),
+                priceArr: String(data[3]).split(','),
+                timeArr: String(data[4]).split(','),
+                extraArr: String(data[5]).split(','),
+                interval: this.state.interval + 1
+            });
+            this.render()
+        }.bind(this), 5000);
+    }
+
+    render() {
+        const TableRows = [];
+
+        _.each(this.state.contractIdArr, (value, index) => {
+            TableRows.push({
+                    cId: ETHEREUM_CLIENT.toDecimal(this.state.contractIdArr[index]),
+                    asset: ETHEREUM_CLIENT.toAscii(this.state.assetArr[index]),
+                    qty: ETHEREUM_CLIENT.toDecimal(this.state.qtyArr[index]),
+                    price: ETHEREUM_CLIENT.toDecimal(this.state.priceArr[index]),
+                    time: ETHEREUM_CLIENT.toDecimal(this.state.timeArr[index]),
+                    extra: ETHEREUM_CLIENT.toAscii(this.state.extraArr[index])
+                }
+            );
+        });
+
+        const columns = [{
+            header: 'Contract Id',
+            accessor: 'cId' // String-based value accessors!
+        }, {
+            header: 'Asset',
+            accessor: 'asset' // String-based value accessors!
+        }, {
+            header: 'Quantity',
+            accessor: 'qty' // String-based value accessors!
+        }, {
+            header: 'Price',
+            accessor: 'price' // String-based value accessors!
+        }, {
+            header: 'Time to Complete',
+            accessor: 'time' // String-based value accessors!
+        }, {
+            header: 'Additional Info',
+            accessor: 'extra' // String-based value accessors!
+        }];
+        return (
+            <div>
+                <h2 className="bloo">Closed Contracts</h2>
+                <ReactTable
+                    getTdProps={(state, rowInfo) => {
+                        return {
+                            onClick: e => {
+                                console.log(rowInfo);
+                                this.handleOpenBidModal(rowInfo.rowValues)
+                            }
+                        }
+                    }}
+                    data={TableRows}
+                    columns={columns}
+                    defaultPageSize={5}
+                />
+                <ReactModal
+                    isOpen={this.state.showBidModal}
+                    contentLabel="Bid Form"
+                    className="container">
+                    <h2 className="bloo">Winning Bidder: {this.state.supplier}</h2>
+                    <ClosedContractTile
+                        asset={this.state.asset}
+                        quantity={this.state.qty}
+                        tPrice={this.state.tPrice}
+                        tTime={this.state.tTime}
+                        extra={this.state.extra}
+                        supplier={this.state.supplier}
+                        price={this.state.price}
+                        time={this.state.time}/>
+                    <button className="modalDone" onClick={this.handleCloseBidModal}>Done</button>
+                    <ScrollLock />
+                </ReactModal>
+            </div>
         );
-    });
-
-    const columns = [{
-    header: 'Contract Id',
-    accessor: 'cId' // String-based value accessors!
-    },{
-    header: 'Asset',
-    accessor: 'asset' // String-based value accessors!
-    },{
-    header: 'Quantity',
-    accessor: 'qty' // String-based value accessors!
-    },{
-    header: 'Price',
-    accessor: 'price' // String-based value accessors!
-    },{
-    header: 'Time to Complete',
-    accessor: 'time' // String-based value accessors!
-    },{
-    header: 'Closed By',
-    accessor: 'extra' // String-based value accessors!
-  }];
-      return (
-        <div>
-         <h2 className="bloo">Closed Contracts</h2>
-         <ReactTable
-           data={TableRows}
-           columns={columns}
-           defaultPageSize={5}
-          //  SubComponent={(row) => {
-          //    return (
-          //       <div className="bloo">
-          //         Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[0])}
-          //         <br></br>
-          //         Additional Field: {ETHEREUM_CLIENT.toAscii(this.state.ef1[1])}
-          //       </div>
-          //     )
-          //   }}
-          />
-       </div>
-      );
-  }
+    }
 }
 export default ClosedContractTable;

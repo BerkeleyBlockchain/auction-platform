@@ -12,6 +12,7 @@
     "react-select": "^1.0.0-rc.3",
     "react-table": "^5.5.0",
     "request-json": "^0.6.1",
+    "time-stamp": "^1.0.1",
     "uport-connect": "^0.5.5",
     "web3": "^0.18.2"
   },
