@@ -126,7 +126,7 @@ class EditContractForm extends Component {
             extra: this.state.extra,
             cId: parseInt(this.state.cId, 10)
         };
-        client.put('/contracts', formPayload, function (err, res, body) {
+        client.put('contracts', formPayload, function (err, res, body) {
             return console.log(body);
         });
         console.log('Send this in a POST request:', formPayload);

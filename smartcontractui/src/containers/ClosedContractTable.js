@@ -113,7 +113,7 @@ class ClosedContractTable extends Component {
             header: 'Time to Complete',
             accessor: 'time' // String-based value accessors!
         }, {
-            header: 'Additional Info',
+            header: 'Signer Address',
             accessor: 'extra' // String-based value accessors!
         }];
         return (
@@ -135,7 +135,7 @@ class ClosedContractTable extends Component {
                 <ReactModal
                     isOpen={this.state.showBidModal}
                     contentLabel="Bid Form"
-                    className="container">
+                    className="container all-modal">
                     <h2 className="bloo">Winning Bidder: {this.state.supplier}</h2>
                     <ClosedContractTile
                         asset={this.state.asset}

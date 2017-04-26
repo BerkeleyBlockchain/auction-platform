@@ -2,10 +2,6 @@ import React, {Component} from 'react';
 import '../assets/css/App.css';
 
 class ClosedContractTile extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className='square-box bloo'>
@@ -29,7 +25,7 @@ class ClosedContractTile extends Component {
                             <td>{this.props.tTime}</td>
                         </tr>
                         <tr>
-                            <td>Sender Address</td>
+                            <td>Signer Address</td>
                             <td>{this.props.extra}</td>
                         </tr>
                         <tr>

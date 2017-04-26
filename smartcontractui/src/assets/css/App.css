@@ -33,6 +33,7 @@
 
 .square-content {
     position: absolute;
+    overflow: hidden;
     top: 0;
     left: 0;
     bottom: 0;
@@ -53,6 +54,7 @@
 .contractClosed {
     margin: 175px 20px 200px;
 }
+
 
 .bloo {
     color: #0D47A1;

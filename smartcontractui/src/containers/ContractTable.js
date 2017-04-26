@@ -185,7 +185,7 @@ class ContractTable extends Component {
                 <ReactModal
                     isOpen={this.state.showBidModal}
                     contentLabel="Bids"
-                    className="container">
+                    className="container all-modal">
                     <h2 className="bloo">Bids for Contract {this.state.cId}</h2>
                     <ReactTable
                         getTdProps={(bState, bRowInfo) => {
