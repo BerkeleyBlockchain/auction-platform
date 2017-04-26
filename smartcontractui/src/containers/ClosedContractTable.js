@@ -1,16 +1,16 @@
-import React, {Component} from 'react';
-import _ from 'lodash';
-import '../assets/css/App.css';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
-import ReactModal from 'react-modal';
-import ScrollLock from 'react-scrolllock';
+import React, {Component} from "react";
+import _ from "lodash";
+import "../assets/css/App.css";
+import {ETHEREUM_CLIENT, smartContract} from "../components/EthereumSetup";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import ReactModal from "react-modal";
+import ScrollLock from "react-scrolllock";
 
 
 class ClosedContractTable extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             contractId: "",
             asset: "",
@@ -25,13 +25,13 @@ class ClosedContractTable extends Component {
             time: "",
             price: "",
             interval: 0
-        }
+        };
         this.handleOpenBidModal = this.handleOpenBidModal.bind(this);
         this.handleCloseBidModal = this.handleCloseBidModal.bind(this);
     }
 
     handleOpenBidModal(e) {
-        var bidData = smartContract.getBid(e)
+        const bidData = smartContract.getBid(e);
         this.setState({
             showBidModal: true,
             cId: String(bidData[0]),
@@ -46,7 +46,7 @@ class ClosedContractTable extends Component {
     }
 
     componentWillMount() {
-        var data = smartContract.getClosedContracts()
+        const data = smartContract.getClosedContracts();
         this.setState({
             contractId: String(data[0]).split(','),
             asset: String(data[1]).split(','),
@@ -59,7 +59,7 @@ class ClosedContractTable extends Component {
 
     componentDidMount() {
         setInterval(function () {
-            var data = smartContract.getClosedContracts()
+            const data = smartContract.getClosedContracts();
             // var info = smartContract.getFieldByContractID(0)
             this.setState({
                 contractId: String(data[0]).split(','),
@@ -70,13 +70,13 @@ class ClosedContractTable extends Component {
                 extra: String(data[5]).split(','),
                 // ef1: String(info).split(','),
                 interval: this.state.interval + 1
-            })
+            });
             this.render()
         }.bind(this), 5000);
     }
 
     render() {
-        var TableRows = []
+        const TableRows = [];
 
         _.each(this.state.contractId, (value, index) => {
             TableRows.push({
@@ -90,8 +90,8 @@ class ClosedContractTable extends Component {
             );
         });
 
-        var bidStuff = []
-        _.each(this.state.cId, (value) => {
+        const bidStuff = [];
+        _.each(this.state.cId, () => {
             bidStuff.push({
                     bcId: this.state.cId,
                     supplier: this.state.supplier,
@@ -113,7 +113,7 @@ class ClosedContractTable extends Component {
         }, {
             header: 'Time to Complete',
             accessor: 'btime' // String-based value accessors!
-        }]
+        }];
 
         const columns = [{
             header: 'Contract Id',
@@ -141,7 +141,7 @@ class ClosedContractTable extends Component {
                     getTdProps={(state, rowInfo) => {
                         return {
                             onClick: e => {
-                                console.log(rowInfo)
+                                console.log(rowInfo);
                                 this.handleOpenBidModal(rowInfo.rowValues.cId)
                             }
                         }

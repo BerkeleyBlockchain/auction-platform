@@ -1,7 +1,7 @@
-import React from 'react';
-import EditContractForm from './EditContractForm';
-import ReactModal from 'react-modal';
-// import ScrollLock from 'react-scrolllock';
+import React from "react";
+import EditContractForm from "./EditContractForm";
+import ReactModal from "react-modal";
+import ScrollLock from "react-scrolllock";
 
 class EditContractModal extends React.Component {
     constructor() {
@@ -29,9 +29,10 @@ class EditContractModal extends React.Component {
                 <ReactModal
                     isOpen={this.state.showEditContractModal}
                     contentLabel="Close Contract"
-                    className="container bloo">
+                    className="container bloo all-modal">
                     <EditContractForm/>
                     <button className="addFormDone" onClick={this.handleCloseEditContractModal}>Done</button>
+                    <ScrollLock/>
                 </ReactModal>
             </div>
         );

@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import SingleInput from '../components/SingleInput';
-import '../assets/css/App.css';
-import {client} from '../components/Requests';
+import React, {Component} from "react";
+import SingleInput from "../components/SingleInput";
+import "../assets/css/App.css";
+import {client} from "../components/Requests";
 // import ContractTable from './ContractTable';
 //import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import Select from 'react-select';
+import Select from "react-select";
 // Be sure to include styles at some point, probably during your bootstrapping
-import 'react-select/dist/react-select.css';
-
+import "react-select/dist/react-select.css";
+var timestamp = require('time-stamp');
 
 class EditContractForm extends Component {
     constructor(props) {
@@ -68,12 +68,8 @@ class EditContractForm extends Component {
     handleCId(e) {
         this.setState({cId: e.target.value}, () => console.log('name:', this.state.cId));
         client.headers['cId'] = e.target.value;
-        var self = this;
+        const self = this;
         client.get('contractById', function (err, res, body) {
-            console.log(body.asset);
-            console.log(body.price);
-            console.log(body.time);
-            console.log(body.qty);
             self.setState({
                 asset: body.asset,
                 price: body.price,
@@ -124,22 +120,17 @@ class EditContractForm extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
         // This is where you would call the web3 functions to make a new contract
-        var formPayload = {
+        const formPayload = {
             asset: this.state.asset,
             time: this.state.time,
             price: this.state.price,
             qty: this.state.qty,
-            date: Date.now(),
+            date: timestamp(),
             extra: this.state.extra,
             cId: parseInt(this.state.cId, 10)
-        }
-        //smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-        var self = this;
-        client.post('/editContract', formPayload, function (err, res, body) {
-            client.headers['cId'] = parseInt(self.state.cId, 10);
-            client.get('/closeContract', formPayload, function (err, res, body) {
-                return console.log(body, res);
-            });
+        };
+        client.put('/contracts', formPayload, function (err, res, body) {
+            return console.log(body);
         });
         console.log('Send this in a POST request:', formPayload);
         this.handleClearForm(e);
@@ -148,7 +139,7 @@ class EditContractForm extends Component {
 
 
     render() {
-        var options = [
+        const options = [
             {value: 'cId', label: 'Contract Id'},
             {value: 'asset', label: 'Asset'},
             {value: 'quantity', label: 'Quantity'},

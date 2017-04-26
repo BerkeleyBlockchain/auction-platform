@@ -1,7 +1,7 @@
-import React from 'react';
-import AddFieldForm from './AddFieldForm';
-import ReactModal from 'react-modal';
-import ScrollLock from 'react-scrolllock';
+import React from "react";
+import AddFieldForm from "./AddFieldForm";
+import ReactModal from "react-modal";
+import ScrollLock from "react-scrolllock";
 
 class AddFieldModal extends React.Component {
     constructor() {
@@ -23,13 +23,21 @@ class AddFieldModal extends React.Component {
     }
 
     render() {
+        let customStyles = {
+            content : {
+                height: '80%', // <-- This sets the height
+                overlfow: 'auto' // <-- This tells the modal to scrol
+            }
+        };
+
         return (
             <div>
                 <button className="addForm" onClick={this.handleOpenAddFieldModal}>Add Contract Field</button>
                 <ReactModal
                     isOpen={this.state.showAddFieldModal}
                     contentLabel="AddField Form"
-                    className="container bloo">
+                    className="container bloo field"
+                    style={customStyles}>
                     <AddFieldForm/>
                     <button className="addFormDone" onClick={this.handleCloseAddFieldModal}>Done</button>
                     <ScrollLock />

@@ -1,21 +1,19 @@
-import React, {Component} from 'react';
-import _ from 'lodash';
-import '../assets/css/App.css';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import ContractModal from './ContractModal';
-import EditContractModal from './EditContractModal';
-import CloseContractModal from './CloseContractModal';
-import {client} from '../components/Requests';
-import ReactModal from 'react-modal';
-import ScrollLock from 'react-scrolllock';
-import BidTile from './BidTile';
-
+import React, {Component} from "react";
+import "../assets/css/App.css";
+import {ETHEREUM_CLIENT, smartContract} from "../components/EthereumSetup";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import ContractModal from "./ContractModal";
+import EditContractModal from "./EditContractModal";
+import {client} from "../components/Requests";
+import ReactModal from "react-modal";
+import ScrollLock from "react-scrolllock";
+import BidTile from "./BidTile";
+import AddFieldModal from "./AddFieldModal";
 
 class ContractTable extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             TableRows: [],
             BidRows: [],
@@ -34,17 +32,17 @@ class ContractTable extends Component {
     }
 
     handleOpenBidModal(e) {
-        var bidRows = [];
-        var self = this;
+        let bidRows = [];
+        let self = this;
         client.headers['cId'] = e;
         client.get('/bidById', function (err, res, body) {
-            if (err == null) {
-                for (var key in body) {
+            if (err === null) {
+                for (let key in body) {
                     bidRows.push({
                         supplier: body[key]['supplier'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: Date(key['date']).toString()
+                        date: body[key]['date']
                     });
                 }
                 self.setState({
@@ -65,27 +63,44 @@ class ContractTable extends Component {
         console.log(e);
     }
 
-    handleWinner(e) {
+    handleWinner() {
         smartContract.addBid.sendTransaction(this.state.cId,
             this.state.selectedBid.supplier,
             this.state.selectedBid.price,
             this.state.selectedBid.time,
             {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+
+        client.headers['cId'] = this.state.cId;
+        client.get('/contractById', function (err, res, body) {
+            // console.log(body);
+            let qty = parseInt(body.qty, 10);
+            let price = parseInt(body.price, 10);
+            let time = parseInt(body.time, 10);
+            smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {
+                from: ETHEREUM_CLIENT.eth.accounts[0],
+                gas: 200000
+            });
+        });
+
+        client.headers['cId'] = this.state.cId;
+        client.get('/closeContract', function (err, res, body) {
+            return console.log(body)
+        });
     }
 
     handleRefresh() {
-        var self = this;
-        var TableRows = [];
+        let self = this;
+        let TableRows = [];
         client.get('/contracts/', function (err, res, body) {
-            if (err == null) {
-                for (var key in body) {
+            if (err === null) {
+                for (let key in body) {
                     TableRows.push({
                         cId: body[key]['cId'],
                         asset: body[key]['asset'],
                         qty: body[key]['qty'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: Date(key['date']).toString(),
+                        date: body[key]['date'],
                         extra: body[key]['price']
                     });
                 }
@@ -96,11 +111,11 @@ class ContractTable extends Component {
     }
 
     componentWillMount() {
-        var self = this;
-        var TableRows = [];
+        let self = this;
+        let TableRows = [];
         client.get('/contracts/', function (err, res, body) {
-            if (err == null) {
-                for (var key in body) {
+            if (err === null) {
+                for (let key in body) {
                     TableRows.push({
                         cId: body[key]['cId'],
                         asset: body[key]['asset'],
@@ -156,7 +171,7 @@ class ContractTable extends Component {
                     getTdProps={(state, rowInfo) => {
                         return {
                             onClick: e => {
-                                console.log(rowInfo)
+                                console.log(rowInfo);
                                 this.handleOpenBidModal(rowInfo.rowValues.cId)
                             }
                         }
@@ -174,7 +189,7 @@ class ContractTable extends Component {
                         getTdProps={(bState, bRowInfo) => {
                             return {
                                 onClick: e => {
-                                    console.log(bRowInfo)
+                                    console.log(bRowInfo);
                                     this.handleSelectedBid(bRowInfo.rowValues)
                                 }
                             }
@@ -193,8 +208,8 @@ class ContractTable extends Component {
                     <ScrollLock/>
                 </ReactModal>
                 <button className="modalDone" onClick={this.handleRefresh}>Refresh Data</button>
-                <CloseContractModal />
                 <EditContractModal/>
+                <AddFieldModal/>
                 <ContractModal/>
             </div>
         );

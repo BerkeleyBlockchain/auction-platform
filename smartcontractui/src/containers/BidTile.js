@@ -1,11 +1,7 @@
-import React, {Component} from 'react';
-import '../assets/css/App.css';
+import React, {Component} from "react";
+import "../assets/css/App.css";
 
 class BidTile extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className='square-box bloo'>

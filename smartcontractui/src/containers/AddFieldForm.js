@@ -1,22 +1,20 @@
-import React, {Component} from 'react';
-import SingleInput from '../components/SingleInput';
-import '../assets/css/App.css';
-
-// import ContractTable from './ContractTable';
-import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import Select from 'react-select';
-// Be sure to include styles at some point, probably during your bootstrapping
-import 'react-select/dist/react-select.css';
+import React, {Component} from "react";
+import SingleInput from "../components/SingleInput";
+import "../assets/css/App.css";
+import "react-select/dist/react-select.css";
+import {client} from "../components/Requests";
+import ReactTable from "react-table";
 
 
 class AddFieldForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            thing1: '',
-            thing2: '',
+            cId: '',
+            data: '',
             selection1: 'cid',
             selection2: 'extraField1',
+            field: []
         };
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleClearForm = this.handleClearForm.bind(this);
@@ -24,6 +22,7 @@ class AddFieldForm extends Component {
         this.handleThing2 = this.handleThing2.bind(this);
         this.handleSelection1 = this.handleSelection1.bind(this);
         this.handleSelection2 = this.handleSelection2.bind(this);
+        this.handleLoad = this.handleLoad.bind(this);
     }
 
     handleSelection1(val) {
@@ -34,20 +33,40 @@ class AddFieldForm extends Component {
         this.setState({selection2: val}, () => console.log('name:', this.state.selection2));
     }
 
+    handleLoad(e) {
+        e.preventDefault();
+        let self = this;
+        let fieldRows = [];
+        client.headers['cId'] = this.state.cId;
+        client.get('/fields', function(err, res, body){
+            if (err === null) {
+                for (let key in body) {
+                    if (key !== null) {
+                        fieldRows.push({
+                            cId: body[key]['cId'],
+                            extrafield: body[key]['extrafield']
+                        });
+                    }
+                }
+                self.setState({field: fieldRows});
+            }
+        });
+    }
+
     handleThing1(e) {
-        this.setState({thing1: e.target.value}, () => console.log('name:', this.state.thing1));
+        this.setState({cId: e.target.value}, () => console.log('name:', this.state.cId));
     }
 
     handleThing2(e) {
-        this.setState({thing2: e.target.value}, () => console.log('name:', this.state.thing2));
+        this.setState({data: e.target.value}, () => console.log('name:', this.state.data));
     }
 
 
     handleClearForm(e) {
         e.preventDefault();
         this.setState({
-            thing1: '',
-            thing2: '',
+            cId: '',
+            data: '',
             selection1: '',
             selection2: ''
         });
@@ -57,13 +76,14 @@ class AddFieldForm extends Component {
         e.preventDefault();
         // This is where you would call the web3 functions to make a new contract
         const formPayload = {
-            thing1: this.state.thing1,
-            thing2: this.state.thing2
+            cId: this.state.cId,
+            extrafield: this.state.data
         };
-        smartContract.addField.sendTransaction(formPayload.thing1, formPayload.thing2, {
-            from: ETHEREUM_CLIENT.eth.accounts[0],
-            gas: 200000
+
+        client.post('/fields', formPayload, function(err, res, body){
+            return console.log(body);
         });
+
 
         console.log('Send this in a POST request:', formPayload);
         this.handleClearForm(e);
@@ -71,10 +91,13 @@ class AddFieldForm extends Component {
     }
 
     render() {
-        var options = [
-            {value: 'cid', label: 'ContractId'},
-            {value: 'ef1', label: 'Additional Field'}
-        ];
+        const columns = [{
+            header: 'Id',
+            accessor: 'cId' // String-based value accessors!
+        }, {
+            header: 'Field',
+            accessor: 'extrafield' // String-based value accessors!
+        }];
 
         return (
             <form className="container" onSubmit={this.handleFormSubmit}>
@@ -82,16 +105,7 @@ class AddFieldForm extends Component {
                 <table cellSpacing="10" cellPadding="10">
                     <tbody>
                     <tr>
-
-                        <td style={{margin: 10, width: 250}}><Select
-                            autofocus
-                            clearable={false}
-                            name="form-field-name"
-                            value={this.state.selection1}
-                            options={options}
-                            onChange={this.handleSelection1}
-                            autosize={true}
-                        /></td>
+                        <td style={{margin: 10, width: 250}}><h6 className="bloo">Contract Id</h6></td>
 
                         <td><SingleInput
                             className="inputField"
@@ -99,22 +113,19 @@ class AddFieldForm extends Component {
                             title={'contractId		'}
                             name={'name'}
                             controlFunc={this.handleThing1}
-                            content={this.state.thing1}
+                            content={this.state.cId}
                             placeholder={''}/>
                         </td>
+
+                        <td><button
+                            className="submitButton"
+                            onClick={this.handleLoad}>Load
+                        </button></td>
                     </tr>
 
                     <tr>
 
-                        <td style={{margin: 10, width: 250}}><Select
-                            autofocus
-                            clearable={false}
-                            name="form-field-name"
-                            value={this.state.selection2}
-                            options={options}
-                            onChange={this.handleSelection2}
-                            autosize={true}
-                        /></td>
+                        <td style={{margin: 10, width: 250}}><h6 className="bloo">Additional Field</h6></td>
 
                         <td><SingleInput
                             className="inputfield"
@@ -122,7 +133,7 @@ class AddFieldForm extends Component {
                             title={'Additional   '}
                             name={'name'}
                             controlFunc={this.handleThing2}
-                            content={this.state.thing2}
+                            content={this.state.data}
                             placeholder={''}/>
                         </td>
                     </tr>
@@ -136,6 +147,11 @@ class AddFieldForm extends Component {
                     className="submitButton"
                     onClick={this.handleClearForm}>Clear
                 </button>
+                <h6 className="bloo">Existing Additional Data</h6>
+                <ReactTable
+                    data={this.state.field}
+                    columns={columns}
+                    defaultPageSize={5}/>
             </form>
         );
     }
