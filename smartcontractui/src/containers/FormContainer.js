@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import SingleInput from '../components/SingleInput';
-import '../assets/css/App.css';
-import {client} from '../components/Requests';
+import React, {Component} from "react";
+import SingleInput from "../components/SingleInput";
+import "../assets/css/App.css";
+import {client} from "../components/Requests";
 // import ContractTable from './ContractTable';
 //import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import Select from 'react-select';
+import Select from "react-select";
 // Be sure to include styles at some point, probably during your bootstrapping
-import 'react-select/dist/react-select.css';
+import "react-select/dist/react-select.css";
+import timestamp from "time-stamp";
 
 
 class FormContainer extends Component {
@@ -98,34 +99,39 @@ class FormContainer extends Component {
     handleFormSubmit(e) {
         e.preventDefault();
         // This is where you would call the web3 functions to make a new contract
-        var formPayload = {
+        const formPayload = {
             asset: this.state.asset,
             time: this.state.time,
             price: this.state.price,
             qty: this.state.qty,
-            date: Date.now(),
+            date: timestamp(),
             extra: this.state.extra,
             cId: -1
-        }
+        };
         client.get('count/', function (err, res, body) {
-            if (err == null) {
+            if (err === null) {
                 formPayload.cId = body.count;
                 console.log(body.count);
-                client.post('contracts/addContract', formPayload, function (err, res, body) {
+                client.post('contracts/', formPayload, function (err, res, body) {
                     return console.log(body, res);
+                });
+
+                let field = {
+                    cId: formPayload.cId,
+                    extrafield: formPayload.extra
+                };
+
+                client.post('/fields', field, function(err, res, body){
+                    return console.log(res)
                 });
             }
         });
-        //smartContract.addContract.sendTransaction(formPayload.asset, formPayload.time, formPayload.price, formPayload.qty, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-
-        console.log('Send this in a POST request:', formPayload);
         this.handleClearForm(e);
-        //window.location.reload();
     }
 
 
     render() {
-        var options = [
+        const options = [
             {value: 'asset', label: 'Asset'},
             {value: 'quantity', label: 'Quantity'},
             {value: 'price', label: 'Price'},

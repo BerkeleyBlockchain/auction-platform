@@ -1,35 +1,33 @@
-import React, {Component} from 'react';
-import _ from 'lodash';
-import '../assets/css/App.css';
+import React, {Component} from "react";
+import "../assets/css/App.css";
 // import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import BidModal from './BidModal.js';
-// import GetContractBidsModal from './GetContractBidsModal.js';
-import {client} from '../components/Requests';
+import ReactTable from "react-table";
+import "react-table/react-table.css";
+import BidModal from "./BidModal.js";
+import {client} from "../components/Requests";
 
 class BidTable extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             TableRows: [],
             interval: 0
-        }
+        };
         this.updateTable = this.updateTable.bind(this);
     }
 
     componentDidMount() {
-        var self = this;
-        var TableRows = [];
+        const self = this;
+        const TableRows = [];
         client.get('/bids/', function (err, res, body) {
-            if (err == null) {
-                for (var key in body) {
+            if (err === null) {
+                for (let key in body) {
                     TableRows.push({
                         cId: body[key]['cId'],
                         supplier: body[key]['supplier'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: Date(key['date']).toString(),
+                        date: new Date(key['date']).toString(),
                         extra: body[key]['price']
                     });
                 }
@@ -39,17 +37,17 @@ class BidTable extends Component {
     }
 
     updateTable() {
-        var self = this;
-        var TableRows = [];
+        const self = this;
+        const TableRows = [];
         client.get('/bids/', function (err, res, body) {
-            if (err == null) {
-                for (var key in body) {
+            if (err === null) {
+                for (let key in body) {
                     TableRows.push({
                         cId: body[key]['cId'],
                         supplier: body[key]['supplier'],
                         time: body[key]['time'],
                         price: body[key]['price'],
-                        date: Date(key['date']).toString(),
+                        date: new Date(key['date']).toString(),
                         extra: body[key]['price']
                     });
                 }

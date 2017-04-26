@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
-import SingleInput from '../components/SingleInput';
+import React, {Component} from "react";
+import SingleInput from "../components/SingleInput";
 // import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
-import {client} from '../components/Requests';
+import {client} from "../components/Requests";
+
+var timestamp = require('time-stamp');
 
 class BiddingForm extends Component {
     constructor(props) {
@@ -56,7 +58,7 @@ class BiddingForm extends Component {
             supplier: this.state.supplier,
             price: this.state.price,
             time: this.state.time,
-            date: Date.now()
+            date: timestamp()
         };
 
         // uint cid, bytes32 _supplier, uint _price, uint _bidTime

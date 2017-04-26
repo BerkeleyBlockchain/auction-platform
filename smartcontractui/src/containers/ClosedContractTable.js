@@ -11,7 +11,7 @@ import ClosedContractTile from './ClosedContractTile';
 
 class ClosedContractTable extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             contractIdArr: "",
             assetArr: "",
@@ -29,13 +29,13 @@ class ClosedContractTable extends Component {
             time: "",
             price: "",
             interval: 0
-        }
+        };
         this.handleOpenBidModal = this.handleOpenBidModal.bind(this);
         this.handleCloseBidModal = this.handleCloseBidModal.bind(this);
     }
 
     handleOpenBidModal(e) {
-        var bidData = smartContract.getBid(e.cId)
+        const bidData = smartContract.getBid(e.cId)
         this.setState({
             asset: e.asset,
             qty: e.qty,
@@ -55,7 +55,7 @@ class ClosedContractTable extends Component {
     }
 
     componentWillMount() {
-        var data = smartContract.getClosedContracts()
+        const data = smartContract.getClosedContracts();
         this.setState({
             contractIdArr: String(data[0]).split(','),
             assetArr: String(data[1]).split(','),
@@ -68,7 +68,7 @@ class ClosedContractTable extends Component {
 
     componentDidMount() {
         setInterval(function () {
-            var data = smartContract.getClosedContracts()
+            const data = smartContract.getClosedContracts()
             this.setState({
                 contractIdArr: String(data[0]).split(','),
                 assetArr: String(data[1]).split(','),
@@ -77,13 +77,13 @@ class ClosedContractTable extends Component {
                 timeArr: String(data[4]).split(','),
                 extraArr: String(data[5]).split(','),
                 interval: this.state.interval + 1
-            })
+            });
             this.render()
         }.bind(this), 5000);
     }
 
     render() {
-        var TableRows = []
+        const TableRows = [];
 
         _.each(this.state.contractIdArr, (value, index) => {
             TableRows.push({
@@ -123,8 +123,9 @@ class ClosedContractTable extends Component {
                     getTdProps={(state, rowInfo) => {
                         return {
                             onClick: e => {
-                                console.log(rowInfo)
-                                this.handleOpenBidModal(rowInfo.rowValues)
+
+                                console.log(rowInfo);
+                                this.handleOpenBidModal(rowInfo.rowValues.cId)
                             }
                         }
                     }}
