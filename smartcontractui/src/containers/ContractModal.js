@@ -30,7 +30,7 @@ class ContractModal extends React.Component {
                 <ReactModal
                     isOpen={this.state.showContractModal}
                     contentLabel="Contract Form"
-                    className="container bloo all-modal">
+                    className="container bloo all-modal tablePad">
                     <FormContainer/>
                     <button className="modalDone" onClick={this.handleCloseContractModal}>Done</button>
                     <ScrollLock />

@@ -135,7 +135,7 @@ class ClosedContractTable extends Component {
                 <ReactModal
                     isOpen={this.state.showBidModal}
                     contentLabel="Bid Form"
-                    className="container all-modal">
+                    className="container all-modal tablePad">
                     <h2 className="bloo">Winning Bidder: {this.state.supplier}</h2>
                     <ClosedContractTile
                         asset={this.state.asset}

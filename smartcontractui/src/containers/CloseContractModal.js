@@ -29,7 +29,7 @@ class CloseContractModal extends React.Component {
                 <ReactModal
                     isOpen={this.state.showCloseContractModal}
                     contentLabel="Close Contract"
-                    className="container bloo">
+                    className="container bloo all-modal">
                     <CloseContractForm/>
                     <button className="addFormDone" onClick={this.handleCloseCloseContractModal}>Done</button>
                     <ScrollLock />

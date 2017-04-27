@@ -36,7 +36,7 @@ class AddFieldModal extends React.Component {
                 <ReactModal
                     isOpen={this.state.showAddFieldModal}
                     contentLabel="AddField Form"
-                    className="container bloo field"
+                    className="container bloo field all-modal"
                     style={customStyles}>
                     <AddFieldForm/>
                     <button className="addFormDone" onClick={this.handleCloseAddFieldModal}>Done</button>
