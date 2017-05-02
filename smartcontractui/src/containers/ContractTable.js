@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 import "../assets/css/App.css";
 import {ETHEREUM_CLIENT, smartContract} from "../components/EthereumSetup";
-import ReactTable from "react-table";
 import "react-table/react-table.css";
-import ContractModal from "./ContractModal";
-import EditContractModal from "./EditContractModal";
 import {client} from "../components/Requests";
-import ReactModal from "react-modal";
-import ScrollLock from "react-scrolllock";
-import BidTile from "./BidTile";
-import AddFieldModal from "./AddFieldModal";
+import {Card, CardHeader, CardTitle,CardActions,
+    CardText,CardSubtitle,Button, Toolbar,
+    ToolbarRow, Grid, Cell, Display4, Textfield} from 'react-mdc-web';
+import 'material-components-web/dist/material-components-web.min.css';
+import _ from 'lodash';
 
 class ContractTable extends Component {
     constructor(props) {
@@ -112,7 +110,8 @@ class ContractTable extends Component {
         this.render();
     }
 
-    componentWillMount() {
+    render() {
+
         let self = this;
         let TableRows = [];
         client.get('/contracts/', function (err, res, body) {
@@ -131,9 +130,7 @@ class ContractTable extends Component {
                 self.setState({TableRows: TableRows});
             }
         });
-    }
 
-    render() {
         const columns = [{
             header: 'Id',
             accessor: 'cId' // String-based value accessors!
@@ -169,50 +166,31 @@ class ContractTable extends Component {
         return (
             <div>
                 <h2 className="bloo">Active Contracts</h2>
-                <ReactTable
-                    getTdProps={(state, rowInfo) => {
-                        return {
-                            onClick: e => {
-                                console.log(rowInfo);
-                                this.handleOpenBidModal(rowInfo.rowValues.cId)
-                            }
-                        }
-                    }}
-                    data={this.state.TableRows}
-                    columns={columns}
-                    defaultPageSize={5}
-                />
-                <ReactModal
-                    isOpen={this.state.showBidModal}
-                    contentLabel="Bids"
-                    className="container all-modal">
-                    <h2 className="bloo">Bids for Contract {this.state.cId}</h2>
-                    <ReactTable
-                        getTdProps={(bState, bRowInfo) => {
-                            return {
-                                onClick: e => {
-                                    console.log(bRowInfo);
-                                    this.handleSelectedBid(bRowInfo.rowValues)
-                                }
-                            }
-                        }}
-                        data={this.state.BidRows}
-                        columns={bidColumns}
-                        defaultPageSize={5}
-                    />
-                    <BidTile
-                        supplier={this.state.selectedBid.supplier}
-                        price={this.state.selectedBid.price}
-                        date={this.state.selectedBid.date}
-                        time={this.state.selectedBid.time}/>
-                    <button className="modalDone" onClick={this.handleWinner}>Confirm Winner</button>
-                    <button className="modalDone" onClick={this.handleCloseBidModal}>Done</button>
-                    <ScrollLock/>
-                </ReactModal>
-                <button className="modalDone" onClick={this.handleRefresh}>Refresh Data</button>
-                <EditContractModal/>
-                <AddFieldModal/>
-                <ContractModal/>
+                <Grid>
+                    {this.state.TableRows.map((item) => {
+                        return (<Cell col={3}>
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle>Contract {item.cId}</CardTitle>
+                                    <CardSubtitle>{item.asset}</CardSubtitle>
+                                </CardHeader>
+
+                                <CardText>
+                                    <p>{item.qty} Units</p>
+                                    <p>${item.price}</p>
+                                    <p>{item.qty} Days</p>
+                                    <p>Created on: {item.date}</p>
+                                </CardText>
+
+                                <CardActions>
+                                    <Button compact primary>Bid</Button>
+                                    <Button compact>Edit</Button>
+                                    <Button compact>Close</Button>
+                                </CardActions>
+                            </Card>
+                        </Cell>);
+                    })}
+                </Grid>
             </div>
         );
     }
