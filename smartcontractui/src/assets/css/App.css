@@ -1,108 +1,155 @@
 .App {
-  text-align: left;
-  font-family: 'Montserrat', sans-serif;
-  background-color: #FFFFFF;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #FFFFFF;
+}
+
+.field {
+    overflow: auto;
+    width: 80%;
+    margin: 5% 10% 10% 10%;
+}
+
+.all-modal {
+    overflow: auto;
+    width: 90%;
+    margin: 5% 5% 5% 5%;
+    height: 80%;
+}
+
+.tablePad {
+  padding: 1%
+}
+
+.square-box {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #FFFFFF;
+    height: 250px;
+}
+
+.square-box:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.square-content {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: #0D47A1;
+    text-align: center;
+}
+
+.square-content table {
+    margin: 0 auto;
+    text-align: left;
 }
 
 .contract {
-  margin: 20px;
-  margin-top: 25px;
+    margin: 25px 20px 20px;
 }
 
+.contractClosed {
+    margin: 175px 20px 200px;
+}
+
+
 .bloo {
-  color: #0D47A1;
+    color: #0D47A1;
 }
 
 .h3-right {
-  float: right;
+    float: right;
 }
 
 .bid {
-  margin: 20px;
-  margin-top: 100px;
-  color: #0D47A1;
+    margin: 175px 20px 20px;
+    color: #0D47A1;
 }
 
-.modal{
-  background: #FFFFFF;
-  color: #0D47A1;
-  border-radius: 3px;
-  border-color: #0D47A1;
-  font-size: 20px;
-  width: 170px;
-  height: 85px;
-  float: right;
-  margin-top: 30px;
-  margin-right: 30px;
-  border-radius: 30px;
-  margin-bottom: 100px;
+.modal {
+    background: #FFFFFF;
+    color: #0D47A1;
+    border-color: #0D47A1;
+    font-size: 20px;
+    width: 170px;
+    height: 85px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 30px;
+    border-radius: 30px;
+    margin-bottom: 100px;
+    overflow: hidden;
 }
 
-.modal:hover{
-  background: #0D47A1;
-  color: #FFFFFF;
-  border-color: #0D47A1;
+.modal:hover {
+    background: #0D47A1;
+    color: #FFFFFF;
+    border-color: #0D47A1;
 }
 
-.modalDone{
-  background: #FFFFFF;
-  color: #0D47A1;
-  border-radius: 3px;
-  border-color: #0D47A1;
-  font-size: 20px;
-  width: 170px;
-  height: 85px;
-  float: right;
-  margin-top: 30px;
-  margin-right: 30px;
-  border-radius: 30px;
+.modalDone {
+    background: #FFFFFF;
+    color: #0D47A1;
+    border-color: #0D47A1;
+    font-size: 20px;
+    width: 170px;
+    height: 85px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 30px;
+    border-radius: 30px;
 }
 
-.modalDone:hover{
-  background: #0D47A1;
-  color: #FFFFFF;
-  border-color: #0D47A1;
+.modalDone:hover {
+    background: #0D47A1;
+    color: #FFFFFF;
+    border-color: #0D47A1;
 }
 
-.addForm{
-  background: #FFFFFF;
-  color: #0D47A1;
-  border-radius: 3px;
-  border-color: #0D47A1;
-  font-size: 20px;
-  width: 170px;
-  height: 85px;
-  float: right;
-  margin-top: 30px;
-  margin-right: 30px;
-  border-radius: 30px;
-  margin-bottom: 100px;
+.addForm {
+    background: #FFFFFF;
+    color: #0D47A1;
+    border-color: #0D47A1;
+    font-size: 20px;
+    width: 170px;
+    height: 85px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 30px;
+    border-radius: 30px;
+    margin-bottom: 100px;
 }
 
-.addForm:hover{
-  background: #0D47A1;
-  color: #FFFFFF;
-  border-color: #0D47A1;
+.addForm:hover {
+    background: #0D47A1;
+    color: #FFFFFF;
+    border-color: #0D47A1;
 }
 
-.addFormDone{
-  background: #FFFFFF;
-  color: #0D47A1;
-  border-radius: 3px;
-  border-color: #0D47A1;
-  font-size: 20px;
-  width: 170px;
-  height: 85px;
-  float: right;
-  margin-top: 30px;
-  margin-right: 30px;
-  border-radius: 30px;
+.addFormDone {
+    background: #FFFFFF;
+    color: #0D47A1;
+    border-color: #0D47A1;
+    font-size: 20px;
+    width: 170px;
+    height: 85px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 30px;
+    border-radius: 30px;
 }
 
-.addFormDone:hover{
-  background: #0D47A1;
-  color: #FFFFFF;
-  border-color: #0D47A1;
+.addFormDone:hover {
+    background: #0D47A1;
+    color: #FFFFFF;
+    border-color: #0D47A1;
 }
 
 @font-face {
@@ -110,94 +157,28 @@
 }
 
 .App-logo {
-  height: 30px;
-  margin-top: 15px;
-  margin-left: 10px;
+    height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
 
 }
 
 .App-header {
-  background-color: #EEEEEE;
-  height: 60px;
-  padding: 5px;
-  color: #0B0B85;
-  font-family: 'Montserrat', sans-serif;
+    background-color: #EEEEEE;
+    height: 60px;
+    padding: 5px;
+    color: #0B0B85;
+    font-family: 'Montserrat', sans-serif;
 }
 
 td {
-  padding-right:10px;
-}
-
-.App-content {
-  background-color: #A4C4E5;
-  height: 150px;
-  padding: 20px;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.App-intro {
-  font-size: large;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.Aligner {
-  display: flex;
-  font-family: 'Montserrat', sans-serif;
-  justify-content: center;
-  flex-direction: row
-}
-
-.left-top {
-  width: 50%;
-  height: 50%%;
-  text-align: center;
-  margin-left: auto;
-  position: relative;
-  top: 0;
-  left: 0;
-}
-
-.left-bottom {
-  width: 50%;
-  height: 50%%;
-  text-align: center;
-  margin-left: auto;
-  position: relative;
-  bottom: 0;
-  left: 0;
-}
-
-.formLeft {
-  width: 40%;
-  height: 39%;
-  position: absolute;
-  left: 25%;
-  top: 25%;
-  transform: translateY(-50%);
-  transform: translateX(-50%);
-}
-
-.right {
-  margin-top: 60px;
-  width: 50%;
-  height: 100%;
-  text-align: center;
-  margin-right: auto;
-}
-
-.formRight {
-  margin-top: 60px;
-  position: absolute;
-  right: 50px;
-  top: 40%;
-  transform: translateY(-50%);
+    padding-right: 10px;
 }
 
 body {
-  background-color: #FFFFFF;
-  padding-bottom: 80px;
-  font-family: 'Montserrat', sans-serif;
+    background-color: #FFFFFF;
+    padding-bottom: 80px;
+    font-family: 'Montserrat', sans-serif;
 
 }
 
@@ -229,11 +210,6 @@ input[type=radio] {
     width: 50%;
 }
 
-input[type=submit],
-.btn-link {
-    margin-top: 20px;
-}
-
 /*@keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -244,51 +220,54 @@ input[type=submit],
 }*/
 
 .container {
-  background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 
 .inputField {
-  padding: 10px;
-  border: none;
-  border-bottom: solid 2px #c9c9c9;
-  transition: border 0.3s;
-  width: 1000px;
+    padding: 10px;
+    border: none;
+    border-bottom: solid 2px #c9c9c9;
+    transition: border 0.3s;
+    width: 1000px;
 }
 
 .submitButton {
-  background: #FFFFFF;
-  color: #0D47A1;
-  border-radius: 3px;
-  border-color: #0D47A1;
-  font-size: 20px;
-  width: 85px;
-  height: 42px;
-  margin-top: 10px;
-  margin-right: 10px;
-  border-radius: 10px;
+    background: #FFFFFF;
+    color: #0D47A1;
+    border-color: #0D47A1;
+    font-size: 20px;
+    width: 85px;
+    height: 42px;
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
 
 }
 
 .submitButton:hover {
-  background: #0D47A1;
-  color: #FFFFFF;
-  border-color: #0D47A1;
+    background: #0D47A1;
+    color: #FFFFFF;
+    border-color: #0D47A1;
 }
 
 h5 {
-  color: white;
-  font-size: 30px;
+    color: white;
+    font-size: 30px;
+}
+
+h6 {
+    font-size: 20px;
 }
 
 p {
-  color: white;
-  margin-top: 5px;
+    color: black;
+    margin-top: 5px;
 }
 
 .table {
-  color: white;
+    color: white;
 }
 
 .table:hover {
-  background-color: #6789BB;
+    background-color: #6789BB;
 }

@@ -2,23 +2,21 @@ import React, {Component} from "react";
 import SingleInput from "../components/SingleInput";
 import "../assets/css/App.css";
 import {client} from "../components/Requests";
-// import ContractTable from './ContractTable';
-//import {ETHEREUM_CLIENT, smartContract} from '../components/EthereumSetup';
 import Select from "react-select";
-// Be sure to include styles at some point, probably during your bootstrapping
 import "react-select/dist/react-select.css";
-import timestamp from "time-stamp";
+var timestamp = require('time-stamp');
 
-
-class FormContainer extends Component {
+class EditContractForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            cId: '',
             asset: '',
             time: '',
             price: '',
             qty: '',
             extra: '',
+            selectionCId: 'cId',
             selection1: 'asset',
             selection2: 'quantity',
             selection3: 'price',
@@ -32,11 +30,16 @@ class FormContainer extends Component {
         this.handleprice = this.handleprice.bind(this);
         this.handleQty = this.handleQty.bind(this);
         this.handleExtra = this.handleExtra.bind(this);
+        this.handleCId = this.handleCId.bind(this);
         this.handleSelection1 = this.handleSelection1.bind(this);
         this.handleSelection2 = this.handleSelection2.bind(this);
         this.handleSelection3 = this.handleSelection3.bind(this);
         this.handleSelection4 = this.handleSelection4.bind(this);
         this.handleSelection5 = this.handleSelection5.bind(this);
+    }
+
+    handleSelectionCId(val) {
+        this.setState({selectionCId: val}, () => console.log('name:', this.state.selectionCId));
     }
 
     handleSelection1(val) {
@@ -57,6 +60,21 @@ class FormContainer extends Component {
 
     handleSelection5(val) {
         this.setState({selection5: val}, () => console.log('name:', this.state.selection5));
+    }
+
+    handleCId(e) {
+        this.setState({cId: e.target.value}, () => console.log('name:', this.state.cId));
+        client.headers['cId'] = e.target.value;
+        const self = this;
+        client.get('contractById', function (err, res, body) {
+            self.setState({
+                asset: body.asset,
+                price: body.price,
+                time: body.time,
+                qty: body.qty
+            });
+            console.log(self.state);
+        });
     }
 
     handleAsset(e) {
@@ -87,7 +105,12 @@ class FormContainer extends Component {
             time: '',
             price: '',
             qty: '',
-            extra: ''
+            extra: '',
+            selection1: '',
+            selection2: '',
+            selection3: '',
+            selection4: '',
+            selection5: ''
         });
     }
 
@@ -100,23 +123,21 @@ class FormContainer extends Component {
             price: this.state.price,
             qty: this.state.qty,
             date: timestamp(),
-            cId: -1
+            extra: this.state.extra,
+            cId: parseInt(this.state.cId, 10)
         };
-        client.get('count/', function (err, res, body) {
-            if (err === null) {
-                formPayload.cId = body.count;
-                console.log(body.count);
-                client.post('contracts/', formPayload, function (err, res, body) {
-                    return console.log(body, res);
-                });
-            }
+        client.put('contracts', formPayload, function (err, res, body) {
+            return console.log(body);
         });
+        console.log('Send this in a POST request:', formPayload);
         this.handleClearForm(e);
+        //window.location.reload();
     }
 
 
     render() {
         const options = [
+            {value: 'cId', label: 'Contract Id'},
             {value: 'asset', label: 'Asset'},
             {value: 'quantity', label: 'Quantity'},
             {value: 'price', label: 'Price'},
@@ -129,6 +150,30 @@ class FormContainer extends Component {
                 <h5 className="bloo">Contract Creation Form</h5>
                 <table cellSpacing="10" cellPadding="10">
                     <tbody>
+                    <tr>
+
+                        <td style={{margin: 10, width: 250}}><Select
+                            autofocus
+                            clearable={false}
+                            name="form-field-name"
+                            value={this.state.selectionCId}
+                            options={options}
+                            onChange={this.handleSelectionCId}
+                            autosize={true}
+                        />
+                        </td>
+
+                        <td><SingleInput
+                            className="inputField"
+                            inputType={'number'}
+                            title={'Contract Id		'}
+                            name={'name'}
+                            controlFunc={this.handleCId}
+                            content={this.state.cId}
+                            placeholder={''}/>
+                        </td>
+                    </tr>
+
                     <tr>
 
                         <td style={{margin: 10, width: 250}}><Select
@@ -220,7 +265,29 @@ class FormContainer extends Component {
                             placeholder={''}/>
                         </td>
                     </tr>
-                    
+
+                    <tr>
+                        <td style={{margin: 10, width: 250}}><Select
+                            autofocus
+                            clearable={false}
+                            name="form-field-name"
+                            value={this.state.selection5}
+                            options={options}
+                            onChange={this.handleSelection5}
+                            autosize={true}
+                        /></td>
+
+                        <td><SingleInput
+                            className="inputfield"
+                            inputType={'text'}
+                            title={'Extra Data   '}
+                            name={'name'}
+                            controlFunc={this.handleExtra}
+                            content={this.state.extra}
+                            placeholder={""}/>
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
                 <input
@@ -236,4 +303,4 @@ class FormContainer extends Component {
     }
 }
 
-export default FormContainer;
+export default EditContractForm;
