@@ -32,12 +32,13 @@ Creates a new contract with the specified Asset, Quantity, Price, and Time. The 
 ### Add Contract Field
 Allows user to view and add multiple addition fields to an unpublished contract
 ### Edit Contract
-ill finish this later tbh
+Allows user to edit all aspects of a contract by its cID. Usage: enter in a cID, and wait a few seconds for fields to populate, then edit.
 ### Refresh
-Refreshes the database once a contract is added or closed.
+Refreshes the database once a contract or bid is added or closed.
 ### New Bid
 Generates a new bid for the given cId. A bid consists of a Supplier, Price, and Time that a bidder is willing to bet.
-
+### Closed Contracts Table
+Table of contracts that have been published to the blockchain. Contracts are immutable and clicking on one will reveal all data about the contract as will as the closing buyer.
 
 ## Credits:
 This smart contract was adapted from a tutorial by [Jordan Leigh](https://www.youtube.com/watch?v=3-XPBtAfcqo&list=PLV1JDFUtrXpGvu8QHL9b78WYNSJsYNZsb&index=2)..
