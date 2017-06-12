@@ -6,6 +6,15 @@ A smartcontract Dapp with a web based UI that keeps track of contract data by ad
 3. Npm 4.3.0 / Nodejs v6.10.0
 4. [parity](https://github.com/paritytech/parity) v1.5.7 (one line install for mac recommended)
 
+## Local (testrpc) Deployment
+1. In a new terminal window `$ testrpc`
+2. In a new terminal window `$ cd smartcontract`
+3. `$ truffle compile` And `$ truffle migrate`
+4. Once the contract is mined, copy and paste the contract address into `var smartContractAddress = '___'` in Components/EthereumSetup.js
+5. In a new terminal window `$ cd smartcontractui`
+6. `$ npm start`
+7. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
+
 ## Kovan Deployment
 1. in a new terminal window enter `$ open -a Google\ Chrome --args --disable-web-security --user-data-dir`
    this disables the chrome browser security check that prevents the app from using the same
