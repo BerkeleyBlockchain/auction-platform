@@ -1,28 +1,21 @@
 # AuctionPlatform
 A smartcontract Dapp with a web based UI that keeps track of contract data by adding it into blocks to be mined on a test network.
 ## Setup
-1. Ethereum Client (original uses testrpc) v3.0.3
-2. Truffle v3.1.2
-3. Npm 4.3.0 / Nodejs v6.10.0
-4. [parity](https://github.com/paritytech/parity) v1.5.7 (one line install for mac recommended)
+1. [Nodejs](https://nodejs.org/en/) (v6.10.0 or greater)— a Javascript runtime for easily building fast and scalable network applications
+2. Npm (v4.3.0 or greater) — Node.js’ package ecosystem. If you already have NodeJs you can simply type: npm update into your terminal.
+3. [Solidity Compiler](https://solidity.readthedocs.io/en/develop/installing-solidity.html)(v0.4.8 or greater) — `$ npm install -g solc` This is the compiler for smart contract language. You need this to compile all .sol files. *If you have a mac, I HIGHLY recommend installing homebrew and following the installation steps here. Also note that if this is your first time downloading solidity this download can take upwards of 20 mins so be patient.*
+4. Truffle Framework (v3.1.2 or greater) — `$ npm install -g truffle` *note the -g tag installs truffle globally so don’t worry about being in any specific directory. Truffle is a development framework for Ethereum that has built in smart contract compilation, linking, and deployment. 
+5. Testrpc (v3.1.2 or greater) — `$ npm install -g ethereumjs-testrpc` This will be the blockchain on which contracts will be deployed and mined in testing. Specifically testrpc is an Ethereum client for testing and developing. It comes with the ability to play with accounts pre-filled with millions of dollars worth of Ether (sorry you can’t keep it) and customize everything from hostnames to gasPrice.
 
 ## Local (testrpc) Deployment
 1. In a new terminal window `$ testrpc`
-2. In a new terminal window `$ cd smartcontract`
-3. `$ truffle compile` And `$ truffle migrate`
-4. Once the contract is mined, copy and paste the contract address into `var smartContractAddress = '___'` in Components/EthereumSetup.js
-5. In a new terminal window `$ cd smartcontractui`
-6. `$ npm start`
+2. In a new terminal window `$ cd smartcontract` this is where solidity contracts live and are deployed from.
+3. `$ npm run demo` 
+4. Once the contract is mined, copy and paste the SmartContract address into `var smartContractAddress = '___'` in /smartcontractui/Components/EthereumSetup.js
+5. In a new terminal window `$ cd smartcontractui` this is where the user interface lives and is deployed from
+6. `$ npm install` note you should only have to do this once to install package dependencies 
+6. `$ npm start` note you will have to do this everytime you want to launch the app
 7. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
-
-## Kovan Deployment
-1. in a new terminal window enter `$ open -a Google\ Chrome --args --disable-web-security --user-data-dir`
-   this disables the chrome browser security check that prevents the app from using the same
-   port as the blockchain.
-2. In a new terminal window `$ parity ui --chain=kovan --jsonrpc-apis personal,eth,net,web3` contract is at: 0x8a4f9c87e7066d02b4e97d7bc1e5bff31b96c715
-3. In a new terminal window `$ cd smartcontractui`
-4. `$ npm start`
-5. you can now open `localhost:3000` if it does not happen automatically and view the Dapp UI
 
 ## Interface / Methods
 ### Active Contracts
