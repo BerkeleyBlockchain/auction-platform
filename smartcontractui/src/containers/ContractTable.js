@@ -74,13 +74,13 @@ class ContractTable extends Component {
 
         client.headers['cId'] = this.state.cId;
         client.get('/contractById', function (err, res, body) {
-            // console.log(body);
+            console.log(body);
             let qty = parseInt(body.qty, 10);
             let price = parseInt(body.price, 10);
             let time = parseInt(body.time, 10);
             smartContract.addContract.sendTransaction(body.cId, body.asset, qty, price, time, body.extra, {
                 from: ETHEREUM_CLIENT.eth.accounts[0],
-                gas: 200000
+                gas: 200000000
             });
         });
 
