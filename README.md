@@ -1,10 +1,11 @@
 # AuctionPlatform
 A smartcontract Dapp with a web based UI that keeps track of contract data by adding it into blocks to be mined on a test network.
 ## Setup
-1. Ethereum Client (original uses testrpc) v3.0.3
-2. Truffle v3.1.2
-3. Npm 4.3.0 / Nodejs v6.10.0
-4. [parity](https://github.com/paritytech/parity) v1.5.7 (one line install for mac recommended)
+1. [Nodejs](https://nodejs.org/en/) (v6.10.0 or greater)— a Javascript runtime for easily building fast and scalable network applications
+2. Npm (v4.3.0 or greater) — Node.js’ package ecosystem. If you already have NodeJs you can simply type: npm update into your terminal.
+3. [Solidity Compiler](https://solidity.readthedocs.io/en/develop/installing-solidity.html)(v0.4.8 or greater) — `$ npm install -g solc` This is the compiler for smart contract language. You need this to compile all .sol files. *If you have a mac, I HIGHLY recommend installing homebrew and following the installation steps here. Also note that if this is your first time downloading solidity this download can take upwards of 20 mins so be patient.*
+4. [Truffle Framework](http://truffleframework.com/docs/getting_started/installation) (v3.1.2 or greater) — `$ npm install -g truffle` note the -g tag installs truffle globally so don’t worry about being in any specific directory. Truffle is a development framework for Ethereum that has built in smart contract compilation, linking, and deployment.
+5. [Testrpc](https://github.com/ethereumjs/testrpc) (v3.1.2 or greater) — `$ npm install -g ethereumjs-testrpc` This will be the blockchain on which contracts will be deployed and mined in testing. Specifically testrpc is an Ethereum client for testing and developing. It comes with the ability to play with accounts pre-filled with millions of dollars worth of Ether (sorry you can’t keep it) and customize everything from hostnames to gasPrice.
 
 ## Kovan Deployment
 1. in a new terminal window enter `$ open -a Google\ Chrome --args --disable-web-security --user-data-dir`
@@ -23,11 +24,13 @@ Creates a new contract with the specified Asset, Quantity, Price, and Time. The 
 ### Add Contract Field
 Allows user to view and add multiple addition fields to an unpublished contract
 ### Edit Contract
-ill finish this later tbh
+Allows user to edit all aspects of a contract by its cID. Usage: enter in a cID, and wait a few seconds for fields to populate, then edit.
 ### Refresh
-Refreshes the database once a contract is added or closed.
+Refreshes the database once a contract or bid is added or closed.
 ### New Bid
 Generates a new bid for the given cId. A bid consists of a Supplier, Price, and Time that a bidder is willing to bet.
+### Closed Contracts Table
+Table of contracts that have been published to the blockchain. Contracts are immutable and clicking on one will reveal all data about the contract as will as the closing buyer.
 
 
 ## Credits:
