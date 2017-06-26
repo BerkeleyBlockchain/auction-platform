@@ -1,5 +1,6 @@
-import Web3 from "web3";
-
+import Web3 from 'web3';
+import React, {Component} from 'react';
+import SingleInput from '../components/SingleInput';
 
 const ETHEREUM_CLIENT = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
 
@@ -9,29 +10,71 @@ var smartContractAddress = '0x8a4f9c87e7066d02b4e97d7bc1e5bff31b96c715';
 
 
 ETHEREUM_CLIENT.eth.defaultAccount = ETHEREUM_CLIENT.eth.accounts[0];
-const smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress);
+var smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress);
 
-/*var parts = ["wing", "nail", "door", "screw", "seat",
- "seatbelt", "carpet", "switch", "buckle", "fastener", "cup", "tray", "magazine"];
-var suppliers = ["Ali", "Collin", "Ronen", "Jon", "Max", "Sunny", "Gillian", "Nihar", "Varun", "Oski", "Hug", "DeNero", "Rao"];
-var qty = 209381;
-var time = 2394;
-var price = 1832;
-var i = 1;*/
+class EthereumClient extends Component {
+  constructor() {
+    super();
+    this.state = {
+      address : smartContractAddress
+    };
 
-/* UNCOMMENT THE FOLLOWING PORTION IF YOU WANT A LOT OF CONTRACTS ON THE NETWORK */
+    this.handleInput = this.handleInput.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
 
-/*
-smartContract.addContract.sendTransaction(parts[i*31%(parts.length)], i+1*4*qty % 239, price*i+1*7%23, time*i+1*31%439, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-for(; i < 10; i++) {
-  smartContract.addContract.sendTransaction(parts[i*31%(parts.length)], i+1*4*qty % 239, price*i+1*7%23, time*i+1*31%439, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
-}
+  componentDidMount(){
+    setInterval(function() {
+      this.setState({ address: smartContractAddress});
+      this.render();
+    }.bind(this), 5000);
+  }
 
-for(i = 0; i < 10; i++) {
-  for (var j = 0; j < 8; j++){
-    smartContract.bid.sendTransaction(i, suppliers[j*31%(parts.length)], price*j+1*7%23, time*j+1*31%439, {from: ETHEREUM_CLIENT.eth.accounts[0], gas: 200000});
+  handleInput (value) {
+    this.setState({ address: value.target.value }, () => console.log('name:', this.state.address));
+  }
+
+  handleFormSubmit (value) {
+    value.preventDefault();
+    this.setState({address: value.target.value});
+    smartContractAddress = this.state.address;
+
+    smartContract = ETHEREUM_CLIENT.eth.contract(smartContractABI).at(smartContractAddress);
+  }
+  /*
+
+  */
+
+  render() {
+    return (
+      <div>
+      <h3 className="margin">Current Contract Address: {this.state.address}</h3>
+      <form onSubmit={this.handleFormSubmit}>
+        <table>
+          <tr>
+            <td><h3>Update Address</h3></td>
+
+            <td><SingleInput
+                className=""
+                inputType={'text'}
+                title={'Address'}
+                name={'Address'}
+                controlFunc={this.handleInput}
+                content={this.state.address}
+                placeholder={'Address (DO NOT MODIFY ABI)'} />
+            </td>
+
+            <td>
+              <input
+                type="submit"
+                className="submitButton"
+                value="Submit"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+      </div>);
   }
 }
-*/
 
 export {ETHEREUM_CLIENT, smartContract};

@@ -9,6 +9,7 @@ import BidTable from './containers/BidTable';
 import ContractTable from './containers/ContractTable';
 import ClosedContractTable from './containers/ClosedContractTable'
 import { Connect } from 'uport-connect';
+import EthereumClient from './components/EthereumSetup';
 
 
 class App extends Component {
@@ -43,11 +44,14 @@ class App extends Component {
         <div className="bid">
           <BidTable />
         </div>
-
+              
         <div className="contractClosed">
           <ClosedContractTable />
         </div>
 
+        <div className="bid">
+          <EthereumClient/>
+        </div>
       </div>
     );
 
